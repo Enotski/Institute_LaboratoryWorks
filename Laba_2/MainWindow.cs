@@ -21,5 +21,11 @@ namespace Laba_2
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        { 
+            if(DocSelectComboBox.SelectedItem is null)
+                MessageBox.Show("Выберите документ!");
+        }
     }
 }

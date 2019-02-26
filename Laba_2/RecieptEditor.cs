@@ -10,11 +10,21 @@ using System.Windows.Forms;
 
 namespace Laba_2
 {
-    public partial class Creator : Form
+    public partial class RecieptEditor : Form
     {
-        public Creator()
+        public RecieptEditor()
         {
             InitializeComponent();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

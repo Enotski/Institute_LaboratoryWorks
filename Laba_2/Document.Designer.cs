@@ -30,7 +30,7 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.DocTypeName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panel1
@@ -51,22 +51,22 @@
             this.button1.Text = "Редактировать";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // label1
+            // DocTypeName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(456, 50);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 20);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "тип документа";
+            this.DocTypeName.AutoSize = true;
+            this.DocTypeName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DocTypeName.Location = new System.Drawing.Point(455, 45);
+            this.DocTypeName.Name = "DocTypeName";
+            this.DocTypeName.Size = new System.Drawing.Size(122, 20);
+            this.DocTypeName.TabIndex = 2;
+            this.DocTypeName.Text = "тип документа";
             // 
             // Document
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 450);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.DocTypeName);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel1);
             this.Name = "Document";
@@ -80,6 +80,6 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label DocTypeName;
     }
 }
