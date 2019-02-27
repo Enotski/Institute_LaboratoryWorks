@@ -47,23 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BillCreator.cs">
+    <Compile Include="ProductCreator.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BillCreator.Designer.cs">
-      <DependentUpon>BillCreator.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BillEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BillEditor.Designer.cs">
-      <DependentUpon>BillEditor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RecieptCreator.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RecieptCreator.Designer.cs">
-      <DependentUpon>RecieptCreator.cs</DependentUpon>
+    <Compile Include="ProductCreator.Designer.cs">
+      <DependentUpon>ProductCreator.cs</DependentUpon>
     </Compile>
     <Compile Include="Document.cs">
       <SubType>Form</SubType>
@@ -71,11 +59,11 @@
     <Compile Include="Document.Designer.cs">
       <DependentUpon>Document.cs</DependentUpon>
     </Compile>
-    <Compile Include="RecieptEditor.cs">
+    <Compile Include="DocumentConstructor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RecieptEditor.Designer.cs">
-      <DependentUpon>RecieptEditor.cs</DependentUpon>
+    <Compile Include="DocumentConstructor.Designer.cs">
+      <DependentUpon>DocumentConstructor.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -88,8 +76,8 @@
     <EmbeddedResource Include="Document.resx">
       <DependentUpon>Document.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RecieptEditor.resx">
-      <DependentUpon>RecieptEditor.cs</DependentUpon>
+    <EmbeddedResource Include="DocumentConstructor.resx">
+      <DependentUpon>DocumentConstructor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>

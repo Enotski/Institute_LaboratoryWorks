@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Laba_2
 {
-    public partial class BillCreator : Form
+    public partial class ProductCreator : Form
     {
-        public BillCreator()
+        public ProductCreator()
         {
             InitializeComponent();
         }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OP_ClassLib;
 
 namespace Laba_2
 {
@@ -23,9 +24,27 @@ namespace Laba_2
         }
 
         private void button1_Click(object sender, EventArgs e)
-        { 
-            if(DocSelectComboBox.SelectedItem is null)
+        {
+            object doc = DocSelectComboBox.SelectedItem;
+            if(doc is null)
                 MessageBox.Show("Выберите документ!");
+            else
+            {
+                DocumentConstructor docConst = new DocumentConstructor();
+                if(doc.ToString() == "Квитанция")
+                {
+                    docConst.ShowPanel("Reciept");
+                }
+                else if (doc.ToString() == "Счет")
+                {
+                    docConst.ShowPanel("Bill");
+                }
+                else if (doc.ToString() == "Накладная")
+                {
+                    docConst.ShowPanel("Invoice");
+                }
+                docConst.Show();
+            }
         }
     }
 }
