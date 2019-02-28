@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DocumentEditor.Designer.cs">
+      <DependentUpon>DocumentEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProductCreator.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DocumentConstructor.resx">
       <DependentUpon>DocumentConstructor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DocumentEditor.resx">
+      <DependentUpon>DocumentEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
