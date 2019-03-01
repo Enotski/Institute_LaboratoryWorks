@@ -1,6 +1,6 @@
 ﻿namespace Laba_2
 {
-    partial class ProductCreator
+    partial class ProductCreatorWindow
     {
         /// <summary>
         /// Required designer variable.

@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Laba_2
 {
-    public partial class DocumentConstructor : Form
+    public partial class DocumentConstructorWindow : Form
     {
-        public DocumentConstructor()
+        public DocumentConstructorWindow()
         {
             InitializeComponent();
         }
