@@ -82,7 +82,7 @@ namespace OP_ClassLib
             
             string result = "| -Накладная- |\n"
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
-                + $"| Исполнитель - {Provider}\n| ИНН - {ProviderId} |\n"
+                + $"| Исполнитель - {Provider} |\n| ИНН - {ProviderId} |\n"
                 + $"| Заказчик - {Client}|\n| ИНН - {ClientId} |\n"
                 + $"| Продукт/услуга |\n\n"
                 + $"| {products} |";

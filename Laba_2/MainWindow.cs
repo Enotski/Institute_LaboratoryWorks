@@ -13,17 +13,19 @@ namespace Laba_2
 {
     public partial class MainWindow : Form
     {
-        List<Document> DocList = new List<Document>
+        DataTable docTable = new DataTable();
+        public List<Document> DocList = new List<Document>
         {
-            new Bill("Loktev", "Parovik", "989121", "12.12.2012", "88912311"),
-            new Bill("Loktev", "Parovik", "986912", "12.12.2012", "88912311"),
-            new Reciept("Loktev", "Parovik", "554910", "12.12.2012", "88912311"),
-            new Invoice("Loktev", "Parovik", "390012", "12.12.2012", "88912311", "99011211"),
-            new Reciept("Loktev", "Parovik", "189643", "12.12.2012", "88912311"),
+            new Bill("Gerashenko", "Shishkin", "989121", "12.12.2012", "88912311"),
+            new Bill("Bolotov", "Parovik", "986912", "12.12.2012", "88912311"),
+            new Reciept("Loktev", "Bubenin", "554910", "12.12.2012", "Электроэнергия"),
+            new Invoice("Voloshin", "Volchansky", "390012", "12.12.2012", "88912311", "99011211"),
+            new Reciept("Loktionov", "Goncharov", "189643", "12.12.2012", "ТБО"),
         };
         public MainWindow()
         {
             InitializeComponent();
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -35,40 +37,50 @@ namespace Laba_2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            object doc = DocSelectComboBox.SelectedItem;
-            if(doc is null)
-                MessageBox.Show("Выберите документ!");
+            object selectedDoc = DocSelectComboBox.SelectedItem;
+            if(selectedDoc is null)
+                MessageBox.Show("Выберите тип докумена!");
             else
             {
-                DocumentConstructorWindow docConst = new DocumentConstructorWindow();
-                if(doc.ToString() == "Квитанция")
+                
+                if (selectedDoc.ToString() is "Квитанция")
                 {
-                    docConst.ShowPanel("Reciept");
+                    RecieptConstructorWindow RecConst = new RecieptConstructorWindow();
+                    RecConst._docList = DocList;
+                    RecConst.Show();
                 }
-                else if (doc.ToString() == "Счет")
+                else if (selectedDoc.ToString() is "Счет")
                 {
-                    docConst.ShowPanel("Bill");
+                    BillConstructorWindow BillConst = new BillConstructorWindow();
+                    BillConst._docList = DocList;
+                    BillConst.Show();
                 }
-                else if (doc.ToString() == "Накладная")
+                else if (selectedDoc.ToString() is "Накладная")
                 {
-                    docConst.ShowPanel("Invoice");
+                    InvoiceConstructorWindow InvConst = new InvoiceConstructorWindow();
+                    InvConst._docList = DocList;
+                    InvConst.Show();
                 }
-                docConst.Show();
             }
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            DataTable docTable = new DataTable();
-
             docTable.Columns.Add("№", typeof(int));
             docTable.Columns.Add("Дата", typeof(string));
             docTable.Columns.Add("Тип", typeof(string));
-            
+
+            TableInitialize(docTable);
+
+            DocumentsTableList.DataSource = docTable;
+        }
+        private void TableInitialize(DataTable dt)
+        {
+            dt.Clear();
             string typeName = "";
             foreach (var doc in DocList)
             {
-                if(doc.GetType().Name == "Bill")
+                if (doc.GetType().Name == "Bill")
                 {
                     typeName = "Счет";
                 }
@@ -81,14 +93,15 @@ namespace Laba_2
                     typeName = "Накладная";
                 }
 
-                docTable.Rows.Add(int.Parse(doc.DocId), doc.DocDate.ToLocalTime(), typeName);
+                dt.Rows.Add(int.Parse(doc.DocId), doc.DocDate.ToLocalTime(), typeName);
             }
-
-            DocumentsTableList.DataSource = docTable;
         }
 
-        private void ButtonDocShow_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
+            TableInitialize(docTable);
+            DocumentsTableList.Update();
+            DocumentsTableList.Refresh();
         }
     }
 }

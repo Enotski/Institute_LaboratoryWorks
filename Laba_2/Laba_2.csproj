@@ -47,17 +47,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BillConstructorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BillConstructorWindow.Designer.cs">
+      <DependentUpon>BillConstructorWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProductCreatorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ProductCreatorWindow.Designer.cs">
       <DependentUpon>ProductCreatorWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="DocumentConstructorWindow.cs">
+    <Compile Include="InvoiceConstructorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DocumentConstructorWindow.Designer.cs">
-      <DependentUpon>DocumentConstructorWindow.cs</DependentUpon>
+    <Compile Include="InvoiceConstructorWindow.Designer.cs">
+      <DependentUpon>InvoiceConstructorWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -67,8 +73,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DocumentConstructorWindow.resx">
-      <DependentUpon>DocumentConstructorWindow.cs</DependentUpon>
+    <Compile Include="RecieptConstructorWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecieptConstructorWindow.Designer.cs">
+      <DependentUpon>RecieptConstructorWindow.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BillConstructorWindow.resx">
+      <DependentUpon>BillConstructorWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InvoiceConstructorWindow.resx">
+      <DependentUpon>InvoiceConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -82,6 +97,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="RecieptConstructorWindow.resx">
+      <DependentUpon>RecieptConstructorWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
