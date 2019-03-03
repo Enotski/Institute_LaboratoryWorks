@@ -60,6 +60,23 @@ namespace OP_ClassLib
             _productEditor.SetProduct(_products, _product);
             return true;
         }
+        public bool SetProduct(Product p)
+        {
+            if (p is null)
+                return false;
+
+            _product = p;
+            _productEditor.SetProduct(_products, _product);
+            return true;
+        }
+        public bool SetProductList(List<Product> pList)
+        {
+            if (pList.Count == 0)
+                return false;
+
+            _products = pList;;
+            return true;
+        }
         public bool RemoveProduct(string productName)
         {
             return _productEditor.RemoveProduct(productName, _products);
@@ -84,8 +101,8 @@ namespace OP_ClassLib
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
                 + $"| Исполнитель - {Provider} |\n| ИНН - {ProviderId} |\n"
                 + $"| Заказчик - {Client}|\n| ИНН - {ClientId} |\n"
-                + $"| Продукт/услуга |\n\n"
-                + $"| {products} |";
+                + $"\n| Продукт/услуга |\n"
+                + $"{products} |";
 
             return result;
         }

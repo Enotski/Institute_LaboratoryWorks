@@ -56,6 +56,23 @@ namespace OP_ClassLib
             _productEditor.SetProduct(_products, _product);
             return true;
         }
+        public bool SetProduct(Product p)
+        {
+            if (p is null)
+                return false;
+
+            _product = p;
+            _productEditor.SetProduct(_products, _product);
+            return true;
+        }
+        public bool SetProductList(List<Product> pList)
+        {
+            if (pList.Count == 0)
+                return false;
+
+            _products = pList; ;
+            return true;
+        }
         public bool RemoveProduct()
         {
             return _productEditor.RemoveProduct(PaymentName, _products);
@@ -73,7 +90,7 @@ namespace OP_ClassLib
                 + $"| Исполнитель - {Provider} |\n"
                 + $"| Заказчик - {Client} |\n"
                 + $"| Продукт/услуга |\n\n"
-                + $"| {products} |";
+                + $"{products} |";
 
             return result;
         }

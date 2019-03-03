@@ -7,7 +7,16 @@ namespace OP_ClassLib
     {
         public void SetProduct(List<Product> products, Product p)
         {
-            products.Add(p);
+            Product current = products.Find(curr => curr.Name == p.Name);
+            if (current != null)
+            {
+                current.Name = p.Name;
+                current.MeasureUnit = p.MeasureUnit;
+                current.Price = p.Price;
+                current.Count = p.Count;
+            }
+            else
+                products.Add(p);
         }
 
         public bool RemoveProduct(string productName, List<Product> products)
@@ -55,7 +64,7 @@ namespace OP_ClassLib
             string result = null;
             foreach(var p in products)
             {
-                result += $"{p.Name} | {p.Count} | {p.MeasureUnit} | {p.Price}$ | {CalcProductSum(p.Name, products)}$ |\n";
+                result += $"| {p.Name} | {p.Count} | {p.MeasureUnit} | {p.Price}$ | {CalcProductSum(p.Name, products)}$ |\n";
             }
             result += $"\n| общая сумма | {CalcGoodsSum(products)}$";
 

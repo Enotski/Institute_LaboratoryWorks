@@ -30,12 +30,12 @@
         {
             this.RecieptPanel = new System.Windows.Forms.Panel();
             this.ProductSumLable = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ColumnProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
+            this.dataGridViewColumnProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnMUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label27 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxPaymentName = new System.Windows.Forms.TextBox();
@@ -53,14 +53,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.RecieptPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
             // 
             // RecieptPanel
             // 
             this.RecieptPanel.AutoScroll = true;
             this.RecieptPanel.Controls.Add(this.ProductSumLable);
-            this.RecieptPanel.Controls.Add(this.dataGridView1);
+            this.RecieptPanel.Controls.Add(this.dataGridViewProducts);
             this.RecieptPanel.Controls.Add(this.label27);
             this.RecieptPanel.Controls.Add(this.label9);
             this.RecieptPanel.Controls.Add(this.textBoxPaymentName);
@@ -90,59 +90,56 @@
             this.ProductSumLable.Size = new System.Drawing.Size(0, 20);
             this.ProductSumLable.TabIndex = 24;
             // 
-            // dataGridView1
+            // dataGridViewProducts
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnProductName,
-            this.ColumnUnit,
-            this.ColumnCount,
-            this.ColumnPrice,
-            this.ColumnSum});
-            this.dataGridView1.Location = new System.Drawing.Point(3, 264);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(552, 115);
-            this.dataGridView1.TabIndex = 23;
+            this.dataGridViewProducts.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewColumnProductName,
+            this.dataGridViewColumnMUnit,
+            this.dataGridViewColumnCount,
+            this.dataGridViewColumnPrice,
+            this.dataGridViewColumnSum});
+            this.dataGridViewProducts.Location = new System.Drawing.Point(3, 264);
+            this.dataGridViewProducts.Name = "dataGridViewProducts";
+            this.dataGridViewProducts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridViewProducts.Size = new System.Drawing.Size(552, 115);
+            this.dataGridViewProducts.TabIndex = 23;
+            this.dataGridViewProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellEndEdit);
             // 
-            // ColumnProductName
+            // dataGridViewColumnProductName
             // 
-            this.ColumnProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.ColumnProductName.Frozen = true;
-            this.ColumnProductName.HeaderText = "Наименование";
-            this.ColumnProductName.Name = "ColumnProductName";
-            this.ColumnProductName.ReadOnly = true;
-            this.ColumnProductName.Width = 106;
+            this.dataGridViewColumnProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewColumnProductName.Frozen = true;
+            this.dataGridViewColumnProductName.HeaderText = "Наименование";
+            this.dataGridViewColumnProductName.Name = "dataGridViewColumnProductName";
+            this.dataGridViewColumnProductName.Width = 106;
             // 
-            // ColumnUnit
+            // dataGridViewColumnMUnit
             // 
-            this.ColumnUnit.Frozen = true;
-            this.ColumnUnit.HeaderText = "ед.";
-            this.ColumnUnit.Name = "ColumnUnit";
-            this.ColumnUnit.ReadOnly = true;
-            this.ColumnUnit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewColumnMUnit.Frozen = true;
+            this.dataGridViewColumnMUnit.HeaderText = "ед.";
+            this.dataGridViewColumnMUnit.Name = "dataGridViewColumnMUnit";
+            this.dataGridViewColumnMUnit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
-            // ColumnCount
+            // dataGridViewColumnCount
             // 
-            this.ColumnCount.Frozen = true;
-            this.ColumnCount.HeaderText = "кол-во";
-            this.ColumnCount.Name = "ColumnCount";
-            this.ColumnCount.ReadOnly = true;
+            this.dataGridViewColumnCount.Frozen = true;
+            this.dataGridViewColumnCount.HeaderText = "кол-во";
+            this.dataGridViewColumnCount.Name = "dataGridViewColumnCount";
             // 
-            // ColumnPrice
+            // dataGridViewColumnPrice
             // 
-            this.ColumnPrice.Frozen = true;
-            this.ColumnPrice.HeaderText = "Стоимость ед.";
-            this.ColumnPrice.Name = "ColumnPrice";
-            this.ColumnPrice.ReadOnly = true;
+            this.dataGridViewColumnPrice.Frozen = true;
+            this.dataGridViewColumnPrice.HeaderText = "Стоимость ед.";
+            this.dataGridViewColumnPrice.Name = "dataGridViewColumnPrice";
             // 
-            // ColumnSum
+            // dataGridViewColumnSum
             // 
-            this.ColumnSum.Frozen = true;
-            this.ColumnSum.HeaderText = "Сумма";
-            this.ColumnSum.Name = "ColumnSum";
-            this.ColumnSum.ReadOnly = true;
+            this.dataGridViewColumnSum.Frozen = true;
+            this.dataGridViewColumnSum.HeaderText = "Сумма";
+            this.dataGridViewColumnSum.Name = "dataGridViewColumnSum";
+            this.dataGridViewColumnSum.ReadOnly = true;
             // 
             // label27
             // 
@@ -303,7 +300,7 @@
             this.Text = "RecieptConstructorWindowcs";
             this.RecieptPanel.ResumeLayout(false);
             this.RecieptPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -312,12 +309,7 @@
 
         private System.Windows.Forms.Panel RecieptPanel;
         private System.Windows.Forms.Label ProductSumLable;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnUnit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSum;
+        private System.Windows.Forms.DataGridView dataGridViewProducts;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxPaymentName;
@@ -334,5 +326,10 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnProductName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnMUnit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnSum;
     }
 }

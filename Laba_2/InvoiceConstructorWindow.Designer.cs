@@ -34,11 +34,6 @@
             this.ProductSumLable = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBoxClientId = new System.Windows.Forms.TextBox();
             this.label28 = new System.Windows.Forms.Label();
             this.textBoxProviderId = new System.Windows.Forms.TextBox();
@@ -54,6 +49,11 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
+            this.dataGridViewColumnProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnMUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewColumnSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InvoicePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).BeginInit();
             this.SuspendLayout();
@@ -110,7 +110,7 @@
             // 
             this.ProductSumLable.AutoSize = true;
             this.ProductSumLable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ProductSumLable.Location = new System.Drawing.Point(480, 382);
+            this.ProductSumLable.Location = new System.Drawing.Point(477, 400);
             this.ProductSumLable.Name = "ProductSumLable";
             this.ProductSumLable.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.ProductSumLable.Size = new System.Drawing.Size(0, 20);
@@ -120,7 +120,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label27.Location = new System.Drawing.Point(396, 382);
+            this.label27.Location = new System.Drawing.Point(397, 400);
             this.label27.Name = "label27";
             this.label27.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label27.Size = new System.Drawing.Size(58, 20);
@@ -132,48 +132,17 @@
             this.dataGridViewProducts.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn6,
-            this.dataGridViewTextBoxColumn7,
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.dataGridViewTextBoxColumn10});
+            this.dataGridViewColumnProductName,
+            this.dataGridViewColumnMUnit,
+            this.dataGridViewColumnCount,
+            this.dataGridViewColumnPrice,
+            this.dataGridViewColumnSum});
             this.dataGridViewProducts.Location = new System.Drawing.Point(12, 264);
             this.dataGridViewProducts.Name = "dataGridViewProducts";
             this.dataGridViewProducts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridViewProducts.Size = new System.Drawing.Size(552, 115);
+            this.dataGridViewProducts.Size = new System.Drawing.Size(552, 133);
             this.dataGridViewProducts.TabIndex = 25;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewTextBoxColumn6.Frozen = true;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Наименование";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Width = 106;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.Frozen = true;
-            this.dataGridViewTextBoxColumn7.HeaderText = "ед.";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.Frozen = true;
-            this.dataGridViewTextBoxColumn8.HeaderText = "кол-во";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.Frozen = true;
-            this.dataGridViewTextBoxColumn9.HeaderText = "Стоимость ед.";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.Frozen = true;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Сумма";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellEndEdit);
             // 
             // textBoxClientId
             // 
@@ -306,6 +275,42 @@
             this.label24.Size = new System.Drawing.Size(0, 17);
             this.label24.TabIndex = 5;
             // 
+            // dataGridViewColumnProductName
+            // 
+            this.dataGridViewColumnProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.dataGridViewColumnProductName.Frozen = true;
+            this.dataGridViewColumnProductName.HeaderText = "Наименование";
+            this.dataGridViewColumnProductName.Name = "dataGridViewColumnProductName";
+            this.dataGridViewColumnProductName.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewColumnProductName.Width = 106;
+            // 
+            // dataGridViewColumnMUnit
+            // 
+            this.dataGridViewColumnMUnit.Frozen = true;
+            this.dataGridViewColumnMUnit.HeaderText = "ед.";
+            this.dataGridViewColumnMUnit.Name = "dataGridViewColumnMUnit";
+            this.dataGridViewColumnMUnit.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dataGridViewColumnCount
+            // 
+            this.dataGridViewColumnCount.Frozen = true;
+            this.dataGridViewColumnCount.HeaderText = "кол-во";
+            this.dataGridViewColumnCount.Name = "dataGridViewColumnCount";
+            this.dataGridViewColumnCount.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // dataGridViewColumnPrice
+            // 
+            this.dataGridViewColumnPrice.Frozen = true;
+            this.dataGridViewColumnPrice.HeaderText = "Стоимость ед.";
+            this.dataGridViewColumnPrice.Name = "dataGridViewColumnPrice";
+            // 
+            // dataGridViewColumnSum
+            // 
+            this.dataGridViewColumnSum.Frozen = true;
+            this.dataGridViewColumnSum.HeaderText = "Сумма";
+            this.dataGridViewColumnSum.Name = "dataGridViewColumnSum";
+            this.dataGridViewColumnSum.ReadOnly = true;
+            // 
             // InvoiceConstructorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -343,12 +348,12 @@
         private System.Windows.Forms.TextBox textBoxProviderId;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.DataGridView dataGridViewProducts;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
         private System.Windows.Forms.Label ProductSumLable;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnProductName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnMUnit;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnPrice;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnSum;
     }
 }
