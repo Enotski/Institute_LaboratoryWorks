@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DocumentsTableList = new System.Windows.Forms.DataGridView();
+            this.DataGirdViewDocumentsTable = new System.Windows.Forms.DataGridView();
             this.AddBtn = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.DocSelectComboBox = new System.Windows.Forms.ComboBox();
             this.ReloadFile = new System.Windows.Forms.Button();
             this.DocumentPrintLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.DocumentsTableList)).BeginInit();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGirdViewDocumentsTable)).BeginInit();
             this.SuspendLayout();
             // 
-            // DocumentsTableList
+            // DataGirdViewDocumentsTable
             // 
-            this.DocumentsTableList.AllowUserToAddRows = false;
-            this.DocumentsTableList.AllowUserToResizeColumns = false;
-            this.DocumentsTableList.AllowUserToResizeRows = false;
-            this.DocumentsTableList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DocumentsTableList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DocumentsTableList.Location = new System.Drawing.Point(12, 69);
-            this.DocumentsTableList.Name = "DocumentsTableList";
-            this.DocumentsTableList.RowTemplate.ReadOnly = true;
-            this.DocumentsTableList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DocumentsTableList.Size = new System.Drawing.Size(402, 283);
-            this.DocumentsTableList.TabIndex = 0;
-            this.DocumentsTableList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.DataGirdViewDocumentsTable.AllowUserToAddRows = false;
+            this.DataGirdViewDocumentsTable.AllowUserToResizeColumns = false;
+            this.DataGirdViewDocumentsTable.AllowUserToResizeRows = false;
+            this.DataGirdViewDocumentsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DataGirdViewDocumentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DataGirdViewDocumentsTable.Location = new System.Drawing.Point(12, 69);
+            this.DataGirdViewDocumentsTable.Name = "DataGirdViewDocumentsTable";
+            this.DataGirdViewDocumentsTable.RowTemplate.ReadOnly = true;
+            this.DataGirdViewDocumentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGirdViewDocumentsTable.Size = new System.Drawing.Size(402, 283);
+            this.DataGirdViewDocumentsTable.TabIndex = 0;
+            this.DataGirdViewDocumentsTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // AddBtn
             // 
@@ -64,22 +64,13 @@
             this.AddBtn.UseVisualStyleBackColor = true;
             this.AddBtn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // textBox1
+            // textBoxSearch
             // 
-            this.textBox1.Location = new System.Drawing.Point(79, 21);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(335, 20);
-            this.textBox1.TabIndex = 8;
-            // 
-            // button2
-            // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(12, 17);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(61, 26);
-            this.button2.TabIndex = 9;
-            this.button2.Text = "Поиск:";
-            this.button2.UseVisualStyleBackColor = true;
+            this.textBoxSearch.Location = new System.Drawing.Point(99, 21);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(315, 20);
+            this.textBoxSearch.TabIndex = 8;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
             // DocSelectComboBox
             // 
@@ -113,23 +104,33 @@
             this.DocumentPrintLabel.Size = new System.Drawing.Size(0, 20);
             this.DocumentPrintLabel.TabIndex = 14;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Location = new System.Drawing.Point(12, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(81, 17);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Введите №";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(843, 492);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.DocumentPrintLabel);
             this.Controls.Add(this.ReloadFile);
             this.Controls.Add(this.DocSelectComboBox);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.AddBtn);
-            this.Controls.Add(this.DocumentsTableList);
+            this.Controls.Add(this.DataGirdViewDocumentsTable);
             this.Name = "MainWindow";
             this.Text = "Laba_2";
             this.Activated += new System.EventHandler(this.MainWindow_Activated);
             this.Load += new System.EventHandler(this.MainWindow_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DocumentsTableList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGirdViewDocumentsTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,13 +138,13 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView DocumentsTableList;
+        private System.Windows.Forms.DataGridView DataGirdViewDocumentsTable;
         private System.Windows.Forms.Button AddBtn;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.ComboBox DocSelectComboBox;
         private System.Windows.Forms.Button ReloadFile;
         private System.Windows.Forms.Label DocumentPrintLabel;
+        private System.Windows.Forms.Label label1;
     }
 }
 
