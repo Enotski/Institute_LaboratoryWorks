@@ -8,10 +8,15 @@ namespace OP_ClassLib
     public abstract class Document : IDocumentSetup
     {
         //св-ва
-        public string Provider { get; set; }
-        public string Client { get; set; }
         public string DocId { get; set; }
         public DateTime DocDate { get; set; }
+        public string Provider { get; set; }
+        public string Client { get; set; }
+        public string Type { get
+            {
+                return this.GetType().Name;
+            }
+        }
 
         //конструкторы
         public Document(string provider, string client, string docId, string date)

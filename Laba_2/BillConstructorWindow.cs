@@ -13,7 +13,7 @@ namespace Laba_2
 {
     public partial class BillConstructorWindow : Form
     {
-        public List<Document> docList;
+        public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
         ProductEditor _pEditor;
         Product _p;
