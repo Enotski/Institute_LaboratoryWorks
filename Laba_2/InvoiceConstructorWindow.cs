@@ -13,8 +13,10 @@ namespace Laba_2
 {
     public partial class InvoiceConstructorWindow : Form
     {
+        public bool toEdit;
         public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
+        public Invoice invoice = new Invoice();
         ProductEditor _pEditor;
         Product _p;
 
@@ -23,14 +25,21 @@ namespace Laba_2
             InitializeComponent();
             _pEditor = new ProductEditor();
         }
-
+        private void TextBoxBinding()
+        {
+            textBoxDocId.DataBindings.Add("Text", invoice, "DocId");
+            textBoxDocDate.DataBindings.Add("Text", invoice, "DocDate");
+            textBoxProviderName.DataBindings.Add("Text", invoice, "Provider");
+            textBoxClientName.DataBindings.Add("Text", invoice, "Client");
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (ValidationForm())
             {
-                Invoice invoice = new Invoice(textBoxProviderName.Text, textBoxClientName.Text, textBoxDocId.Text, textBoxDocDate.Text, textBoxClientId.Text, textBoxProviderId.Text);
                 invoice.SetProductList(productList);
-                docList.Add(invoice);
+                invoice.CalcGoodsSum();
+                if (!toEdit)
+                    docList.Add(invoice);
                 this.Close();
             }
         }
@@ -81,6 +90,13 @@ namespace Laba_2
                 }
             }
             return true;
+        }
+
+        private void InvoiceConstructorWindow_Shown(object sender, EventArgs e)
+        {
+            TextBoxBinding();
+            textBoxProviderId.DataBindings.Add("Text", invoice, "ProviderId");
+            textBoxClientId.DataBindings.Add("Text", invoice, "ClientId");
         }
     }
 }

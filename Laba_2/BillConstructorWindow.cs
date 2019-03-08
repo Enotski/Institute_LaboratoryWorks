@@ -13,8 +13,10 @@ namespace Laba_2
 {
     public partial class BillConstructorWindow : Form
     {
+        public bool toEdit;
         public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
+        public Bill bill = new Bill();
         ProductEditor _pEditor;
         Product _p;
 
@@ -32,9 +34,10 @@ namespace Laba_2
         {
             if (ValidationForm())
             {
-                Bill bill = new Bill(textBoxProviderName.Text, textBoxClientName.Text, textBoxDocId.Text, textBoxDocDate.Text, textBoxClientId.Text);
                 bill.SetProductList(productList);
-                docList.Add(bill);
+                bill.CalcGoodsSum();
+                if(!toEdit)
+                    docList.Add(bill);
                 this.Close();
             }
         }
@@ -61,6 +64,13 @@ namespace Laba_2
             }
             return true;
         }
+        private void TextBoxBinding()
+        {
+            textBoxDocId.DataBindings.Add("Text", bill, "DocId");
+            textBoxDocDate.DataBindings.Add("Text", bill, "DocDate");
+            textBoxProviderName.DataBindings.Add("Text", bill, "Provider");
+            textBoxClientName.DataBindings.Add("Text", bill, "Client");
+        }
         private void ProductInitialize(DataGridViewRow productRow)
         {
             foreach (DataGridViewCell cell in productRow.Cells)
@@ -81,6 +91,12 @@ namespace Laba_2
             double priceCell = _pEditor.CalcProductSum(dataCells[0].Value.ToString(), productList);
             dataCells[4].Value = priceCell;
             ProductSumLable.Text = _pEditor.CalcGoodsSum(productList).ToString();
+        }
+
+        private void BillConstructorWindow_Shown(object sender, EventArgs e)
+        {
+            TextBoxBinding();
+            textBoxClientId.DataBindings.Add("Text", bill, "ClientId");
         }
     }
 }

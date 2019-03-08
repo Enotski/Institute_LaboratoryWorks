@@ -1,19 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System;
+using System;
+using System.Collections.Generic;
+using System.Xml.Serialization;
+
 
 namespace OP_ClassLib
 {
     /// <summary>
     /// Класс Квитанция
     /// </summary>
+    [Serializable]
     public class Reciept : Document
     {
         // объект и список, инициализируются в конструкторе данного класса 
         private Product _product;
         private ProductEditor _productEditor;
-        private List<Product> _products;
 
+        public List<Product> Products { get; set; }
         public double GoodsSum { get; set; }
         public string PaymentName { get; set; }
 
@@ -22,13 +27,13 @@ namespace OP_ClassLib
         {
             PaymentName = paymentName;
             _product = new Product();
-            _products = new List<Product>();
+            Products = new List<Product>();
             _productEditor = new ProductEditor();
         }
         public Reciept()
         {
             _product = new Product();
-            _products = new List<Product>();
+            Products = new List<Product>();
             _productEditor = new ProductEditor();
         }
 
@@ -50,10 +55,10 @@ namespace OP_ClassLib
 
             _product = new Product(pName, mUnit, count, tmpPrice);
 
-            if (_products.Any())
-                _products.Clear();
+            if (Products.Any())
+                Products.Clear();
 
-            _productEditor.SetProduct(_products, _product);
+            _productEditor.SetProduct(Products, _product);
             return true;
         }
         public bool SetProduct(Product p)
@@ -62,7 +67,7 @@ namespace OP_ClassLib
                 return false;
 
             _product = p;
-            _productEditor.SetProduct(_products, _product);
+            _productEditor.SetProduct(Products, _product);
             return true;
         }
         public bool SetProductList(List<Product> pList)
@@ -70,20 +75,20 @@ namespace OP_ClassLib
             if (pList.Count == 0)
                 return false;
 
-            _products = pList; ;
+            Products = pList; ;
             return true;
         }
         public bool RemoveProduct()
         {
-            return _productEditor.RemoveProduct(PaymentName, _products);
+            return _productEditor.RemoveProduct(PaymentName, Products);
         }
         public void CalcProductSum()
         {
-            GoodsSum =  _productEditor.CalcProductSum(0, _products);
+            GoodsSum =  _productEditor.CalcGoodsSum(Products);
         }
         public override string Print()
         {
-            string products = _productEditor.PrintProducts(_products);
+            string products = _productEditor.PrintProducts(Products);
 
             string result = $"| -Квитанция за {PaymentName}- |\n"
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
@@ -101,8 +106,8 @@ namespace OP_ClassLib
             Console.WriteLine("Введите наименование продукта/услуги");
             SetPaymentName(Console.ReadLine());
             Console.Clear();
-            _productEditor.SetProductConsole(_products, _product);
-            _productEditor.SetProduct(_products, _product);
+            _productEditor.SetProductConsole(Products, _product);
+            _productEditor.SetProduct(Products, _product);
         }
     }
 }

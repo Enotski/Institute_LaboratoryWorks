@@ -1,5 +1,8 @@
-﻿namespace OP_ClassLib
+﻿using System;
+
+namespace OP_ClassLib
 {
+    [Serializable]
     public class Product
     {
         private int _count;

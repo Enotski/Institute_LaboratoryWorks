@@ -13,24 +13,34 @@ namespace Laba_2
 {
     public partial class RecieptConstructorWindow : Form
     {
+        public bool toEdit;
         public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
+        public Reciept reciept;
+
         ProductEditor _pEditor;
         Product _p;
-
+        
         public RecieptConstructorWindow()
         {
             InitializeComponent();
             _pEditor = new ProductEditor();
         }
-
+        private void TextBoxBinding()
+        {
+            textBoxDocId.DataBindings.Add("Text", reciept, "DocId");
+            textBoxDocDate.DataBindings.Add("Text", reciept, "DocDate");
+            textBoxProviderName.DataBindings.Add("Text", reciept, "Provider");
+            textBoxClientName.DataBindings.Add("Text", reciept, "Client");
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             if (ValidationForm())
             {
-                Reciept reciept = new Reciept(textBoxProviderName.Text, textBoxClientName.Text, textBoxDocId.Text, textBoxDocDate.Text, textBoxPaymentName.Text);
                 reciept.SetProductList(productList);
-                docList.Add(reciept);
+                reciept.CalcProductSum();
+                if (!toEdit)
+                    docList.Add(reciept);
                 this.Close();
             }
         }    
@@ -81,6 +91,12 @@ namespace Laba_2
             double priceCell = _pEditor.CalcProductSum(dataCells[0].Value.ToString(), productList);
             dataCells[4].Value = priceCell;
             ProductSumLable.Text = _pEditor.CalcGoodsSum(productList).ToString();
+        }
+
+        private void RecieptConstructorWindow_Shown(object sender, EventArgs e)
+        {
+            TextBoxBinding();
+            textBoxPaymentName.DataBindings.Add("Text", reciept, "PaymentName");
         }
     }
 }

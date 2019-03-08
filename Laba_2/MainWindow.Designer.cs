@@ -54,7 +54,8 @@
             this.DataGirdViewDocumentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DataGirdViewDocumentsTable.Size = new System.Drawing.Size(402, 283);
             this.DataGirdViewDocumentsTable.TabIndex = 0;
-            this.DataGirdViewDocumentsTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.DataGirdViewDocumentsTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGirdViewDocumentsTable_CellClick);
+            this.DataGirdViewDocumentsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGirdViewDocumentsTable_CellDoubleClick);
             // 
             // textBoxSearch
             // 
@@ -86,6 +87,7 @@
             this.button_RefreshFile.TabIndex = 11;
             this.button_RefreshFile.Text = "Обновить файл";
             this.button_RefreshFile.UseVisualStyleBackColor = true;
+            this.button_RefreshFile.Click += new System.EventHandler(this.button_RefreshFile_Click);
             // 
             // DocumentPrintLabel
             // 
@@ -115,6 +117,7 @@
             this.button_LoadFromFile.TabIndex = 16;
             this.button_LoadFromFile.Text = "Обновить список";
             this.button_LoadFromFile.UseVisualStyleBackColor = true;
+            this.button_LoadFromFile.Click += new System.EventHandler(this.button_LoadFromFile_Click);
             // 
             // button_Remove
             // 

@@ -298,6 +298,7 @@
             this.Controls.Add(this.RecieptPanel);
             this.Name = "RecieptConstructorWindow";
             this.Text = "RecieptConstructorWindowcs";
+            this.Shown += new System.EventHandler(this.RecieptConstructorWindow_Shown);
             this.RecieptPanel.ResumeLayout(false);
             this.RecieptPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();

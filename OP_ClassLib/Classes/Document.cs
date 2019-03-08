@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Xml.Serialization;
 
 namespace OP_ClassLib
 {
     /// <summary>
     /// класс Документ - базовый
     /// </summary>
+    [Serializable]
+    [XmlInclude(typeof(Invoice))]
+    [XmlInclude(typeof(Bill))]
+    [XmlInclude(typeof(Reciept))]
     public abstract class Document : IDocumentSetup
     {
         //св-ва

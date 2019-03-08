@@ -297,6 +297,7 @@
             this.Controls.Add(this.BillPanel);
             this.Name = "BillConstructorWindow";
             this.Text = "BillConstructorWindow";
+            this.Shown += new System.EventHandler(this.BillConstructorWindow_Shown);
             this.BillPanel.ResumeLayout(false);
             this.BillPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProducts)).EndInit();

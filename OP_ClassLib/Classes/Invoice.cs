@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 
 namespace OP_ClassLib
 {
     /// <summary>
     /// Класс Накладная
     /// </summary>
+    [Serializable]
     public class Invoice : Document
     {
         // объект и список, инициализируются в конструкторе данного класса 
         private Product _product;
         private ProductEditor _productEditor;
-        private List<Product> _products;
 
+        public List<Product> Products { get; set; }
         public string ClientId { get; set; }
         public string ProviderId { get; set; }
         public double GoodsSum { get; set; }
@@ -22,13 +24,13 @@ namespace OP_ClassLib
             ClientId = clientId;
             ProviderId = providerId;
             _product = new Product();
-            _products = new List<Product>();
+            Products = new List<Product>();
             _productEditor = new ProductEditor();
         }
         public Invoice()
         {
             _product = new Product();
-            _products = new List<Product>();
+            Products = new List<Product>();
             _productEditor = new ProductEditor();
         }
 
@@ -57,7 +59,7 @@ namespace OP_ClassLib
                 return false;
 
             _product = new Product(pName, mUnit, count, tmpPrice);
-            _productEditor.SetProduct(_products, _product);
+            _productEditor.SetProduct(Products, _product);
             return true;
         }
         public bool SetProduct(Product p)
@@ -66,7 +68,7 @@ namespace OP_ClassLib
                 return false;
 
             _product = p;
-            _productEditor.SetProduct(_products, _product);
+            _productEditor.SetProduct(Products, _product);
             return true;
         }
         public bool SetProductList(List<Product> pList)
@@ -74,28 +76,28 @@ namespace OP_ClassLib
             if (pList.Count == 0)
                 return false;
 
-            _products = pList;;
+            Products = pList;;
             return true;
         }
         public bool RemoveProduct(string productName)
         {
-            return _productEditor.RemoveProduct(productName, _products);
+            return _productEditor.RemoveProduct(productName, Products);
         }
         public double CalcProductSum(int productIndex)
         {
-            return _productEditor.CalcProductSum(productIndex, _products);
+            return _productEditor.CalcProductSum(productIndex, Products);
         }
         public double CalcProductSum(string productName)
         {
-            return _productEditor.CalcProductSum(productName, _products);
+            return _productEditor.CalcProductSum(productName, Products);
         }
         public void CalcGoodsSum()
         {
-            GoodsSum = _productEditor.CalcGoodsSum(_products);
+            GoodsSum = _productEditor.CalcGoodsSum(Products);
         }
         public override string Print()
         {
-            string products = _productEditor.PrintProducts(_products);
+            string products = _productEditor.PrintProducts(Products);
             
             string result = "| -Накладная- |\n"
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
@@ -115,8 +117,8 @@ namespace OP_ClassLib
             Console.WriteLine("Введите ИНН клиента");
             SetClientId(Console.ReadLine());
             Console.Clear();
-            _productEditor.SetProductConsole(_products, _product);
-            _productEditor.SetProduct(_products, _product);
+            _productEditor.SetProductConsole(Products, _product);
+            _productEditor.SetProduct(Products, _product);
         }
     }
 }
