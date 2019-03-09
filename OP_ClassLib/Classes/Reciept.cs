@@ -82,9 +82,17 @@ namespace OP_ClassLib
         {
             return _productEditor.RemoveProduct(PaymentName, Products);
         }
-        public void CalcProductSum()
+        public double CalcProductSum(int productIndex)
         {
-            GoodsSum =  _productEditor.CalcGoodsSum(Products);
+            return _productEditor.CalcProductSum(productIndex, Products);
+        }
+        public double CalcProductSum(string productName)
+        {
+            return _productEditor.CalcProductSum(productName, Products);
+        }
+        public void CalcGoodsSum()
+        {
+            GoodsSum = _productEditor.CalcGoodsSum(Products);
         }
         public override string Print()
         {

@@ -16,15 +16,15 @@ namespace Laba_2
         public bool toEdit;
         public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
-        public Reciept reciept;
+        public Reciept reciept = new Reciept();
 
-        ProductEditor _pEditor;
         Product _p;
-        
+        BindingList<Product> rList;
+        BindingSource source;
+
         public RecieptConstructorWindow()
         {
             InitializeComponent();
-            _pEditor = new ProductEditor();
         }
         private void TextBoxBinding()
         {
@@ -37,8 +37,6 @@ namespace Laba_2
         {
             if (ValidationForm())
             {
-                reciept.SetProductList(productList);
-                reciept.CalcProductSum();
                 if (!toEdit)
                     docList.Add(reciept);
                 this.Close();
@@ -78,25 +76,29 @@ namespace Laba_2
                 if (!cell.ReadOnly && cell.Value == null)
                     return;
             }
-
-            _p = new Product();
             DataGridViewCellCollection dataCells = productRow.Cells;
 
-            _pEditor.SetProductName(dataCells[0].Value.ToString(), _p);
-            _pEditor.SetProductMeasureUnit(dataCells[1].Value.ToString(), _p);
-            _pEditor.SetProductCount(dataCells[2].Value.ToString(), _p);
-            _pEditor.SetProductPrice(dataCells[3].Value.ToString(), _p);
-            _pEditor.SetProduct(productList, _p);
-
-            double priceCell = _pEditor.CalcProductSum(dataCells[0].Value.ToString(), productList);
+            double priceCell = reciept.CalcProductSum(dataCells[0].Value.ToString());
             dataCells[4].Value = priceCell;
-            ProductSumLable.Text = _pEditor.CalcGoodsSum(productList).ToString();
+            reciept.CalcGoodsSum();
+            ProductSumLable.Text = reciept.GoodsSum.ToString();
         }
 
         private void RecieptConstructorWindow_Shown(object sender, EventArgs e)
         {
+            rList = new BindingList<Product>(productList);
+            source = new BindingSource(rList, null);
+            dataGridViewProducts.DataSource = source;
+            reciept.SetProductList(productList);
+
             TextBoxBinding();
             textBoxPaymentName.DataBindings.Add("Text", reciept, "PaymentName");
+        }
+
+        private void dataGridViewProducts_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            _p = new Product();
+            reciept.SetProduct(_p);
         }
     }
 }

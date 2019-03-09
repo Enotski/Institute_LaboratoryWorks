@@ -31,11 +31,6 @@
             this.RecieptPanel = new System.Windows.Forms.Panel();
             this.ProductSumLable = new System.Windows.Forms.Label();
             this.dataGridViewProducts = new System.Windows.Forms.DataGridView();
-            this.dataGridViewColumnProductName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewColumnMUnit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewColumnCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewColumnPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewColumnSum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label27 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxPaymentName = new System.Windows.Forms.TextBox();
@@ -94,52 +89,13 @@
             // 
             this.dataGridViewProducts.BackgroundColor = System.Drawing.Color.White;
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProducts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewColumnProductName,
-            this.dataGridViewColumnMUnit,
-            this.dataGridViewColumnCount,
-            this.dataGridViewColumnPrice,
-            this.dataGridViewColumnSum});
             this.dataGridViewProducts.Location = new System.Drawing.Point(3, 264);
             this.dataGridViewProducts.Name = "dataGridViewProducts";
             this.dataGridViewProducts.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGridViewProducts.Size = new System.Drawing.Size(552, 115);
             this.dataGridViewProducts.TabIndex = 23;
             this.dataGridViewProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellEndEdit);
-            // 
-            // dataGridViewColumnProductName
-            // 
-            this.dataGridViewColumnProductName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.dataGridViewColumnProductName.Frozen = true;
-            this.dataGridViewColumnProductName.HeaderText = "Наименование";
-            this.dataGridViewColumnProductName.Name = "dataGridViewColumnProductName";
-            this.dataGridViewColumnProductName.Width = 106;
-            // 
-            // dataGridViewColumnMUnit
-            // 
-            this.dataGridViewColumnMUnit.Frozen = true;
-            this.dataGridViewColumnMUnit.HeaderText = "ед.";
-            this.dataGridViewColumnMUnit.Name = "dataGridViewColumnMUnit";
-            this.dataGridViewColumnMUnit.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // dataGridViewColumnCount
-            // 
-            this.dataGridViewColumnCount.Frozen = true;
-            this.dataGridViewColumnCount.HeaderText = "кол-во";
-            this.dataGridViewColumnCount.Name = "dataGridViewColumnCount";
-            // 
-            // dataGridViewColumnPrice
-            // 
-            this.dataGridViewColumnPrice.Frozen = true;
-            this.dataGridViewColumnPrice.HeaderText = "Стоимость ед.";
-            this.dataGridViewColumnPrice.Name = "dataGridViewColumnPrice";
-            // 
-            // dataGridViewColumnSum
-            // 
-            this.dataGridViewColumnSum.Frozen = true;
-            this.dataGridViewColumnSum.HeaderText = "Сумма";
-            this.dataGridViewColumnSum.Name = "dataGridViewColumnSum";
-            this.dataGridViewColumnSum.ReadOnly = true;
+            this.dataGridViewProducts.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewProducts_UserAddedRow);
             // 
             // label27
             // 
@@ -327,10 +283,5 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnProductName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnMUnit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnCount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnPrice;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewColumnSum;
     }
 }

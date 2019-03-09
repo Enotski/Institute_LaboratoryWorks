@@ -16,20 +16,36 @@ namespace Laba_2
 {
     public partial class MainWindow : Form
     {
+        // edit...
+        private List<Product> products = new List<Product>
+        {
+            new Product("кросы", "шт", 2, 3500),
+            new Product("перчатки", "шт", 10, 300),
+            new Product("акции", "шт", 21, 1200)
+        };
         public List<Document> DocList = new List<Document>
         {
             new Invoice("man", "man", "4312", "1/1/1111", "2", "3"),
             new Invoice("man", "man", "8891", "1/1/1111", "2", "3"),
-            new Bill("man", "man", "7881", "1/1/1111", "2"),
+            new Bill("man", "man", "7881", "1/1/1111", "2")
         };
-        BindingList<Document> list;
+        // edit...
+
+        BindingList<Document> bList;
         BindingSource source;
+
+        // edit...
         string filePath = @"..\..\LocalDocumentsStore.xml";
         public MainWindow()
         {
+            // edit...
+            ((Invoice)DocList[0]).Products = products;
+            ((Invoice)DocList[1]).Products = products;
+            ((Bill)DocList[2]).Products = products;
+
             InitializeComponent();
-            list = new BindingList<Document>(DocList);
-            source = new BindingSource(list, null);
+            bList = new BindingList<Document>(DocList);
+            source = new BindingSource(bList, null);
             DataGirdViewDocumentsTable.DataSource = source;
         }      
 
@@ -40,6 +56,7 @@ namespace Laba_2
         {
             SearchData(textBoxSearch.Text);
         }
+
         private void SearchData(string value)
         {
             foreach (DataGridViewRow row in DataGirdViewDocumentsTable.Rows)
@@ -61,29 +78,21 @@ namespace Laba_2
             if (selectedDoc.ToString() is "Квитанция")
             {
                 RecieptConstructorWindow RecConst = new RecieptConstructorWindow();
-                RecConst.docList = list;
+                RecConst.docList = bList;
                 RecConst.Show();
             }
             else if (selectedDoc.ToString() is "Счет")
             {
                 BillConstructorWindow BillConst = new BillConstructorWindow();
-                BillConst.docList = list;
+                BillConst.docList = bList;
                 BillConst.Show();
             }
             else if (selectedDoc.ToString() is "Накладная")
             {
                 InvoiceConstructorWindow InvConst = new InvoiceConstructorWindow();
-                InvConst.docList = list;
+                InvConst.docList = bList;
                 InvConst.Show();
             }
-        }
-        // удаление
-        private void button_Remove_Click(object sender, EventArgs e)
-        {
-            object toRemove = DataGirdViewDocumentsTable.CurrentRow.DataBoundItem;
-            DocList.Remove(toRemove as Document);
-            DataGirdViewDocumentsTable.Update();
-            DataGirdViewDocumentsTable.Refresh();
         }
 
         private void button_RefreshFile_Click(object sender, EventArgs e)
@@ -113,7 +122,7 @@ namespace Laba_2
             {
                 await Task.Run(() =>
                 {
-                    foreach (var doc in list)
+                    foreach (var doc in bList)
                     {
                         formatter.Serialize(fs, doc);
                     }
@@ -176,24 +185,27 @@ namespace Laba_2
                 if (currentDoc is Reciept)
                 {
                     RecieptConstructorWindow RecConst = new RecieptConstructorWindow();
-                    RecConst.docList = list;
-                    RecConst.reciept = currentDoc as Reciept;
+                    RecConst.docList = bList;
+                    RecConst.reciept = (Reciept)currentDoc;
+                    RecConst.productList = ((Reciept)currentDoc).Products;
                     RecConst.toEdit = true;
                     RecConst.Show();
                 }
                 else if (currentDoc is Bill)
                 {
                     BillConstructorWindow BillConst = new BillConstructorWindow();
-                    BillConst.bill = currentDoc as Bill;
-                    BillConst.docList = list;
+                    BillConst.bill = (Bill)currentDoc;
+                    BillConst.productList = ((Bill)currentDoc).Products;
+                    BillConst.docList = bList;
                     BillConst.toEdit = true;
                     BillConst.Show();
                 }
                 else if (currentDoc is Invoice)
                 {
                     InvoiceConstructorWindow InvConst = new InvoiceConstructorWindow();
-                    InvConst.invoice = currentDoc as Invoice;
-                    InvConst.docList = list;
+                    InvConst.invoice = (Invoice)currentDoc;
+                    InvConst.productList = ((Invoice)currentDoc).Products;
+                    InvConst.docList = bList;
                     InvConst.toEdit = true;
                     InvConst.Show();
                 }

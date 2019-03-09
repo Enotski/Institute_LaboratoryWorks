@@ -53,12 +53,6 @@
     <Compile Include="BillConstructorWindow.Designer.cs">
       <DependentUpon>BillConstructorWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProductConstructorWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ProductConstructorWindow.Designer.cs">
-      <DependentUpon>ProductConstructorWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="InvoiceConstructorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,9 +81,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProductConstructorWindow.resx">
-      <DependentUpon>ProductConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -35,7 +35,6 @@
             this.DocumentPrintLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button_LoadFromFile = new System.Windows.Forms.Button();
-            this.button_Remove = new System.Windows.Forms.Button();
             this.button_Add = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DataGirdViewDocumentsTable)).BeginInit();
             this.SuspendLayout();
@@ -119,23 +118,12 @@
             this.button_LoadFromFile.UseVisualStyleBackColor = true;
             this.button_LoadFromFile.Click += new System.EventHandler(this.button_LoadFromFile_Click);
             // 
-            // button_Remove
-            // 
-            this.button_Remove.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Remove.Location = new System.Drawing.Point(219, 371);
-            this.button_Remove.Name = "button_Remove";
-            this.button_Remove.Size = new System.Drawing.Size(89, 55);
-            this.button_Remove.TabIndex = 17;
-            this.button_Remove.Text = "Удалить документ";
-            this.button_Remove.UseVisualStyleBackColor = true;
-            this.button_Remove.Click += new System.EventHandler(this.button_Remove_Click);
-            // 
             // button_Add
             // 
             this.button_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button_Add.Location = new System.Drawing.Point(325, 371);
+            this.button_Add.Location = new System.Drawing.Point(219, 371);
             this.button_Add.Name = "button_Add";
-            this.button_Add.Size = new System.Drawing.Size(89, 55);
+            this.button_Add.Size = new System.Drawing.Size(195, 55);
             this.button_Add.TabIndex = 18;
             this.button_Add.Text = "Добавить документ";
             this.button_Add.UseVisualStyleBackColor = true;
@@ -147,7 +135,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(843, 492);
             this.Controls.Add(this.button_Add);
-            this.Controls.Add(this.button_Remove);
             this.Controls.Add(this.button_LoadFromFile);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.DocumentPrintLabel);
@@ -172,7 +159,6 @@
         private System.Windows.Forms.Label DocumentPrintLabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_LoadFromFile;
-        private System.Windows.Forms.Button button_Remove;
         private System.Windows.Forms.Button button_Add;
     }
 }

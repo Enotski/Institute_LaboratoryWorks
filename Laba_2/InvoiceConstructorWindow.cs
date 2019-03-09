@@ -17,13 +17,14 @@ namespace Laba_2
         public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
         public Invoice invoice = new Invoice();
-        ProductEditor _pEditor;
+
         Product _p;
+        BindingList<Product> iList;
+        BindingSource source;
 
         public InvoiceConstructorWindow()
         {
             InitializeComponent();
-            _pEditor = new ProductEditor();
         }
         private void TextBoxBinding()
         {
@@ -36,8 +37,6 @@ namespace Laba_2
         {
             if (ValidationForm())
             {
-                invoice.SetProductList(productList);
-                invoice.CalcGoodsSum();
                 if (!toEdit)
                     docList.Add(invoice);
                 this.Close();
@@ -62,19 +61,12 @@ namespace Laba_2
                 if (!cell.ReadOnly && cell.Value == null)
                     return;
             }
-
-            _p = new Product();
             DataGridViewCellCollection dataCells = productRow.Cells;
 
-            _pEditor.SetProductName(dataCells[0].Value.ToString(), _p);
-            _pEditor.SetProductMeasureUnit(dataCells[1].Value.ToString(), _p);
-            _pEditor.SetProductCount(dataCells[2].Value.ToString(), _p);
-            _pEditor.SetProductPrice(dataCells[3].Value.ToString(), _p);
-            _pEditor.SetProduct(productList, _p);
-
-            double priceCell = _pEditor.CalcProductSum(dataCells[0].Value.ToString(), productList);
+            double priceCell = invoice.CalcProductSum(dataCells[0].Value.ToString());
             dataCells[4].Value = priceCell;
-            ProductSumLable.Text = _pEditor.CalcGoodsSum(productList).ToString();
+            invoice.CalcGoodsSum();
+            ProductSumLable.Text = invoice.GoodsSum.ToString();
         }
         private bool ValidationForm()
         {
@@ -94,9 +86,20 @@ namespace Laba_2
 
         private void InvoiceConstructorWindow_Shown(object sender, EventArgs e)
         {
+            iList = new BindingList<Product>(productList);
+            source = new BindingSource(iList, null);
+            dataGridViewProducts.DataSource = source;
+            invoice.SetProductList(productList);
+
             TextBoxBinding();
             textBoxProviderId.DataBindings.Add("Text", invoice, "ProviderId");
             textBoxClientId.DataBindings.Add("Text", invoice, "ClientId");
+        }
+
+        private void dataGridViewProducts_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            _p = new Product();
+            invoice.SetProduct(_p);
         }
     }
 }

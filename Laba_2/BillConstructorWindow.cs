@@ -17,13 +17,14 @@ namespace Laba_2
         public BindingList<Document> docList;
         public List<Product> productList = new List<Product>();
         public Bill bill = new Bill();
-        ProductEditor _pEditor;
+
         Product _p;
+        BindingList<Product> bList;
+        BindingSource source;
 
         public BillConstructorWindow()
         {
             InitializeComponent();
-            _pEditor = new ProductEditor();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -34,8 +35,6 @@ namespace Laba_2
         {
             if (ValidationForm())
             {
-                bill.SetProductList(productList);
-                bill.CalcGoodsSum();
                 if(!toEdit)
                     docList.Add(bill);
                 this.Close();
@@ -78,25 +77,29 @@ namespace Laba_2
                 if (!cell.ReadOnly && cell.Value == null)
                     return;
             }
-
-            _p = new Product();
             DataGridViewCellCollection dataCells = productRow.Cells;
 
-            _pEditor.SetProductName(dataCells[0].Value.ToString(), _p);
-            _pEditor.SetProductMeasureUnit(dataCells[1].Value.ToString(), _p);
-            _pEditor.SetProductCount(dataCells[2].Value.ToString(), _p);
-            _pEditor.SetProductPrice(dataCells[3].Value.ToString(), _p);
-            _pEditor.SetProduct(productList, _p);
-
-            double priceCell = _pEditor.CalcProductSum(dataCells[0].Value.ToString(), productList);
+            double priceCell = bill.CalcProductSum(dataCells[0].Value.ToString());
             dataCells[4].Value = priceCell;
-            ProductSumLable.Text = _pEditor.CalcGoodsSum(productList).ToString();
+            bill.CalcGoodsSum();
+            ProductSumLable.Text = bill.GoodsSum.ToString();
         }
 
         private void BillConstructorWindow_Shown(object sender, EventArgs e)
         {
+            bList = new BindingList<Product>(productList);
+            source = new BindingSource(bList, null);
+            dataGridViewProducts.DataSource = source;
+            bill.SetProductList(productList);
+
             TextBoxBinding();
             textBoxClientId.DataBindings.Add("Text", bill, "ClientId");
+        }
+
+        private void dataGridViewProducts_UserAddedRow(object sender, DataGridViewRowEventArgs e)
+        {
+            _p = new Product();
+            bill.SetProduct(_p);
         }
     }
 }
