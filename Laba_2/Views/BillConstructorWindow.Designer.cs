@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.BillPanel = new System.Windows.Forms.Panel();
             this.ProductSumLable = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
@@ -116,6 +117,14 @@
             // dataGridViewProducts
             // 
             this.dataGridViewProducts.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.PaleGreen;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.GrayText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewProducts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewProducts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProducts.Location = new System.Drawing.Point(14, 241);
             this.dataGridViewProducts.Name = "dataGridViewProducts";
@@ -123,7 +132,6 @@
             this.dataGridViewProducts.Size = new System.Drawing.Size(552, 115);
             this.dataGridViewProducts.TabIndex = 18;
             this.dataGridViewProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellEndEdit);
-            this.dataGridViewProducts.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewProducts_UserAddedRow);
             // 
             // label1
             // 

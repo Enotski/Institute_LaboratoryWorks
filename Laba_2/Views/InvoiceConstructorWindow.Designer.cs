@@ -132,7 +132,6 @@
             this.dataGridViewProducts.Size = new System.Drawing.Size(552, 133);
             this.dataGridViewProducts.TabIndex = 25;
             this.dataGridViewProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellEndEdit);
-            this.dataGridViewProducts.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewProducts_UserAddedRow);
             // 
             // textBoxClientId
             // 

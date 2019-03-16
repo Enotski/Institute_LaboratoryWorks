@@ -1,12 +1,8 @@
-﻿using OP_ClassLib;
+﻿using Laba_2.Controls;
+using OP_ClassLib;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Laba_2
@@ -15,12 +11,8 @@ namespace Laba_2
     {
         public bool toEdit;
         public BindingList<Document> docList;
-        public List<Product> productList = new List<Product>();
         public Invoice invoice = new Invoice();
-
-        Product _p;
-        BindingList<Product> iList;
-        BindingSource source;
+        BindingList<Product> pList;
 
         public InvoiceConstructorWindow()
         {
@@ -35,7 +27,7 @@ namespace Laba_2
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (ValidationForm())
+            if (SideWorker.ValidationForm(InvoicePanel.Controls))
             {
                 if (!toEdit)
                     docList.Add(invoice);
@@ -56,50 +48,21 @@ namespace Laba_2
 
         private void ProductInitialize(DataGridViewRow productRow)
         {
-            foreach(DataGridViewCell cell in productRow.Cells)
-            {
-                if (!cell.ReadOnly && cell.Value == null)
-                    return;
-            }
             DataGridViewCellCollection dataCells = productRow.Cells;
-
-            double priceCell = invoice.CalcProductSum(dataCells[0].Value.ToString());
-            dataCells[4].Value = priceCell;
+            dataCells[4].Value = invoice.CalcProductSum(dataCells[0].Value.ToString()).ToString(); 
             invoice.CalcGoodsSum();
             ProductSumLable.Text = invoice.GoodsSum.ToString();
-        }
-        private bool ValidationForm()
-        {
-            foreach (var control in InvoicePanel.Controls)
-            {
-                if (control is TextBox)
-                {
-                    if (string.IsNullOrWhiteSpace(((TextBox)control).Text))
-                    {
-                        MessageBox.Show("Заполните все поля");
-                        return false;
-                    }
-                }
-            }
-            return true;
         }
 
         private void InvoiceConstructorWindow_Shown(object sender, EventArgs e)
         {
-            iList = new BindingList<Product>(productList);
-            source = new BindingSource(iList, null);
-            dataGridViewProducts.DataSource = source;
-            invoice.SetProductList(productList);
+            pList = new BindingList<Product>(invoice.Products);
+            dataGridViewProducts.DataSource = pList;
+            invoice.SetProductList(pList.ToList());
 
             TextBoxBinding();
             textBoxProviderId.DataBindings.Add("Text", invoice, "ProviderId");
             textBoxClientId.DataBindings.Add("Text", invoice, "ClientId");
-        }
-
-        private void dataGridViewProducts_UserAddedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            _p = new Product();
-            invoice.SetProduct(_p);
         }
     }
 }

@@ -47,39 +47,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BillConstructorWindow.cs">
+    <Compile Include="Controls\SideWorker.cs" />
+    <Compile Include="Views\BillConstructorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BillConstructorWindow.Designer.cs">
+    <Compile Include="Views\BillConstructorWindow.Designer.cs">
       <DependentUpon>BillConstructorWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvoiceConstructorWindow.cs">
+    <Compile Include="Views\InvoiceConstructorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InvoiceConstructorWindow.Designer.cs">
+    <Compile Include="Views\InvoiceConstructorWindow.Designer.cs">
       <DependentUpon>InvoiceConstructorWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.cs">
+    <Compile Include="Views\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainWindow.Designer.cs">
+    <Compile Include="Views\MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecieptConstructorWindow.cs">
+    <Compile Include="Views\RecieptConstructorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RecieptConstructorWindow.Designer.cs">
+    <Compile Include="Views\RecieptConstructorWindow.Designer.cs">
       <DependentUpon>RecieptConstructorWindow.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BillConstructorWindow.resx">
+    <EmbeddedResource Include="Views\BillConstructorWindow.resx">
       <DependentUpon>BillConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InvoiceConstructorWindow.resx">
+    <EmbeddedResource Include="Views\InvoiceConstructorWindow.resx">
       <DependentUpon>InvoiceConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainWindow.resx">
+    <EmbeddedResource Include="Views\MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,7 +92,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RecieptConstructorWindow.resx">
+    <EmbeddedResource Include="Views\RecieptConstructorWindow.resx">
       <DependentUpon>RecieptConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -114,9 +115,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LocalDocumentsStore.xml">
+    <Content Include="DataStore\LocalDocumentsStore.xml">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

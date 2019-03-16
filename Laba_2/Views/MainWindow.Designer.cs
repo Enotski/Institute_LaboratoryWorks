@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DataGirdViewDocumentsTable = new System.Windows.Forms.DataGridView();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.DataGridViewDocumentsTable = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.DocSelectComboBox = new System.Windows.Forms.ComboBox();
             this.button_RefreshFile = new System.Windows.Forms.Button();
@@ -36,25 +38,44 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button_LoadFromFile = new System.Windows.Forms.Button();
             this.button_Add = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGirdViewDocumentsTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDocumentsTable)).BeginInit();
             this.SuspendLayout();
             // 
-            // DataGirdViewDocumentsTable
+            // DataGridViewDocumentsTable
             // 
-            this.DataGirdViewDocumentsTable.AllowUserToAddRows = false;
-            this.DataGirdViewDocumentsTable.AllowUserToResizeColumns = false;
-            this.DataGirdViewDocumentsTable.AllowUserToResizeRows = false;
-            this.DataGirdViewDocumentsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.DataGirdViewDocumentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGirdViewDocumentsTable.Location = new System.Drawing.Point(12, 69);
-            this.DataGirdViewDocumentsTable.Name = "DataGirdViewDocumentsTable";
-            this.DataGirdViewDocumentsTable.ReadOnly = true;
-            this.DataGirdViewDocumentsTable.RowTemplate.ReadOnly = true;
-            this.DataGirdViewDocumentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DataGirdViewDocumentsTable.Size = new System.Drawing.Size(402, 283);
-            this.DataGirdViewDocumentsTable.TabIndex = 0;
-            this.DataGirdViewDocumentsTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGirdViewDocumentsTable_CellClick);
-            this.DataGirdViewDocumentsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGirdViewDocumentsTable_CellDoubleClick);
+            this.DataGridViewDocumentsTable.AllowUserToAddRows = false;
+            this.DataGridViewDocumentsTable.AllowUserToResizeColumns = false;
+            this.DataGridViewDocumentsTable.AllowUserToResizeRows = false;
+            this.DataGridViewDocumentsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DataGridViewDocumentsTable.BackgroundColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridViewDocumentsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.DataGridViewDocumentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridViewDocumentsTable.DefaultCellStyle = dataGridViewCellStyle2;
+            this.DataGridViewDocumentsTable.GridColor = System.Drawing.SystemColors.GrayText;
+            this.DataGridViewDocumentsTable.Location = new System.Drawing.Point(26, 69);
+            this.DataGridViewDocumentsTable.Name = "DataGridViewDocumentsTable";
+            this.DataGridViewDocumentsTable.ReadOnly = true;
+            this.DataGridViewDocumentsTable.RowTemplate.Height = 24;
+            this.DataGridViewDocumentsTable.RowTemplate.ReadOnly = true;
+            this.DataGridViewDocumentsTable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.DataGridViewDocumentsTable.Size = new System.Drawing.Size(402, 283);
+            this.DataGridViewDocumentsTable.TabIndex = 0;
+            this.DataGridViewDocumentsTable.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGirdViewDocumentsTable_CellClick);
+            this.DataGridViewDocumentsTable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGirdViewDocumentsTable_CellDoubleClick);
             // 
             // textBoxSearch
             // 
@@ -141,10 +162,10 @@
             this.Controls.Add(this.button_RefreshFile);
             this.Controls.Add(this.DocSelectComboBox);
             this.Controls.Add(this.textBoxSearch);
-            this.Controls.Add(this.DataGirdViewDocumentsTable);
+            this.Controls.Add(this.DataGridViewDocumentsTable);
             this.Name = "MainWindow";
             this.Text = "Laba_2";
-            ((System.ComponentModel.ISupportInitialize)(this.DataGirdViewDocumentsTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDocumentsTable)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,7 +173,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView DataGirdViewDocumentsTable;
+        private System.Windows.Forms.DataGridView DataGridViewDocumentsTable;
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.ComboBox DocSelectComboBox;
         private System.Windows.Forms.Button button_RefreshFile;

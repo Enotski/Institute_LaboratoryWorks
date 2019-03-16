@@ -95,7 +95,6 @@
             this.dataGridViewProducts.Size = new System.Drawing.Size(552, 115);
             this.dataGridViewProducts.TabIndex = 23;
             this.dataGridViewProducts.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProducts_CellEndEdit);
-            this.dataGridViewProducts.UserAddedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dataGridViewProducts_UserAddedRow);
             // 
             // label27
             // 

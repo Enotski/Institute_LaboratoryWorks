@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Laba_2.Controls;
 using OP_ClassLib;
 
 namespace Laba_2
@@ -15,12 +11,8 @@ namespace Laba_2
     {
         public bool toEdit;
         public BindingList<Document> docList;
-        public List<Product> productList = new List<Product>();
         public Reciept reciept = new Reciept();
-
-        Product _p;
-        BindingList<Product> rList;
-        BindingSource source;
+        BindingList<Product> pList;
 
         public RecieptConstructorWindow()
         {
@@ -35,7 +27,7 @@ namespace Laba_2
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (ValidationForm())
+            if (SideWorker.ValidationForm(RecieptPanel.Controls))
             {
                 if (!toEdit)
                     docList.Add(reciept);
@@ -54,51 +46,22 @@ namespace Laba_2
             ProductInitialize(productRow);
         }
 
-        private bool ValidationForm()
-        {
-            foreach (var control in RecieptPanel.Controls)
-            {
-                if (control is TextBox)
-                {
-                    if (string.IsNullOrWhiteSpace(((TextBox)control).Text))
-                    {
-                        MessageBox.Show("Заполните все поля");
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
         private void ProductInitialize(DataGridViewRow productRow)
         {
-            foreach (DataGridViewCell cell in productRow.Cells)
-            {
-                if (!cell.ReadOnly && cell.Value == null)
-                    return;
-            }
             DataGridViewCellCollection dataCells = productRow.Cells;
-
-            double priceCell = reciept.CalcProductSum(dataCells[0].Value.ToString());
-            dataCells[4].Value = priceCell;
+            dataCells[4].Value = reciept.CalcProductSum(dataCells[0].Value.ToString()).ToString();
             reciept.CalcGoodsSum();
             ProductSumLable.Text = reciept.GoodsSum.ToString();
         }
 
         private void RecieptConstructorWindow_Shown(object sender, EventArgs e)
         {
-            rList = new BindingList<Product>(productList);
-            source = new BindingSource(rList, null);
-            dataGridViewProducts.DataSource = source;
-            reciept.SetProductList(productList);
+            pList = new BindingList<Product>(reciept.Products);
+            dataGridViewProducts.DataSource = pList;
+            reciept.SetProductList(pList.ToList());
 
             TextBoxBinding();
             textBoxPaymentName.DataBindings.Add("Text", reciept, "PaymentName");
-        }
-
-        private void dataGridViewProducts_UserAddedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            _p = new Product();
-            reciept.SetProduct(_p);
         }
     }
 }
