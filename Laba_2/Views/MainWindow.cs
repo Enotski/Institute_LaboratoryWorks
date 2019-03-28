@@ -6,6 +6,7 @@ using System.IO;
 using System.Windows.Forms;
 using OP_ClassLib;
 using Laba_2.Controls;
+using System.Threading.Tasks;
 
 namespace Laba_2
 {
@@ -19,10 +20,10 @@ namespace Laba_2
             DataGridViewDocumentsTable.DataSource = bList;
         }      
 
-        private void button_RefreshFile_Click(object sender, EventArgs e)
+        private async void button_RefreshFile_Click(object sender, EventArgs e)
         {
             FileInfo info = new FileInfo(filePath);
-            SideWorker.SerializeXml(info.FullName, bList);
+            await SideWorker.SerializeXml(info.FullName, bList);
         }
         private async void button_LoadFromFile_Click(object sender, EventArgs e)
         {

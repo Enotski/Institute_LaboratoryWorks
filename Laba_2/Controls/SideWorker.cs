@@ -16,19 +16,18 @@ namespace Laba_2.Controls
         // xml десериализация
         public static async Task<List<Document>> DeserializeXml(string filePath)
         {
-            
-            List<Document> newList = null;
-            XmlReader reader = new XmlTextReader(filePath);
-            await Task.Run(() =>
+            List<Document> newList = await Task.Run(() =>
             {
+                XmlReader reader = new XmlTextReader(filePath);
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Document>));
-                newList = (List<Document>)serializer.Deserialize(reader);
+                var res = (List<Document>)serializer.Deserialize(reader);
+                reader.Close();
+                return res;
             });
-            reader.Close();
             return newList;
         }
         // xml сереализация
-        public static async void SerializeXml(string filePath, BindingList<Document> bList)
+        public static async Task SerializeXml(string filePath, BindingList<Document> bList)
         {
             await Task.Run(() =>
             {
