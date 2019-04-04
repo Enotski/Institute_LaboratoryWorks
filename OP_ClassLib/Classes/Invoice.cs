@@ -19,7 +19,7 @@ namespace OP_ClassLib
         public string ProviderId { get; set; }
         public double GoodsSum { get; set; }
 
-        public Invoice(string provider, string client, string docId, string date, string clientId, string providerId) : base(provider, client, docId, date)
+        public Invoice(string docId, string date, string provider, string client, string providerId, string clientId) : base(docId, date, provider, client)
         {
             ClientId = clientId;
             ProviderId = providerId;

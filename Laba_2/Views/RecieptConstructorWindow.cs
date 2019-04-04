@@ -13,6 +13,7 @@ namespace Laba_2
         public BindingList<Document> docList;
         public Reciept reciept = new Reciept();
         BindingList<Product> pList;
+        public MainWindow.Services serviceToUse;
 
         public RecieptConstructorWindow()
         {
@@ -49,9 +50,12 @@ namespace Laba_2
         private void ProductInitialize(DataGridViewRow productRow)
         {
             DataGridViewCellCollection dataCells = productRow.Cells;
-            dataCells[4].Value = reciept.CalcProductSum(dataCells[0].Value.ToString()).ToString();
-            reciept.CalcGoodsSum();
-            ProductSumLable.Text = reciept.GoodsSum.ToString();
+            if(dataCells[0].Value != null)
+            {
+                dataCells[4].Value = reciept.CalcProductSum(dataCells[0].Value.ToString()).ToString();
+                reciept.CalcGoodsSum();
+                ProductSumLable.Text = reciept.GoodsSum.ToString();
+            }
         }
 
         private void RecieptConstructorWindow_Shown(object sender, EventArgs e)

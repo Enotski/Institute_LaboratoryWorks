@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DataGridViewDocumentsTable = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.DocSelectComboBox = new System.Windows.Forms.ComboBox();
@@ -38,7 +38,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button_LoadFromFile = new System.Windows.Forms.Button();
             this.button_Add = new System.Windows.Forms.Button();
+            this.radioButtonAsmxService = new System.Windows.Forms.RadioButton();
+            this.radioButtonClientService = new System.Windows.Forms.RadioButton();
+            this.radioButtonWcfService = new System.Windows.Forms.RadioButton();
+            this.radioButtonGetReciepts = new System.Windows.Forms.RadioButton();
+            this.radioButtonGetInvoices = new System.Windows.Forms.RadioButton();
+            this.radioButtonGetBills = new System.Windows.Forms.RadioButton();
+            this.radioButtonGetAllDocs = new System.Windows.Forms.RadioButton();
+            this.panelLoadDocumentsRbts = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDocumentsTable)).BeginInit();
+            this.panelLoadDocumentsRbts.SuspendLayout();
             this.SuspendLayout();
             // 
             // DataGridViewDocumentsTable
@@ -48,25 +57,25 @@
             this.DataGridViewDocumentsTable.AllowUserToResizeRows = false;
             this.DataGridViewDocumentsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DataGridViewDocumentsTable.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridViewDocumentsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridViewDocumentsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DataGridViewDocumentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridViewDocumentsTable.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridViewDocumentsTable.DefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridViewDocumentsTable.GridColor = System.Drawing.SystemColors.GrayText;
-            this.DataGridViewDocumentsTable.Location = new System.Drawing.Point(26, 69);
+            this.DataGridViewDocumentsTable.Location = new System.Drawing.Point(15, 69);
             this.DataGridViewDocumentsTable.Name = "DataGridViewDocumentsTable";
             this.DataGridViewDocumentsTable.ReadOnly = true;
             this.DataGridViewDocumentsTable.RowTemplate.Height = 24;
@@ -81,7 +90,7 @@
             // 
             this.textBoxSearch.Location = new System.Drawing.Point(99, 21);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(315, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(318, 20);
             this.textBoxSearch.TabIndex = 8;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
@@ -92,7 +101,7 @@
             "Счет",
             "Квитанция",
             "Накладная"});
-            this.DocSelectComboBox.Location = new System.Drawing.Point(219, 432);
+            this.DocSelectComboBox.Location = new System.Drawing.Point(222, 425);
             this.DocSelectComboBox.Name = "DocSelectComboBox";
             this.DocSelectComboBox.Size = new System.Drawing.Size(195, 21);
             this.DocSelectComboBox.TabIndex = 10;
@@ -100,20 +109,23 @@
             // 
             // button_RefreshFile
             // 
+            this.button_RefreshFile.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.button_RefreshFile.FlatAppearance.BorderSize = 0;
+            this.button_RefreshFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_RefreshFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_RefreshFile.Location = new System.Drawing.Point(12, 371);
+            this.button_RefreshFile.Location = new System.Drawing.Point(12, 372);
             this.button_RefreshFile.Name = "button_RefreshFile";
             this.button_RefreshFile.Size = new System.Drawing.Size(95, 48);
             this.button_RefreshFile.TabIndex = 11;
             this.button_RefreshFile.Text = "Обновить файл";
-            this.button_RefreshFile.UseVisualStyleBackColor = true;
+            this.button_RefreshFile.UseVisualStyleBackColor = false;
             this.button_RefreshFile.Click += new System.EventHandler(this.button_RefreshFile_Click);
             // 
             // DocumentPrintLabel
             // 
             this.DocumentPrintLabel.AutoSize = true;
             this.DocumentPrintLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DocumentPrintLabel.Location = new System.Drawing.Point(469, 69);
+            this.DocumentPrintLabel.Location = new System.Drawing.Point(439, 69);
             this.DocumentPrintLabel.Name = "DocumentPrintLabel";
             this.DocumentPrintLabel.Size = new System.Drawing.Size(0, 20);
             this.DocumentPrintLabel.TabIndex = 14;
@@ -130,31 +142,147 @@
             // 
             // button_LoadFromFile
             // 
+            this.button_LoadFromFile.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.button_LoadFromFile.FlatAppearance.BorderSize = 0;
+            this.button_LoadFromFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_LoadFromFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_LoadFromFile.Location = new System.Drawing.Point(12, 432);
+            this.button_LoadFromFile.Location = new System.Drawing.Point(12, 425);
             this.button_LoadFromFile.Name = "button_LoadFromFile";
             this.button_LoadFromFile.Size = new System.Drawing.Size(95, 48);
             this.button_LoadFromFile.TabIndex = 16;
-            this.button_LoadFromFile.Text = "Обновить список";
-            this.button_LoadFromFile.UseVisualStyleBackColor = true;
+            this.button_LoadFromFile.Text = "Загрузить из файла";
+            this.button_LoadFromFile.UseVisualStyleBackColor = false;
             this.button_LoadFromFile.Click += new System.EventHandler(this.button_LoadFromFile_Click);
             // 
             // button_Add
             // 
+            this.button_Add.BackColor = System.Drawing.Color.LightGreen;
+            this.button_Add.FlatAppearance.BorderSize = 0;
+            this.button_Add.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Add.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.button_Add.Location = new System.Drawing.Point(219, 371);
+            this.button_Add.Location = new System.Drawing.Point(222, 372);
             this.button_Add.Name = "button_Add";
-            this.button_Add.Size = new System.Drawing.Size(195, 55);
+            this.button_Add.Size = new System.Drawing.Size(195, 47);
             this.button_Add.TabIndex = 18;
             this.button_Add.Text = "Добавить документ";
-            this.button_Add.UseVisualStyleBackColor = true;
+            this.button_Add.UseVisualStyleBackColor = false;
             this.button_Add.Click += new System.EventHandler(this.button_Add_Click);
+            // 
+            // radioButtonAsmxService
+            // 
+            this.radioButtonAsmxService.AutoSize = true;
+            this.radioButtonAsmxService.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonAsmxService.Location = new System.Drawing.Point(443, 371);
+            this.radioButtonAsmxService.Name = "radioButtonAsmxService";
+            this.radioButtonAsmxService.Size = new System.Drawing.Size(145, 21);
+            this.radioButtonAsmxService.TabIndex = 19;
+            this.radioButtonAsmxService.Text = "Веб-Служба  asmx";
+            this.radioButtonAsmxService.UseVisualStyleBackColor = true;
+            this.radioButtonAsmxService.CheckedChanged += new System.EventHandler(this.radioButtonAsmxService_CheckedChanged);
+            // 
+            // radioButtonClientService
+            // 
+            this.radioButtonClientService.AutoSize = true;
+            this.radioButtonClientService.Checked = true;
+            this.radioButtonClientService.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonClientService.Location = new System.Drawing.Point(443, 426);
+            this.radioButtonClientService.Name = "radioButtonClientService";
+            this.radioButtonClientService.Size = new System.Drawing.Size(155, 21);
+            this.radioButtonClientService.TabIndex = 20;
+            this.radioButtonClientService.TabStop = true;
+            this.radioButtonClientService.Text = "Клиентская служба";
+            this.radioButtonClientService.UseVisualStyleBackColor = true;
+            this.radioButtonClientService.CheckedChanged += new System.EventHandler(this.RadioButtonClientService_CheckedChanged);
+            // 
+            // radioButtonWcfService
+            // 
+            this.radioButtonWcfService.AutoSize = true;
+            this.radioButtonWcfService.BackColor = System.Drawing.SystemColors.Control;
+            this.radioButtonWcfService.Enabled = false;
+            this.radioButtonWcfService.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonWcfService.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.radioButtonWcfService.Location = new System.Drawing.Point(443, 399);
+            this.radioButtonWcfService.Name = "radioButtonWcfService";
+            this.radioButtonWcfService.Size = new System.Drawing.Size(139, 21);
+            this.radioButtonWcfService.TabIndex = 21;
+            this.radioButtonWcfService.Text = "Веб-Служба WCF";
+            this.radioButtonWcfService.UseVisualStyleBackColor = false;
+            this.radioButtonWcfService.CheckedChanged += new System.EventHandler(this.RadioButtonWcfService_CheckedChanged);
+            // 
+            // radioButtonGetReciepts
+            // 
+            this.radioButtonGetReciepts.AutoSize = true;
+            this.radioButtonGetReciepts.BackColor = System.Drawing.SystemColors.Control;
+            this.radioButtonGetReciepts.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonGetReciepts.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.radioButtonGetReciepts.Location = new System.Drawing.Point(8, 31);
+            this.radioButtonGetReciepts.Name = "radioButtonGetReciepts";
+            this.radioButtonGetReciepts.Size = new System.Drawing.Size(165, 21);
+            this.radioButtonGetReciepts.TabIndex = 24;
+            this.radioButtonGetReciepts.Text = "Загрузить квитанции";
+            this.radioButtonGetReciepts.UseVisualStyleBackColor = false;
+            this.radioButtonGetReciepts.CheckedChanged += new System.EventHandler(this.RadioButtonGetReciepts_CheckedChanged);
+            // 
+            // radioButtonGetInvoices
+            // 
+            this.radioButtonGetInvoices.AutoSize = true;
+            this.radioButtonGetInvoices.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonGetInvoices.Location = new System.Drawing.Point(8, 58);
+            this.radioButtonGetInvoices.Name = "radioButtonGetInvoices";
+            this.radioButtonGetInvoices.Size = new System.Drawing.Size(169, 21);
+            this.radioButtonGetInvoices.TabIndex = 23;
+            this.radioButtonGetInvoices.Text = "Загрузить накладные";
+            this.radioButtonGetInvoices.UseVisualStyleBackColor = true;
+            this.radioButtonGetInvoices.CheckedChanged += new System.EventHandler(this.RadioButtonGetInvoices_CheckedChanged);
+            // 
+            // radioButtonGetBills
+            // 
+            this.radioButtonGetBills.AutoSize = true;
+            this.radioButtonGetBills.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonGetBills.Location = new System.Drawing.Point(8, 4);
+            this.radioButtonGetBills.Name = "radioButtonGetBills";
+            this.radioButtonGetBills.Size = new System.Drawing.Size(134, 21);
+            this.radioButtonGetBills.TabIndex = 22;
+            this.radioButtonGetBills.Text = "Загрузить счета";
+            this.radioButtonGetBills.UseVisualStyleBackColor = true;
+            this.radioButtonGetBills.CheckedChanged += new System.EventHandler(this.RadioButtonGetBills_CheckedChanged);
+            // 
+            // radioButtonGetAllDocs
+            // 
+            this.radioButtonGetAllDocs.AutoSize = true;
+            this.radioButtonGetAllDocs.Checked = true;
+            this.radioButtonGetAllDocs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonGetAllDocs.Location = new System.Drawing.Point(8, 85);
+            this.radioButtonGetAllDocs.Name = "radioButtonGetAllDocs";
+            this.radioButtonGetAllDocs.Size = new System.Drawing.Size(194, 21);
+            this.radioButtonGetAllDocs.TabIndex = 25;
+            this.radioButtonGetAllDocs.TabStop = true;
+            this.radioButtonGetAllDocs.Text = "Загрузить все документы";
+            this.radioButtonGetAllDocs.UseVisualStyleBackColor = true;
+            this.radioButtonGetAllDocs.CheckedChanged += new System.EventHandler(this.RadioButtonGetAllDocs_CheckedChanged);
+            // 
+            // panelLoadDocumentsRbts
+            // 
+            this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetBills);
+            this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetAllDocs);
+            this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetInvoices);
+            this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetReciepts);
+            this.panelLoadDocumentsRbts.Enabled = false;
+            this.panelLoadDocumentsRbts.Location = new System.Drawing.Point(12, 479);
+            this.panelLoadDocumentsRbts.Name = "panelLoadDocumentsRbts";
+            this.panelLoadDocumentsRbts.Size = new System.Drawing.Size(208, 113);
+            this.panelLoadDocumentsRbts.TabIndex = 26;
+            this.panelLoadDocumentsRbts.Visible = false;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 492);
+            this.ClientSize = new System.Drawing.Size(843, 593);
+            this.Controls.Add(this.panelLoadDocumentsRbts);
+            this.Controls.Add(this.radioButtonWcfService);
+            this.Controls.Add(this.radioButtonClientService);
+            this.Controls.Add(this.radioButtonAsmxService);
             this.Controls.Add(this.button_Add);
             this.Controls.Add(this.button_LoadFromFile);
             this.Controls.Add(this.label1);
@@ -166,6 +294,8 @@
             this.Name = "MainWindow";
             this.Text = "Laba_2";
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDocumentsTable)).EndInit();
+            this.panelLoadDocumentsRbts.ResumeLayout(false);
+            this.panelLoadDocumentsRbts.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -181,6 +311,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_LoadFromFile;
         private System.Windows.Forms.Button button_Add;
+        private System.Windows.Forms.RadioButton radioButtonAsmxService;
+        private System.Windows.Forms.RadioButton radioButtonClientService;
+        private System.Windows.Forms.RadioButton radioButtonWcfService;
+        private System.Windows.Forms.RadioButton radioButtonGetReciepts;
+        private System.Windows.Forms.RadioButton radioButtonGetInvoices;
+        private System.Windows.Forms.RadioButton radioButtonGetBills;
+        private System.Windows.Forms.RadioButton radioButtonGetAllDocs;
+        private System.Windows.Forms.Panel panelLoadDocumentsRbts;
     }
 }
 

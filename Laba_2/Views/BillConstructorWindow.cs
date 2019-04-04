@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Laba_2.Controls;
 using OP_ClassLib;
@@ -10,6 +11,7 @@ namespace Laba_2
     public partial class BillConstructorWindow : Form
     {
         public bool toEdit;
+        public MainWindow.Services serviceToUse;
         public BindingList<Document> docList;
         public Bill bill = new Bill();
         BindingList<Product> pList;
@@ -27,9 +29,23 @@ namespace Laba_2
         {
             if (SideWorker.ValidationForm(BillPanel.Controls))
             {
-                if(!toEdit)
-                    docList.Add(bill);
-                this.Close();
+                //if (!useWebServer)
+                //{
+                //    if (!toEdit)
+                //        docList.Add(bill);
+                //    this.Close();
+                //}
+                //else// веб-служба
+                //{
+                //    List<string> docData = new List<string>();
+                //    foreach(var control in BillPanel.Controls)
+                //    {
+                //        if (control is TextBox)
+                //            docData.Add((control as TextBox).Text);
+                //    }
+                //    //DocWebService.DocumentsWebServiceSoapClient client = new DocWebService.DocumentsWebServiceSoapClient();
+                //    //client.SetDocumentBill(docData.ToArray(), /*bill.Products.ToArray()*/);
+                //}
             }
         }
         private void dataGridViewProducts_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -40,12 +56,15 @@ namespace Laba_2
         }
         private void BillConstructorWindow_Shown(object sender, EventArgs e)
         {
-            pList = new BindingList<Product>(bill.Products);
-            dataGridViewProducts.DataSource = pList;
-            bill.SetProductList(pList.ToList());
+            //if (!useWebServer)
+            //{
+            //    pList = new BindingList<Product>(bill.Products);
+            //    dataGridViewProducts.DataSource = pList;
+            //    bill.SetProductList(pList.ToList());
 
-            TextBoxBinding();
-            textBoxClientId.DataBindings.Add("Text", bill, "ClientId");
+            //    TextBoxBinding();
+            //    textBoxClientId.DataBindings.Add("Text", bill, "ClientId");
+            //}         
         }
         private void TextBoxBinding()
         {
@@ -57,9 +76,12 @@ namespace Laba_2
         private void ProductInitialize(DataGridViewRow productRow)
         {
             DataGridViewCellCollection dataCells = productRow.Cells;
-            dataCells[4].Value = bill.CalcProductSum(dataCells[0].Value.ToString()).ToString();
-            bill.CalcGoodsSum();
-            ProductSumLable.Text = bill.GoodsSum.ToString();
+            if(dataCells[0].Value != null)
+            {
+                dataCells[4].Value = bill.CalcProductSum(dataCells[0].Value.ToString()).ToString();
+                bill.CalcGoodsSum();
+                ProductSumLable.Text = bill.GoodsSum.ToString();
+            }
         }
     }
 }

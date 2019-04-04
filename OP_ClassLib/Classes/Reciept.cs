@@ -21,7 +21,7 @@ namespace OP_ClassLib
         public string PaymentName { get; set; }
 
         
-        public Reciept(string provider, string client, string docId, string date,  string paymentName) : base(provider, client, docId, date)
+        public Reciept(string docId, string date, string provider, string client, string paymentName) : base(docId, date, provider, client)
         {
             PaymentName = paymentName;
             _product = new Product();

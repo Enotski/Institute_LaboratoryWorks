@@ -20,7 +20,7 @@ namespace OP_ClassLib
         public double GoodsSum { get; set; }
 
 
-        public Bill(string provider, string client, string docId, string date, string clientId) : base(provider, client, docId, date)
+        public Bill(string docId, string date, string provider, string client, string clientId) : base(docId, date, provider, client)
         {
             ClientId = clientId;
             _product = new Product();

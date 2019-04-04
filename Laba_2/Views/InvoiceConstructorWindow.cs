@@ -13,6 +13,7 @@ namespace Laba_2
         public BindingList<Document> docList;
         public Invoice invoice = new Invoice();
         BindingList<Product> pList;
+        public MainWindow.Services serviceToUse;
 
         public InvoiceConstructorWindow()
         {
@@ -49,9 +50,12 @@ namespace Laba_2
         private void ProductInitialize(DataGridViewRow productRow)
         {
             DataGridViewCellCollection dataCells = productRow.Cells;
-            dataCells[4].Value = invoice.CalcProductSum(dataCells[0].Value.ToString()).ToString(); 
-            invoice.CalcGoodsSum();
-            ProductSumLable.Text = invoice.GoodsSum.ToString();
+            if (dataCells[0].Value != null)
+            {
+                dataCells[4].Value = invoice.CalcProductSum(dataCells[0].Value.ToString()).ToString();
+                invoice.CalcGoodsSum();
+                ProductSumLable.Text = invoice.GoodsSum.ToString();
+            }
         }
 
         private void InvoiceConstructorWindow_Shown(object sender, EventArgs e)

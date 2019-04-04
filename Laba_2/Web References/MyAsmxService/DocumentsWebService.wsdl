@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SetDocumentBill">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="products" type="tns:ArrayOfProduct" />
+            <s:element minOccurs="0" maxOccurs="1" name="pathToFile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfProduct">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Product" nillable="true" type="tns:Product" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Product">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MeasureUnit" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Price" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="Sum" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SetDocumentBillResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetDocumentBillResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentInvoice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="products" type="tns:ArrayOfProduct" />
+            <s:element minOccurs="0" maxOccurs="1" name="pathToFile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentInvoiceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetDocumentInvoiceResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentReciept">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="data" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="products" type="tns:ArrayOfProduct" />
+            <s:element minOccurs="0" maxOccurs="1" name="pathToFile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SetDocumentRecieptResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SetDocumentRecieptResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pathToFile" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllDocumentsResult" type="tns:ArrayOfDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfDocument">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Document" nillable="true" type="tns:Document" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Document" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="DocId" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DocDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Provider" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Client" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Reciept">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Document">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+              <s:element minOccurs="1" maxOccurs="1" name="GoodsSum" type="s:double" />
+              <s:element minOccurs="0" maxOccurs="1" name="PaymentName" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Bill">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Document">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="GoodsSum" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Invoice">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Document">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+              <s:element minOccurs="0" maxOccurs="1" name="ClientId" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProviderId" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="GoodsSum" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetSpecialDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="pathToFile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSpecialDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSpecialDocumentsResult" type="tns:ArrayOfDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SetDocumentBillSoapIn">
+    <wsdl:part name="parameters" element="tns:SetDocumentBill" />
+  </wsdl:message>
+  <wsdl:message name="SetDocumentBillSoapOut">
+    <wsdl:part name="parameters" element="tns:SetDocumentBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetDocumentInvoiceSoapIn">
+    <wsdl:part name="parameters" element="tns:SetDocumentInvoice" />
+  </wsdl:message>
+  <wsdl:message name="SetDocumentInvoiceSoapOut">
+    <wsdl:part name="parameters" element="tns:SetDocumentInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="SetDocumentRecieptSoapIn">
+    <wsdl:part name="parameters" element="tns:SetDocumentReciept" />
+  </wsdl:message>
+  <wsdl:message name="SetDocumentRecieptSoapOut">
+    <wsdl:part name="parameters" element="tns:SetDocumentRecieptResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllDocuments" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecialDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocuments" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecialDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="DocumentsWebServiceSoap">
+    <wsdl:operation name="SetDocumentBill">
+      <wsdl:input message="tns:SetDocumentBillSoapIn" />
+      <wsdl:output message="tns:SetDocumentBillSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentInvoice">
+      <wsdl:input message="tns:SetDocumentInvoiceSoapIn" />
+      <wsdl:output message="tns:SetDocumentInvoiceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentReciept">
+      <wsdl:input message="tns:SetDocumentRecieptSoapIn" />
+      <wsdl:output message="tns:SetDocumentRecieptSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocuments">
+      <wsdl:input message="tns:GetAllDocumentsSoapIn" />
+      <wsdl:output message="tns:GetAllDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocuments">
+      <wsdl:input message="tns:GetSpecialDocumentsSoapIn" />
+      <wsdl:output message="tns:GetSpecialDocumentsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DocumentsWebServiceSoap" type="tns:DocumentsWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetDocumentBill">
+      <soap:operation soapAction="http://tempuri.org/SetDocumentBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentInvoice">
+      <soap:operation soapAction="http://tempuri.org/SetDocumentInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentReciept">
+      <soap:operation soapAction="http://tempuri.org/SetDocumentReciept" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocuments">
+      <soap:operation soapAction="http://tempuri.org/GetAllDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocuments">
+      <soap:operation soapAction="http://tempuri.org/GetSpecialDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="DocumentsWebServiceSoap12" type="tns:DocumentsWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetDocumentBill">
+      <soap12:operation soapAction="http://tempuri.org/SetDocumentBill" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentInvoice">
+      <soap12:operation soapAction="http://tempuri.org/SetDocumentInvoice" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentReciept">
+      <soap12:operation soapAction="http://tempuri.org/SetDocumentReciept" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocuments">
+      <soap12:operation soapAction="http://tempuri.org/GetAllDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocuments">
+      <soap12:operation soapAction="http://tempuri.org/GetSpecialDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DocumentsWebService">
+    <wsdl:port name="DocumentsWebServiceSoap" binding="tns:DocumentsWebServiceSoap">
+      <soap:address location="http://localhost:63693/DocumentsWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="DocumentsWebServiceSoap12" binding="tns:DocumentsWebServiceSoap12">
+      <soap12:address location="http://localhost:63693/DocumentsWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

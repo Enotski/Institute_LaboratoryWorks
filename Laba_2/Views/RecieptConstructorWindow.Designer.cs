@@ -223,24 +223,30 @@
             // 
             // button1
             // 
+            this.button1.BackColor = System.Drawing.Color.LightGreen;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.Location = new System.Drawing.Point(486, 448);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(90, 53);
             this.button1.TabIndex = 2;
             this.button1.Text = "Сохранить";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button3
             // 
+            this.button3.BackColor = System.Drawing.Color.Coral;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button3.Location = new System.Drawing.Point(12, 448);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(90, 53);
             this.button3.TabIndex = 4;
             this.button3.Text = "Назад";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // RecieptConstructorWindow

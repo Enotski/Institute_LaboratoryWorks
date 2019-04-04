@@ -24,7 +24,7 @@ namespace OP_ClassLib
         }
 
         //конструкторы
-        public Document(string provider, string client, string docId, string date)
+        public Document(string docId, string date, string provider, string client)
         {
             Provider = provider;
             Client = client;
