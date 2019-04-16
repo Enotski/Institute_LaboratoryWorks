@@ -10,6 +10,8 @@ using System.Web.Services;
 using System.Xml;
 using System.Xml.Serialization;
 using OP_ClassLib;
+using Laba_3.Models;
+using System.Globalization;
 
 namespace Laba_3
 {
@@ -24,7 +26,7 @@ namespace Laba_3
     public class DocumentsWebService : System.Web.Services.WebService
     {
         [WebMethod]
-        public bool SetDocumentBill(string[] data, Product[] products, string pathToFile)
+        public bool SetDocumentBill(string[] data, Product[] productsPacket)
         {
             if (data.Length != 5)
                 return false;
@@ -36,14 +38,43 @@ namespace Laba_3
             }
 
             Bill bill = new Bill(data[0], data[1], data[2], data[3], data[4]);
-            bill.SetProductList(products.ToList());
+            bill.SetProductList(productsPacket.ToList());
             bill.CalcGoodsSum();
+            using(document_dbEntities db = new document_dbEntities())
+            {
+                _ = db.Database.Connection;
+                Bills bill_To_Db = new Bills
+                {
+                    DocId = bill.DocId,
+                    DocDate = bill.DocDate,
+                    Provider = bill.Provider,
+                    Client = bill.Client,
+                    ClientId = bill.ClientId,
+                    GoodsSum = (decimal)bill.GoodsSum,
+                };                
+                db.Bills.Add(bill_To_Db);
+                db.SaveChanges();
 
-            SerializeXml(pathToFile, bill);
+                List<Products> products_To_Db = new List<Products>();
+                foreach (Product p in productsPacket)
+                {
+                    products_To_Db.Add(new Products
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (decimal)p.Price,
+                        Sum = (decimal)p.Sum,
+                        Bills = bill_To_Db
+                    });                  
+                }
+                db.Products.AddRange(products_To_Db);
+                db.SaveChanges();
+            }
             return true;
         }
         [WebMethod]
-        public bool SetDocumentInvoice(string[] data, Product[] products, string pathToFile)
+        public bool SetDocumentInvoice(string[] data, Product[] productsPacket)
         {
             if (data.Length != 6)
                 return false;
@@ -55,14 +86,44 @@ namespace Laba_3
             }
 
             Invoice invoice = new Invoice(data[0], data[1], data[2], data[3], data[4], data[5]);
-            invoice.SetProductList(products.ToList());
+            invoice.SetProductList(productsPacket.ToList());
             invoice.CalcGoodsSum();
 
-            SerializeXml(pathToFile, invoice);
+            using (document_dbEntities db = new document_dbEntities())
+            {
+                Invoices invoice_To_Db = new Invoices
+                {
+                    DocId = invoice.DocId,
+                    DocDate = invoice.DocDate,
+                    Provider = invoice.Provider,
+                    Client = invoice.Client,
+                    ClientId = invoice.ClientId,
+                    ProviderId = invoice.ProviderId,
+                    GoodsSum = (decimal)invoice.GoodsSum,
+                };
+                db.Invoices.Add(invoice_To_Db);
+                db.SaveChanges();
+
+                List<Products> products_To_Db = new List<Products>();
+                foreach (Product p in productsPacket)
+                {
+                    products_To_Db.Add(new Products
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (decimal)p.Price,
+                        Sum = (decimal)p.Sum,
+                        Invoices = invoice_To_Db
+                    });
+                }
+                db.Products.AddRange(products_To_Db);
+                db.SaveChanges();
+            }
             return true;
         }
         [WebMethod]
-        public bool SetDocumentReciept(string[] data, Product[] products, string pathToFile)
+        public bool SetDocumentReciept(string[] data, Product[] productsPacket)
         {
             if (data.Length != 5)
                 return false;
@@ -74,49 +135,187 @@ namespace Laba_3
             }
 
             Reciept reciept = new Reciept(data[0], data[1], data[2], data[3], data[4]);
-            reciept.SetProductList(products.ToList());
+            reciept.SetProductList(productsPacket.ToList());
             reciept.CalcGoodsSum();
 
-            SerializeXml(pathToFile, reciept);
+            using (document_dbEntities db = new document_dbEntities())
+            {
+                Reciepts reciept_To_Db = new Reciepts
+                {
+                    DocId = reciept.DocId,
+                    DocDate = reciept.DocDate,
+                    Provider = reciept.Provider,
+                    Client = reciept.Client,
+                    PaymentName = reciept.PaymentName,
+                    GoodSum = (decimal)reciept.GoodsSum,
+                };
+                db.Reciepts.Add(reciept_To_Db);
+                db.SaveChanges();
+
+                List<Products> products_To_Db = new List<Products>();
+                foreach (Product p in productsPacket)
+                {
+                    products_To_Db.Add(new Products
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (decimal)p.Price,
+                        Sum = (decimal)p.Sum,
+                        Reciepts = reciept_To_Db
+                    });
+                }
+                db.Products.AddRange(products_To_Db);
+                db.SaveChanges();
+            }
             return true;
 
         }
 
         [WebMethod]
-        public List<Document> GetAllDocuments(string pathToFile)
+        public List<Document> GetAllDocuments()
         {
-            return DeserializeXml(pathToFile);
-        }
-
-        [WebMethod]
-        public List<Document> GetSpecialDocuments(string pathToFile, string type)
-        {
-            var list = DeserializeXml(pathToFile);
-
-            return list.Where(d => d.Type == type).ToList();
-        }
-
-        // xml десериализация
-        public List<Document> DeserializeXml(string filePath)
-        {
-            List<Document> newList = new List<Document>();
-            using (XmlReader reader = new XmlTextReader(filePath))
+            List<Document> list_To_Client = new List<Document>();
+            using (document_dbEntities db = new document_dbEntities())
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Document>));
-                newList = (List<Document>)serializer.Deserialize(reader);
-                reader.Close();
+                var bills = db.Bills.Select(bill => new Bill
+                {
+                    DocId = bill.DocId,
+                    DocDate = bill.DocDate,
+                    Provider = bill.Provider,
+                    Client = bill.Client,
+                    ClientId = bill.ClientId,
+                    GoodsSum = (double)bill.GoodsSum,
+                    Products = bill.Products.Select(p => new  Product
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (double)p.Price,
+                        Sum = (double)p.Sum
+                    }).ToList()}).ToList();
+                var invoices = db.Invoices.Select(invoice => new Invoice
+                {
+                    DocId = invoice.DocId,
+                    DocDate = invoice.DocDate,
+                    Provider = invoice.Provider,
+                    Client = invoice.Client,
+                    ProviderId = invoice.ProviderId,
+                    ClientId = invoice.ClientId,
+                    GoodsSum = (double)invoice.GoodsSum,
+                    Products = invoice.Products.Select(p => new Product
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (double)p.Price,
+                        Sum = (double)p.Sum
+                    }).ToList()
+                }).ToList();
+                var reciepts = db.Reciepts.Select(reciept => new Reciept
+                {
+                    DocId = reciept.DocId,
+                    DocDate = reciept.DocDate,
+                    Provider = reciept.Provider,
+                    Client = reciept.Client,
+                    PaymentName = reciept.PaymentName,
+                    GoodsSum = (double)reciept.GoodSum,
+                    Products = reciept.Products.Select(p => new Product
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (double)p.Price,
+                        Sum = (double)p.Sum
+                    }).ToList()
+                }).ToList();
+
+                list_To_Client.AddRange(bills);
+                list_To_Client.AddRange(invoices);
+                list_To_Client.AddRange(reciepts);
             }
-            return newList;
+
+            return list_To_Client;
         }
-        // xml сереализация
-        public void SerializeXml(string filePath, Document doc)
+        [WebMethod]
+        public List<Document> GetSpecialDocuments(string type)
         {
-            using(XmlWriter writer = new XmlTextWriter(filePath, Encoding.UTF8))
+            List<Document> list_To_Client = new List<Document>();
+            if (type == "Bill")
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Document));
-                serializer.Serialize(writer, doc);
-                writer.Close();
-            }   
+                using (document_dbEntities db = new document_dbEntities())
+                {
+                    var bills = db.Bills.Select(bill => new Bill
+                    {
+                        DocId = bill.DocId,
+                        DocDate = bill.DocDate,
+                        Provider = bill.Provider,
+                        Client = bill.Client,
+                        ClientId = bill.ClientId,
+                        GoodsSum = (double)bill.GoodsSum,
+                        Products = bill.Products.Select(p => new Product
+                        {
+                            Name = p.Name,
+                            MeasureUnit = p.MeasureUnit,
+                            Count = p.Count,
+                            Price = (double)p.Price,
+                            Sum = (double)p.Sum
+                        }).ToList()
+                    }).ToList();
+                    list_To_Client.AddRange(bills);
+                }
+            }
+            else if (type == "Invoice")
+            {
+                using (document_dbEntities db = new document_dbEntities())
+                {
+                    var invoices = db.Invoices.Select(invoice => new Invoice
+                    {
+                        DocId = invoice.DocId,
+                        DocDate = invoice.DocDate,
+                        Provider = invoice.Provider,
+                        Client = invoice.Client,
+                        ProviderId = invoice.ProviderId,
+                        ClientId = invoice.ClientId,
+                        GoodsSum = (double)invoice.GoodsSum,
+                        Products = invoice.Products.Select(p => new Product
+                        {
+                            Name = p.Name,
+                            MeasureUnit = p.MeasureUnit,
+                            Count = p.Count,
+                            Price = (double)p.Price,
+                            Sum = (double)p.Sum
+                        }).ToList()
+                    }).ToList();
+                    list_To_Client.AddRange(invoices);
+                }
+            }
+            else if (type == "Reciept")
+            {
+                using (document_dbEntities db = new document_dbEntities())
+                {
+                    var reciepts = db.Reciepts.Select(reciept => new Reciept
+                    {
+                        DocId = reciept.DocId,
+                        DocDate = reciept.DocDate,
+                        Provider = reciept.Provider,
+                        Client = reciept.Client,
+                        PaymentName = reciept.PaymentName,
+                        GoodsSum = (double)reciept.GoodSum,
+                        Products = reciept.Products.Select(p => new Product
+                        {
+                            Name = p.Name,
+                            MeasureUnit = p.MeasureUnit,
+                            Count = p.Count,
+                            Price = (double)p.Price,
+                            Sum = (double)p.Sum
+                        }).ToList()
+                    }).ToList();
+                    list_To_Client.AddRange(reciepts);
+                }
+            }
+
+            return list_To_Client;
         }
     }
 }

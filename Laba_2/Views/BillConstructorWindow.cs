@@ -11,11 +11,11 @@ namespace Laba_2
     public partial class BillConstructorWindow : Form
     {
         public bool toEdit;
-        public MainWindow.Services serviceToUse;
+        public SideWorker.ServicesSwitcher serviceToUse;
         public BindingList<Document> docList;
         public Bill bill = new Bill();
         BindingList<Product> pList;
-
+        MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
         public BillConstructorWindow()
         {
             InitializeComponent();
@@ -29,23 +29,23 @@ namespace Laba_2
         {
             if (SideWorker.ValidationForm(BillPanel.Controls))
             {
-                //if (!useWebServer)
-                //{
-                //    if (!toEdit)
-                //        docList.Add(bill);
-                //    this.Close();
-                //}
-                //else// веб-служба
-                //{
-                //    List<string> docData = new List<string>();
-                //    foreach(var control in BillPanel.Controls)
-                //    {
-                //        if (control is TextBox)
-                //            docData.Add((control as TextBox).Text);
-                //    }
-                //    //DocWebService.DocumentsWebServiceSoapClient client = new DocWebService.DocumentsWebServiceSoapClient();
-                //    //client.SetDocumentBill(docData.ToArray(), /*bill.Products.ToArray()*/);
-                //}
+                if(serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
+                {
+                    // заносим все из формы в массив для отправки
+                    string[] docData = new string[]
+                    {
+                        textBoxDocId.Text,
+                        textBoxDocDate.Text,
+                        textBoxProviderName.Text,
+                        textBoxClientName.Text,
+                        textBoxClientId.Text
+                    };
+                    // конвертируем список продуктов в подходящий тип
+                    asmxService.SetDocumentBillAsync(docData, bill.Products.Select(SideWorker.CastToAsmxProducts).ToArray());
+                }
+                if (!toEdit)
+                    docList.Add(bill);
+                this.Close();
             }
         }
         private void dataGridViewProducts_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -56,15 +56,12 @@ namespace Laba_2
         }
         private void BillConstructorWindow_Shown(object sender, EventArgs e)
         {
-            //if (!useWebServer)
-            //{
-            //    pList = new BindingList<Product>(bill.Products);
-            //    dataGridViewProducts.DataSource = pList;
-            //    bill.SetProductList(pList.ToList());
+                pList = new BindingList<Product>(bill.Products);
+                dataGridViewProducts.DataSource = pList;
+                bill.SetProductList(pList.ToList());
 
-            //    TextBoxBinding();
-            //    textBoxClientId.DataBindings.Add("Text", bill, "ClientId");
-            //}         
+                TextBoxBinding();
+                textBoxClientId.DataBindings.Add("Text", bill, "ClientId");
         }
         private void TextBoxBinding()
         {

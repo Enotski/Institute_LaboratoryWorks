@@ -13,9 +13,9 @@ namespace Laba_2
 {
     public partial class MainWindow : Form
     {
-        Services serviceToUse = Services.client;
-        GetDocsSwitcher getDocsType = GetDocsSwitcher.all;
-        MyAsmxService.DocumentsWebService asmxService;
+        SideWorker.ServicesSwitcher serviceToUse = SideWorker.ServicesSwitcher.client;
+        SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.all;
+        public static MyAsmxService.DocumentsWebService asmxService;
         BindingList<Document> bList = new BindingList<Document>();
         string filePath = @"..\..\DataStore\LocalDocumentsStore.xml";
         public static FileInfo info;
@@ -25,41 +25,43 @@ namespace Laba_2
             InitializeComponent();
             DataGridViewDocumentsTable.DataSource = bList;
             info = new FileInfo(filePath);
+            asmxService = new MyAsmxService.DocumentsWebService();
         }      
 
+        
         private async void button_RefreshFile_Click(object sender, EventArgs e)
         {
+            // только для клиента
             await SideWorker.SerializeXml(info.FullName, bList);
         }
         private async void button_LoadFromFile_Click(object sender, EventArgs e)
         {
             List<Document> newList = new List<Document>();
 
-            if (serviceToUse == Services.asmx)
+            if (serviceToUse == SideWorker.ServicesSwitcher.asmx)
             {
-                asmxService = new MyAsmxService.DocumentsWebService();
                 MyAsmxService.Document[] docData = null;
 
-                if (getDocsType == GetDocsSwitcher.all)
+                if (getDocsType == SideWorker.GetDocsSwitcher.all)
                 {
-                    docData = asmxService.GetAllDocuments(info.FullName);
+                    docData = asmxService.GetAllDocuments();
                 }
-                else if (getDocsType == GetDocsSwitcher.invoices)
+                else if (getDocsType == SideWorker.GetDocsSwitcher.invoices)
                 {
-                    docData = asmxService.GetSpecialDocuments(info.FullName, "Invoice");
+                    docData = asmxService.GetSpecialDocuments("Invoice");
                 }
-                else if (getDocsType == GetDocsSwitcher.reciepts)
+                else if (getDocsType == SideWorker.GetDocsSwitcher.reciepts)
                 {
-                    docData = asmxService.GetSpecialDocuments(info.FullName, "Reciept");
+                    docData = asmxService.GetSpecialDocuments("Reciept");
                 }
-                else if (getDocsType == GetDocsSwitcher.bills)
+                else if (getDocsType == SideWorker.GetDocsSwitcher.bills)
                 {
-                    docData = asmxService.GetSpecialDocuments(info.FullName, "Bill");
+                    docData = asmxService.GetSpecialDocuments("Bill");
                 }
 
-                newList = docData.Select(CastToClientDocuments).ToList();
+                newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
             }
-            else if (serviceToUse == Services.client)
+            else if (serviceToUse == SideWorker.ServicesSwitcher.client)
             {
                 newList = await SideWorker.DeserializeXml(filePath);          
             }
@@ -142,7 +144,6 @@ namespace Laba_2
                 }
             }
         }
-
         // поиск(фильтрация таблицы)
         private void SearchData(string value)
         {
@@ -154,95 +155,53 @@ namespace Laba_2
                 DataGridViewDocumentsTable.DataSource = tmpSource;
             }
         }
+
+
+
+        // события радио-кнопок (переключение между сервисами и тд.)
         private void RadioButtonWcfService_CheckedChanged(object sender, EventArgs e)
         {
-            serviceToUse = Services.wcf;
+            serviceToUse = SideWorker.ServicesSwitcher.wcf;
             panelLoadDocumentsRbts.Enabled = true;
             panelLoadDocumentsRbts.Visible = true;
         }
         private void radioButtonAsmxService_CheckedChanged(object sender, EventArgs e)
         {
-            serviceToUse = Services.asmx;
+            serviceToUse = SideWorker.ServicesSwitcher.asmx;
             panelLoadDocumentsRbts.Enabled = true;
             panelLoadDocumentsRbts.Visible = true;
+
+            //// сделать по-нормальному........
+            button_RefreshFile.Enabled = false;
+            button_RefreshFile.Visible = false;
+            //.................................
         }
         private void RadioButtonClientService_CheckedChanged(object sender, EventArgs e)
         {
-            serviceToUse = Services.client;
+            serviceToUse = SideWorker.ServicesSwitcher.client;
             panelLoadDocumentsRbts.Enabled = false;
             panelLoadDocumentsRbts.Visible = false;
-        }
 
-        public enum Services
-        {
-            asmx,
-            wcf,
-            client
-        }
-        public enum GetDocsSwitcher
-        {
-            all,
-            invoices,
-            bills,
-            reciepts
-        }
-        public Document CastToClientDocuments(MyAsmxService.Document dataToCast)
-        {
-            if (dataToCast is MyAsmxService.Bill)
-            {
-                Bill convertedBill = new Bill(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Bill)dataToCast).ClientId);
-                convertedBill.GoodsSum = ((MyAsmxService.Bill)dataToCast).GoodsSum;
-
-                foreach (var p in ((MyAsmxService.Bill)dataToCast).Products)
-                {
-                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
-                    product.Sum = p.Sum;
-                    convertedBill.Products.Add(product);
-                }
-                return convertedBill;
-            }
-            else if (dataToCast is MyAsmxService.Reciept)
-            {
-                Reciept convertedBill = new Reciept(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Reciept)dataToCast).PaymentName);
-                convertedBill.GoodsSum = ((MyAsmxService.Reciept)dataToCast).GoodsSum;
-                foreach (var p in ((MyAsmxService.Reciept)dataToCast).Products)
-                {
-                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
-                    product.Sum = p.Sum;
-                    convertedBill.Products.Add(product);
-                }
-                return convertedBill;
-            }
-            else if (dataToCast is MyAsmxService.Invoice)
-            {
-                Invoice convertedBill = new Invoice(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Invoice)dataToCast).ProviderId, ((MyAsmxService.Invoice)dataToCast).ClientId);
-                convertedBill.GoodsSum = ((MyAsmxService.Invoice)dataToCast).GoodsSum;
-                foreach (var p in ((MyAsmxService.Invoice)dataToCast).Products)
-                {
-                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
-                    product.Sum = p.Sum;
-                    convertedBill.Products.Add(product);
-                }
-                return convertedBill;
-            }
-            else
-                return default;
+            //// сделать по-нормальному........
+            button_RefreshFile.Enabled = true;
+            button_RefreshFile.Visible = true;
+            //.................................
         }
         private void RadioButtonGetBills_CheckedChanged(object sender, EventArgs e)
         {
-            getDocsType = GetDocsSwitcher.bills;
+            getDocsType = SideWorker.GetDocsSwitcher.bills;
         }
         private void RadioButtonGetReciepts_CheckedChanged(object sender, EventArgs e)
         {
-            getDocsType = GetDocsSwitcher.reciepts;
+            getDocsType = SideWorker.GetDocsSwitcher.reciepts;
         }
         private void RadioButtonGetInvoices_CheckedChanged(object sender, EventArgs e)
         {
-            getDocsType = GetDocsSwitcher.invoices;
+            getDocsType = SideWorker.GetDocsSwitcher.invoices;
         }
         private void RadioButtonGetAllDocs_CheckedChanged(object sender, EventArgs e)
         {
-            getDocsType = GetDocsSwitcher.all;
+            getDocsType = SideWorker.GetDocsSwitcher.all;
         }
     }   
 }

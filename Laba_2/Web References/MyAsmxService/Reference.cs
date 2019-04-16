@@ -94,28 +94,26 @@ namespace Laba_2.MyAsmxService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDocumentBill", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool SetDocumentBill(string[] data, Product[] products, string pathToFile) {
+        public bool SetDocumentBill(string[] data, Product[] productsPacket) {
             object[] results = this.Invoke("SetDocumentBill", new object[] {
                         data,
-                        products,
-                        pathToFile});
+                        productsPacket});
             return ((bool)(results[0]));
         }
         
         /// <remarks/>
-        public void SetDocumentBillAsync(string[] data, Product[] products, string pathToFile) {
-            this.SetDocumentBillAsync(data, products, pathToFile, null);
+        public void SetDocumentBillAsync(string[] data, Product[] productsPacket) {
+            this.SetDocumentBillAsync(data, productsPacket, null);
         }
         
         /// <remarks/>
-        public void SetDocumentBillAsync(string[] data, Product[] products, string pathToFile, object userState) {
+        public void SetDocumentBillAsync(string[] data, Product[] productsPacket, object userState) {
             if ((this.SetDocumentBillOperationCompleted == null)) {
                 this.SetDocumentBillOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSetDocumentBillOperationCompleted);
             }
             this.InvokeAsync("SetDocumentBill", new object[] {
                         data,
-                        products,
-                        pathToFile}, this.SetDocumentBillOperationCompleted, userState);
+                        productsPacket}, this.SetDocumentBillOperationCompleted, userState);
         }
         
         private void OnSetDocumentBillOperationCompleted(object arg) {
@@ -127,28 +125,26 @@ namespace Laba_2.MyAsmxService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDocumentInvoice", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool SetDocumentInvoice(string[] data, Product[] products, string pathToFile) {
+        public bool SetDocumentInvoice(string[] data, Product[] productsPacket) {
             object[] results = this.Invoke("SetDocumentInvoice", new object[] {
                         data,
-                        products,
-                        pathToFile});
+                        productsPacket});
             return ((bool)(results[0]));
         }
         
         /// <remarks/>
-        public void SetDocumentInvoiceAsync(string[] data, Product[] products, string pathToFile) {
-            this.SetDocumentInvoiceAsync(data, products, pathToFile, null);
+        public void SetDocumentInvoiceAsync(string[] data, Product[] productsPacket) {
+            this.SetDocumentInvoiceAsync(data, productsPacket, null);
         }
         
         /// <remarks/>
-        public void SetDocumentInvoiceAsync(string[] data, Product[] products, string pathToFile, object userState) {
+        public void SetDocumentInvoiceAsync(string[] data, Product[] productsPacket, object userState) {
             if ((this.SetDocumentInvoiceOperationCompleted == null)) {
                 this.SetDocumentInvoiceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSetDocumentInvoiceOperationCompleted);
             }
             this.InvokeAsync("SetDocumentInvoice", new object[] {
                         data,
-                        products,
-                        pathToFile}, this.SetDocumentInvoiceOperationCompleted, userState);
+                        productsPacket}, this.SetDocumentInvoiceOperationCompleted, userState);
         }
         
         private void OnSetDocumentInvoiceOperationCompleted(object arg) {
@@ -160,28 +156,26 @@ namespace Laba_2.MyAsmxService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDocumentReciept", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public bool SetDocumentReciept(string[] data, Product[] products, string pathToFile) {
+        public bool SetDocumentReciept(string[] data, Product[] productsPacket) {
             object[] results = this.Invoke("SetDocumentReciept", new object[] {
                         data,
-                        products,
-                        pathToFile});
+                        productsPacket});
             return ((bool)(results[0]));
         }
         
         /// <remarks/>
-        public void SetDocumentRecieptAsync(string[] data, Product[] products, string pathToFile) {
-            this.SetDocumentRecieptAsync(data, products, pathToFile, null);
+        public void SetDocumentRecieptAsync(string[] data, Product[] productsPacket) {
+            this.SetDocumentRecieptAsync(data, productsPacket, null);
         }
         
         /// <remarks/>
-        public void SetDocumentRecieptAsync(string[] data, Product[] products, string pathToFile, object userState) {
+        public void SetDocumentRecieptAsync(string[] data, Product[] productsPacket, object userState) {
             if ((this.SetDocumentRecieptOperationCompleted == null)) {
                 this.SetDocumentRecieptOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSetDocumentRecieptOperationCompleted);
             }
             this.InvokeAsync("SetDocumentReciept", new object[] {
                         data,
-                        products,
-                        pathToFile}, this.SetDocumentRecieptOperationCompleted, userState);
+                        productsPacket}, this.SetDocumentRecieptOperationCompleted, userState);
         }
         
         private void OnSetDocumentRecieptOperationCompleted(object arg) {
@@ -193,24 +187,22 @@ namespace Laba_2.MyAsmxService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetAllDocuments", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Document[] GetAllDocuments(string pathToFile) {
-            object[] results = this.Invoke("GetAllDocuments", new object[] {
-                        pathToFile});
+        public Document[] GetAllDocuments() {
+            object[] results = this.Invoke("GetAllDocuments", new object[0]);
             return ((Document[])(results[0]));
         }
         
         /// <remarks/>
-        public void GetAllDocumentsAsync(string pathToFile) {
-            this.GetAllDocumentsAsync(pathToFile, null);
+        public void GetAllDocumentsAsync() {
+            this.GetAllDocumentsAsync(null);
         }
         
         /// <remarks/>
-        public void GetAllDocumentsAsync(string pathToFile, object userState) {
+        public void GetAllDocumentsAsync(object userState) {
             if ((this.GetAllDocumentsOperationCompleted == null)) {
                 this.GetAllDocumentsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAllDocumentsOperationCompleted);
             }
-            this.InvokeAsync("GetAllDocuments", new object[] {
-                        pathToFile}, this.GetAllDocumentsOperationCompleted, userState);
+            this.InvokeAsync("GetAllDocuments", new object[0], this.GetAllDocumentsOperationCompleted, userState);
         }
         
         private void OnGetAllDocumentsOperationCompleted(object arg) {
@@ -222,25 +214,23 @@ namespace Laba_2.MyAsmxService {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSpecialDocuments", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public Document[] GetSpecialDocuments(string pathToFile, string type) {
+        public Document[] GetSpecialDocuments(string type) {
             object[] results = this.Invoke("GetSpecialDocuments", new object[] {
-                        pathToFile,
                         type});
             return ((Document[])(results[0]));
         }
         
         /// <remarks/>
-        public void GetSpecialDocumentsAsync(string pathToFile, string type) {
-            this.GetSpecialDocumentsAsync(pathToFile, type, null);
+        public void GetSpecialDocumentsAsync(string type) {
+            this.GetSpecialDocumentsAsync(type, null);
         }
         
         /// <remarks/>
-        public void GetSpecialDocumentsAsync(string pathToFile, string type, object userState) {
+        public void GetSpecialDocumentsAsync(string type, object userState) {
             if ((this.GetSpecialDocumentsOperationCompleted == null)) {
                 this.GetSpecialDocumentsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSpecialDocumentsOperationCompleted);
             }
             this.InvokeAsync("GetSpecialDocuments", new object[] {
-                        pathToFile,
                         type}, this.GetSpecialDocumentsOperationCompleted, userState);
         }
         

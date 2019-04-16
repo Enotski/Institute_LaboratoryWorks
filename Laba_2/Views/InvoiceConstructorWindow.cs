@@ -1,6 +1,7 @@
 ﻿using Laba_2.Controls;
 using OP_ClassLib;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,7 +14,8 @@ namespace Laba_2
         public BindingList<Document> docList;
         public Invoice invoice = new Invoice();
         BindingList<Product> pList;
-        public MainWindow.Services serviceToUse;
+        public SideWorker.ServicesSwitcher serviceToUse;
+        MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
 
         public InvoiceConstructorWindow()
         {
@@ -30,6 +32,19 @@ namespace Laba_2
         {
             if (SideWorker.ValidationForm(InvoicePanel.Controls))
             {
+                if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
+                {
+                    string[] docData = new string[]
+                    {
+                        textBoxDocId.Text,
+                        textBoxDocDate.Text,
+                        textBoxProviderName.Text,
+                        textBoxClientName.Text,
+                        textBoxClientId.Text,
+                        textBoxProviderId.Text
+                    };
+                    asmxService.SetDocumentInvoiceAsync(docData, invoice.Products.Select(SideWorker.CastToAsmxProducts).ToArray());
+                }
                 if (!toEdit)
                     docList.Add(invoice);
                 this.Close();

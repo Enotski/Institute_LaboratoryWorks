@@ -11,9 +11,13 @@ using System.ComponentModel;
 
 namespace Laba_2.Controls
 {
-    class SideWorker
+    public class SideWorker
     {
-        // xml десериализация
+        /// <summary>
+        /// Xml десериализация
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static async Task<List<Document>> DeserializeXml(string filePath)
         {
             List<Document> newList = await Task.Run(() =>
@@ -26,7 +30,12 @@ namespace Laba_2.Controls
             });
             return newList;
         }
-        // xml сереализация
+        /// <summary>
+        /// Xml сереализация
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="bList"></param>
+        /// <returns></returns>
         public static async Task SerializeXml(string filePath, BindingList<Document> bList)
         {
             await Task.Run(() =>
@@ -37,7 +46,11 @@ namespace Laba_2.Controls
                 writer.Close();
             });
         }
-        // валидация формы
+        /// <summary>
+        /// Валидация формы
+        /// </summary>
+        /// <param name="controls"></param>
+        /// <returns></returns>
         public static bool ValidationForm(Control.ControlCollection controls)
         {
             foreach (var control in controls)
@@ -52,6 +65,93 @@ namespace Laba_2.Controls
                 }
             }
             return true;
+        }
+
+
+
+        /// <summary>
+        /// Перечисление сервисов
+        /// </summary>
+        public enum ServicesSwitcher
+        {
+            asmx,
+            wcf,
+            client
+        }
+        /// <summary>
+        /// Перечисление типов документа
+        /// </summary>
+        public enum GetDocsSwitcher
+        {
+            all,
+            invoices,
+            bills,
+            reciepts
+        }
+        /// <summary>
+        /// Метод конструирования типов документа сервиса в типы документа клиента
+        /// </summary>
+        /// <param name="dataToCast"></param>
+        /// <returns></returns>
+        public static Document CastToClientDocuments(MyAsmxService.Document dataToCast)
+        {
+            // конструируем счет
+            if (dataToCast is MyAsmxService.Bill)
+            {
+                Bill convertedBill = new Bill(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Bill)dataToCast).ClientId);
+                convertedBill.GoodsSum = ((MyAsmxService.Bill)dataToCast).GoodsSum;
+
+                foreach (var p in ((MyAsmxService.Bill)dataToCast).Products)
+                {
+                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
+                    product.Sum = p.Sum;
+                    convertedBill.Products.Add(product);
+                }
+                return convertedBill;
+            }
+            // конструируем квитанцию
+            else if (dataToCast is MyAsmxService.Reciept)
+            {
+                Reciept convertedBill = new Reciept(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Reciept)dataToCast).PaymentName);
+                convertedBill.GoodsSum = ((MyAsmxService.Reciept)dataToCast).GoodsSum;
+                foreach (var p in ((MyAsmxService.Reciept)dataToCast).Products)
+                {
+                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
+                    product.Sum = p.Sum;
+                    convertedBill.Products.Add(product);
+                }
+                return convertedBill;
+            }
+            // конструируем накладную
+            else if (dataToCast is MyAsmxService.Invoice)
+            {
+                Invoice convertedBill = new Invoice(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Invoice)dataToCast).ProviderId, ((MyAsmxService.Invoice)dataToCast).ClientId);
+                convertedBill.GoodsSum = ((MyAsmxService.Invoice)dataToCast).GoodsSum;
+                foreach (var p in ((MyAsmxService.Invoice)dataToCast).Products)
+                {
+                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
+                    product.Sum = p.Sum;
+                    convertedBill.Products.Add(product);
+                }
+                return convertedBill;
+            }
+            else
+                return default;
+        }
+        /// <summary>
+        /// Метод конструирования типа продукта клиента в тип продукта сервиса
+        /// </summary>
+        /// <param name="dataToCast"></param>
+        /// <returns></returns>
+        public static MyAsmxService.Product CastToAsmxProducts(Product dataToCast)
+        {
+            MyAsmxService.Product productToSend = new MyAsmxService.Product();
+            productToSend.Name = dataToCast.Name;
+            productToSend.MeasureUnit = dataToCast.MeasureUnit;
+            productToSend.Count = dataToCast.Count;
+            productToSend.Price = dataToCast.Price;
+            productToSend.Sum = dataToCast.Sum;
+            return productToSend;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
@@ -13,7 +14,8 @@ namespace Laba_2
         public BindingList<Document> docList;
         public Reciept reciept = new Reciept();
         BindingList<Product> pList;
-        public MainWindow.Services serviceToUse;
+        public SideWorker.ServicesSwitcher serviceToUse;
+        MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
 
         public RecieptConstructorWindow()
         {
@@ -30,6 +32,18 @@ namespace Laba_2
         {
             if (SideWorker.ValidationForm(RecieptPanel.Controls))
             {
+                if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
+                {
+                    string[] docData = new string[]
+                    {
+                        textBoxDocId.Text,
+                        textBoxDocDate.Text,
+                        textBoxProviderName.Text,
+                        textBoxClientName.Text,
+                        textBoxPaymentName.Text
+                    };
+                    asmxService.SetDocumentRecieptAsync(docData.ToArray(), reciept.Products.Select(SideWorker.CastToAsmxProducts).ToArray());
+                }
                 if (!toEdit)
                     docList.Add(reciept);
                 this.Close();
