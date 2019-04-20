@@ -46,6 +46,7 @@
             this.radioButtonGetBills = new System.Windows.Forms.RadioButton();
             this.radioButtonGetAllDocs = new System.Windows.Forms.RadioButton();
             this.panelLoadDocumentsRbts = new System.Windows.Forms.Panel();
+            this.textBoxServiceUrl = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDocumentsTable)).BeginInit();
             this.panelLoadDocumentsRbts.SuspendLayout();
             this.SuspendLayout();
@@ -172,7 +173,7 @@
             // 
             this.radioButtonAsmxService.AutoSize = true;
             this.radioButtonAsmxService.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButtonAsmxService.Location = new System.Drawing.Point(443, 371);
+            this.radioButtonAsmxService.Location = new System.Drawing.Point(443, 398);
             this.radioButtonAsmxService.Name = "radioButtonAsmxService";
             this.radioButtonAsmxService.Size = new System.Drawing.Size(145, 21);
             this.radioButtonAsmxService.TabIndex = 19;
@@ -185,7 +186,7 @@
             this.radioButtonClientService.AutoSize = true;
             this.radioButtonClientService.Checked = true;
             this.radioButtonClientService.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.radioButtonClientService.Location = new System.Drawing.Point(443, 426);
+            this.radioButtonClientService.Location = new System.Drawing.Point(443, 453);
             this.radioButtonClientService.Name = "radioButtonClientService";
             this.radioButtonClientService.Size = new System.Drawing.Size(155, 21);
             this.radioButtonClientService.TabIndex = 20;
@@ -201,7 +202,7 @@
             this.radioButtonWcfService.Enabled = false;
             this.radioButtonWcfService.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButtonWcfService.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.radioButtonWcfService.Location = new System.Drawing.Point(443, 399);
+            this.radioButtonWcfService.Location = new System.Drawing.Point(443, 426);
             this.radioButtonWcfService.Name = "radioButtonWcfService";
             this.radioButtonWcfService.Size = new System.Drawing.Size(139, 21);
             this.radioButtonWcfService.TabIndex = 21;
@@ -274,11 +275,23 @@
             this.panelLoadDocumentsRbts.TabIndex = 26;
             this.panelLoadDocumentsRbts.Visible = false;
             // 
+            // textBoxServiceUrl
+            // 
+            this.textBoxServiceUrl.Enabled = false;
+            this.textBoxServiceUrl.Location = new System.Drawing.Point(443, 372);
+            this.textBoxServiceUrl.Name = "textBoxServiceUrl";
+            this.textBoxServiceUrl.Size = new System.Drawing.Size(388, 20);
+            this.textBoxServiceUrl.TabIndex = 27;
+            this.textBoxServiceUrl.Text = "URL службы";
+            this.textBoxServiceUrl.Visible = false;
+            this.textBoxServiceUrl.TextChanged += new System.EventHandler(this.TextBoxServiceUrl_TextChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(843, 593);
+            this.Controls.Add(this.textBoxServiceUrl);
             this.Controls.Add(this.panelLoadDocumentsRbts);
             this.Controls.Add(this.radioButtonWcfService);
             this.Controls.Add(this.radioButtonClientService);
@@ -319,6 +332,7 @@
         private System.Windows.Forms.RadioButton radioButtonGetBills;
         private System.Windows.Forms.RadioButton radioButtonGetAllDocs;
         private System.Windows.Forms.Panel panelLoadDocumentsRbts;
+        private System.Windows.Forms.TextBox textBoxServiceUrl;
     }
 }
 

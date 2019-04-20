@@ -162,30 +162,23 @@ namespace Laba_2
         private void RadioButtonWcfService_CheckedChanged(object sender, EventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.wcf;
-            panelLoadDocumentsRbts.Enabled = true;
-            panelLoadDocumentsRbts.Visible = true;
         }
         private void radioButtonAsmxService_CheckedChanged(object sender, EventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.asmx;
-            panelLoadDocumentsRbts.Enabled = true;
-            panelLoadDocumentsRbts.Visible = true;
-
-            //// сделать по-нормальному........
-            button_RefreshFile.Enabled = false;
-            button_RefreshFile.Visible = false;
-            //.................................
         }
         private void RadioButtonClientService_CheckedChanged(object sender, EventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.client;
-            panelLoadDocumentsRbts.Enabled = false;
-            panelLoadDocumentsRbts.Visible = false;
 
-            //// сделать по-нормальному........
-            button_RefreshFile.Enabled = true;
-            button_RefreshFile.Visible = true;
-            //.................................
+            panelLoadDocumentsRbts.Enabled = !panelLoadDocumentsRbts.Enabled;
+            panelLoadDocumentsRbts.Visible = !panelLoadDocumentsRbts.Visible;
+
+            textBoxServiceUrl.Enabled = !textBoxServiceUrl.Enabled;
+            textBoxServiceUrl.Visible = !textBoxServiceUrl.Visible;
+
+            button_RefreshFile.Enabled = !button_RefreshFile.Enabled;
+            button_RefreshFile.Visible = !button_RefreshFile.Visible;
         }
         private void RadioButtonGetBills_CheckedChanged(object sender, EventArgs e)
         {
@@ -202,6 +195,10 @@ namespace Laba_2
         private void RadioButtonGetAllDocs_CheckedChanged(object sender, EventArgs e)
         {
             getDocsType = SideWorker.GetDocsSwitcher.all;
+        }
+        private void TextBoxServiceUrl_TextChanged(object sender, EventArgs e)
+        {
+            asmxService.Url = ((TextBox)sender).Text;
         }
     }   
 }

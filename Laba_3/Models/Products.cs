@@ -21,8 +21,8 @@ namespace Laba_3.Models
         public decimal Sum { get; set; }
         public string DocId { get; set; }
     
-        public Bills Bills { get; set; }
-        public Invoices Invoices { get; set; }
-        public Reciepts Reciepts { get; set; }
+        public virtual Bills Bills { get; set; }
+        public virtual Invoices Invoices { get; set; }
+        public virtual Reciepts Reciepts { get; set; }
     }
 }

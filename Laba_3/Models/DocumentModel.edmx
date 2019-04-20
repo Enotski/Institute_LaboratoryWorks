@@ -65,7 +65,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Invoices">
-          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1" />
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Invoices">
@@ -77,7 +79,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Reciepts">
-          <End Role="Reciepts" Type="Self.Reciepts" Multiplicity="0..1" />
+          <End Role="Reciepts" Type="Self.Reciepts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reciepts">
@@ -177,7 +181,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Invoices">
-          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1" />
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Invoices">
@@ -189,7 +195,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_Reciepts">
-          <End Role="Reciepts" Type="Self.Reciepts" Multiplicity="0..1" />
+          <End Role="Reciepts" Type="Self.Reciepts" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Reciepts">

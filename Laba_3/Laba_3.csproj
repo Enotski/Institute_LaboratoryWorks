@@ -144,31 +144,31 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Bills.cs">
-      <DependentUpon>DocumentsModel.tt</DependentUpon>
+      <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DocumentsModel.Context.cs">
+    <Compile Include="Models\DocumentModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DocumentsModel.Context.tt</DependentUpon>
+      <DependentUpon>DocumentModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DocumentsModel.cs">
+    <Compile Include="Models\DocumentModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DocumentsModel.tt</DependentUpon>
+      <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DocumentsModel.Designer.cs">
+    <Compile Include="Models\DocumentModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DocumentsModel.edmx</DependentUpon>
+      <DependentUpon>DocumentModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Invoices.cs">
-      <DependentUpon>DocumentsModel.tt</DependentUpon>
+      <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Products.cs">
-      <DependentUpon>DocumentsModel.tt</DependentUpon>
+      <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reciepts.cs">
-      <DependentUpon>DocumentsModel.tt</DependentUpon>
+      <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -182,24 +182,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DocumentsModel.Context.tt">
+    <Content Include="Models\DocumentModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DocumentsModel.edmx</DependentUpon>
-      <LastGenOutput>DocumentsModel.Context.cs</LastGenOutput>
+      <DependentUpon>DocumentModel.edmx</DependentUpon>
+      <LastGenOutput>DocumentModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DocumentsModel.tt">
+    <Content Include="Models\DocumentModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DocumentsModel.edmx</DependentUpon>
-      <LastGenOutput>DocumentsModel.cs</LastGenOutput>
+      <DependentUpon>DocumentModel.edmx</DependentUpon>
+      <LastGenOutput>DocumentModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\DocumentsModel.edmx">
+    <EntityDeploy Include="Models\DocumentModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DocumentsModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>DocumentModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DocumentsModel.edmx.diagram">
-      <DependentUpon>DocumentsModel.edmx</DependentUpon>
+    <Content Include="Models\DocumentModel.edmx.diagram">
+      <DependentUpon>DocumentModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
