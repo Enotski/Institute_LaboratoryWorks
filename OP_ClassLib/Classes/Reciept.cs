@@ -105,7 +105,19 @@ namespace OP_ClassLib
 
             return result;
         }
-        
+        public override string HtmlPrint()
+        {
+            string products = _productEditor.HtmlPrintProducts(Products);
+
+            string result = $"<h3>| -Квитанция за {PaymentName}- |</h3><br>"
+                + $"| Документ от - {DocDate.ToString("d")}|<br>| № - {DocId} |<br>"
+                + $"| Исполнитель - {Provider} |<br>"
+                + $"| Заказчик - {Client} |<br>"
+                + $"| Продукт/услуга |"
+                + $"<ol>{products}</ol>";
+
+            return result;
+        }
         public void SetRecieptConsole()
         {
             SetDocumentConsole();

@@ -70,6 +70,17 @@ namespace OP_ClassLib
 
             return result;
         }
+        public string HtmlPrintProducts(List<Product> products)
+        {
+            string result = null;
+            foreach (var p in products)
+            {
+                result += $"<li>| {p.Name} | {p.Count} | {p.MeasureUnit} | {p.Price}$ | {CalcProductSum(p.Name, products)}$ |</li>";
+            }
+            result += $"<br>| общая сумма | {CalcGoodsSum(products)}$ |";
+
+            return result;
+        }
 
 
         public bool SetProductName(string name, Product p)

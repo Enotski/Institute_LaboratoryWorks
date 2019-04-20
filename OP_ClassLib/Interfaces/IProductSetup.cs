@@ -16,5 +16,7 @@ namespace OP_ClassLib
         double CalcProductSum(int productIndex, List<Product> Products);
         double CalcProductSum(string productName, List<Product> Products);
         double CalcGoodsSum(List<Product> Products);
+        string PrintProducts(List<Product> products);
+        string HtmlPrintProducts(List<Product> products);
     }
 }

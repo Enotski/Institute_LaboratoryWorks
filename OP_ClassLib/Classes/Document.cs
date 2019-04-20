@@ -64,6 +64,7 @@ namespace OP_ClassLib
             return true;
         }
         public abstract string Print();
+        public abstract string HtmlPrint();
 
         public void SetDocumentConsole()
         {

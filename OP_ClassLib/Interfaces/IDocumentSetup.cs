@@ -9,5 +9,6 @@
         bool SetDocId(string id);
         bool SetDocDate(string currDate);
         string Print();
+        string HtmlPrint();
     }
 }

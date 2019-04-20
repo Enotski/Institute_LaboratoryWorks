@@ -100,6 +100,19 @@ namespace OP_ClassLib
                 + $"{products} |";
             return result;
         }
+        public override string HtmlPrint()
+        {
+
+            string products = _productEditor.HtmlPrintProducts(Products);
+
+            string result = "<h3>| -Счет- |</h3>"
+                + $"| Документ от - {DocDate.ToString("d")}|<br>| № - {DocId} |<br>"
+                + $"| Исполнитель - {Provider} |<br>"
+                + $"| Заказчик - {Client}|<br>| ИНН - {ClientId} |<br>"
+                + $"| Продукт/услуга |"
+                + $"<ol>{products}</ol>";
+            return result;
+        }
 
         public void SetBillConsole()
         {

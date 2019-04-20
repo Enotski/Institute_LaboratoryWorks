@@ -108,6 +108,19 @@ namespace OP_ClassLib
 
             return result;
         }
+        public override string HtmlPrint()
+        {
+            string products = _productEditor.HtmlPrintProducts(Products);
+
+            string result = "<h3>| -Накладная- |</h3>"
+                + $"| Документ от - {DocDate.ToString("d")}|<br>| № - {DocId} |<br>"
+                + $"| Исполнитель - {Provider} |<br>| ИНН - {ProviderId} |<br>"
+                + $"| Заказчик - {Client}|<br>| ИНН - {ClientId} |<br>"
+                + $"| Продукт/услуга |<br>"
+                + $"<ol>{products}</ol>";
+
+            return result;
+        }
 
         public void SetInvoiceConsole()
         {
