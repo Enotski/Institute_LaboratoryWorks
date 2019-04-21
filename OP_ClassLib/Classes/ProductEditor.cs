@@ -75,9 +75,9 @@ namespace OP_ClassLib
             string result = null;
             foreach (var p in products)
             {
-                result += $"<li>| {p.Name} | {p.Count} | {p.MeasureUnit} | {p.Price}$ | {CalcProductSum(p.Name, products)}$ |</li>";
+                result += $"<li id='product'><span>{p.Name}</span><span>{p.Count}</span><span>{p.MeasureUnit}</span><span>{p.Price}$</span><span>{CalcProductSum(p.Name, products)}$</span></li>";
             }
-            result += $"<br>| общая сумма | {CalcGoodsSum(products)}$ |";
+            result += $"<div class='docGoodsSum'>общая сумма {CalcGoodsSum(products)}$</div>";
 
             return result;
         }

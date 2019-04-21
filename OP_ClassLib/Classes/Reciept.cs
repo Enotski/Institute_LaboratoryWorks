@@ -109,12 +109,12 @@ namespace OP_ClassLib
         {
             string products = _productEditor.HtmlPrintProducts(Products);
 
-            string result = $"<h3>| -Квитанция за {PaymentName}- |</h3><br>"
-                + $"| Документ от - {DocDate.ToString("d")}|<br>| № - {DocId} |<br>"
-                + $"| Исполнитель - {Provider} |<br>"
-                + $"| Заказчик - {Client} |<br>"
-                + $"| Продукт/услуга |"
-                + $"<ol>{products}</ol>";
+            string result = $"<h3 class='docHeader'>Квитанция за {PaymentName}</h3>"
+                + $"<div class='docContent'><li>Документ от - {DocDate.ToString("d")}</li><li>№ - {DocId}</li>"
+                + $"<li>Исполнитель - {Provider}</li>"
+                + $"<li>Заказчик - {Client}</li></div>"
+                + $"<div class='docProducts'><h4>Продукт/услуга</h4>"
+                + $"{products}</div>";
 
             return result;
         }

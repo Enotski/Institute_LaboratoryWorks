@@ -112,12 +112,12 @@ namespace OP_ClassLib
         {
             string products = _productEditor.HtmlPrintProducts(Products);
 
-            string result = "<h3>| -Накладная- |</h3>"
-                + $"| Документ от - {DocDate.ToString("d")}|<br>| № - {DocId} |<br>"
-                + $"| Исполнитель - {Provider} |<br>| ИНН - {ProviderId} |<br>"
-                + $"| Заказчик - {Client}|<br>| ИНН - {ClientId} |<br>"
-                + $"| Продукт/услуга |<br>"
-                + $"<ol>{products}</ol>";
+            string result = "<h3 class='docHeader'>Накладная</h3>"
+                + $"<div class='docContent'><li>Документ от - {DocDate.ToString("d")}</li><li>№ - {DocId}</li>"
+                + $"<li>Исполнитель - {Provider}</li><li>ИНН - {ProviderId}</li>"
+                + $"<li>Заказчик - {Client}</li><li>ИНН - {ClientId}</li></div>"
+                + $"<div class='docProducts'><h4>Продукт/услуга</h4>"
+                + $"{products}</div>";
 
             return result;
         }

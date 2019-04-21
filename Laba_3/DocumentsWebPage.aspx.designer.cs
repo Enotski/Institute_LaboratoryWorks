@@ -22,21 +22,12 @@ namespace Laba_3 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// GridViewDocuments элемент управления.
+        /// docs элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически создаваемое поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewDocuments;
-        
-        /// <summary>
-        /// LabelDocPrint элемент управления.
-        /// </summary>
-        /// <remarks>
-        /// Автоматически создаваемое поле.
-        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelDocPrint;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl docs;
     }
 }
