@@ -23,19 +23,20 @@ namespace Laba_3
 
             using (document_dbEntities db = new document_dbEntities())
             {
-                docsId.AddRange(db.Bills.Select(d => new RequestedDoc { DocId = d.DocId, Type = "Bill" }).ToList());
-                docsId.AddRange(db.Invoices.Select(d => new RequestedDoc { DocId = d.DocId, Type = "Invoice" }).ToList());
-                docsId.AddRange(db.Reciepts.Select(d => new RequestedDoc { DocId = d.DocId, Type = "Reciept" }).ToList());
+                docsId.AddRange(db.Bills.Select(d => new RequestedDoc { DocId = d.DocId, Type = "Счет" }).ToList());
+                docsId.AddRange(db.Invoices.Select(d => new RequestedDoc { DocId = d.DocId, Type = "Накладная" }).ToList());
+                docsId.AddRange(db.Reciepts.Select(d => new RequestedDoc { DocId = d.DocId, Type = "Квитанция" }).ToList());
             }
+            int i = 1;
             foreach(var doc in docsId)
             {
-                docsToResponce += $"<div><span>{doc.Type}</span><input type=\"button\" id=\"getDocButton\" value=\"{doc.DocId}\" onclick = \"GetCurrentDoc(this.value, this.previousSibling.innerHTML)\"/></div>";
+                docsToResponce += $"<tr onclick=\"GetCurrentDoc(this.lastChild.innerHTML, this.childNodes[1].innerHTML)\"><th scope=\"row\">{i++}</th><td id=\"docType\">{doc.Type}</td><td id=\"docId\">{doc.DocId}</td></tr>";
             }
 
-            Control divMask = Page.FindControl("docs");
-            if (divMask is HtmlGenericControl)
+            Control tbMask = Page.FindControl("docs");
+            if (tbMask is HtmlGenericControl)
             {
-                HtmlGenericControl htmlCtrl = (HtmlGenericControl)divMask;
+                HtmlGenericControl htmlCtrl = (HtmlGenericControl)tbMask;
                 htmlCtrl.InnerHtml = docsToResponce;
             }
         }
@@ -46,7 +47,7 @@ namespace Laba_3
             Document docToResponce = null;
             using (document_dbEntities db = new document_dbEntities())
             {
-                if (docType == "Bill")
+                if (docType == "Счет")
                 {
                     var doc = db.Bills.Find(docId);
 
@@ -65,7 +66,7 @@ namespace Laba_3
                     }
                  
                 }
-                else if (docType == "Reciept")
+                else if (docType == "Квитанция")
                 {
                     var doc = db.Reciepts.Find(docId);
 
@@ -82,7 +83,7 @@ namespace Laba_3
                     }).ToList();
                     ((Reciept)docToResponce).CalcGoodsSum();
                 }
-                else if (docType == "Invoice")
+                else if (docType == "Накладная")
                 {
                     var doc = db.Invoices.Find(docId);
 

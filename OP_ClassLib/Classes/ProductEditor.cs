@@ -73,11 +73,11 @@ namespace OP_ClassLib
         public string HtmlPrintProducts(List<Product> products)
         {
             string result = null;
+            int i = 1;
             foreach (var p in products)
             {
-                result += $"<li id='product'><span>{p.Name}</span><span>{p.Count}</span><span>{p.MeasureUnit}</span><span>{p.Price}$</span><span>{CalcProductSum(p.Name, products)}$</span></li>";
+                result += $"<tr id='product'><th scope=\'row\'>{i++}</th><td>{p.Name}</td><td>{p.MeasureUnit}</td><td>{p.Count}</td><td>{p.Price}$</td><td>{CalcProductSum(p.Name, products)}$</td></tr>";
             }
-            result += $"<div class='docGoodsSum'>общая сумма {CalcGoodsSum(products)}$</div>";
 
             return result;
         }

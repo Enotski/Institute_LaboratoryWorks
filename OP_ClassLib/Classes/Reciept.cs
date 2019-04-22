@@ -95,7 +95,7 @@ namespace OP_ClassLib
         public override string Print()
         {
             string products = _productEditor.PrintProducts(Products);
-
+            CalcGoodsSum();
             string result = $"| -Квитанция за {PaymentName}- |\n"
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
                 + $"| Исполнитель - {Provider} |\n"
@@ -108,14 +108,16 @@ namespace OP_ClassLib
         public override string HtmlPrint()
         {
             string products = _productEditor.HtmlPrintProducts(Products);
-
-            string result = $"<h3 class='docHeader'>Квитанция за {PaymentName}</h3>"
+            CalcGoodsSum();
+            string result = $"<h4 class='docHeader badge badge-danger'>Квитанция</h4><span> за {PaymentName}</span>"
                 + $"<div class='docContent'><li>Документ от - {DocDate.ToString("d")}</li><li>№ - {DocId}</li>"
                 + $"<li>Исполнитель - {Provider}</li>"
                 + $"<li>Заказчик - {Client}</li></div>"
-                + $"<div class='docProducts'><h4>Продукт/услуга</h4>"
-                + $"{products}</div>";
-
+                + $"<h4>Продукт/услуга</h4>" 
+                + $"<table class=\'docProducts table table-bordered\'>"
+                + $"<thead><tr><th scope=\"col\">#</th><th scope=\"col\">Наименование</th><th scope=\"col\">Ед.</th><th scope=\"col\">Колличество</th><th scope=\"col\">Стоимость ед.</th><th scope=\"col\">Сумма</th></tr></thead>"
+                + $"{products}</table>";
+            result += $"<div class='docGoodsSum'><span id=\'goodsSumSpan\' class='badge badge-success'>Общая сумма {GoodsSum}$</span></div>";
             return result;
         }
         public void SetRecieptConsole()

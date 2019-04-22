@@ -1,0 +1,39 @@
+﻿.row .resultContainer {
+    align-content: stretch;
+    overflow:auto;
+}
+.header {
+    text-align: left;
+    margin-top:30px;
+    margin-bottom:30px;
+}
+.header h3{
+    margin:0px;
+}
+
+.docContent li{
+    list-style-type:none;
+}
+.docContent{
+    padding-bottom:10px;
+}
+.resultContainer > h4{
+    padding-bottom: 12px;
+    padding-top:12px;
+}
+
+.docGoodsSum{
+    display: flex;
+    flex-direction:row-reverse;
+    font-size:16px;
+}
+.docGoodsSum span{
+    padding:10px;
+}
+.docHeader{
+    margin-top: 16px;
+    font-size: 17px;
+}
+.resultContainer span {
+    font-size: 16px;
+}

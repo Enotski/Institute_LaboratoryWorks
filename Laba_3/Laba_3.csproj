@@ -185,6 +185,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\myCssStyle.css" />
     <Content Include="DocumentsWebPage.aspx" />
     <Content Include="DocumentsWebService.asmx" />
     <Content Include="favicon.ico" />
