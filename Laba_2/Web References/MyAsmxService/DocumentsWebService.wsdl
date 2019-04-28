@@ -137,6 +137,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetSpecialDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="docId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSpecialDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSpecialDocumentResult" type="tns:ArrayOfDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="SetDocumentBillSoapIn">
@@ -169,6 +183,12 @@
   <wsdl:message name="GetSpecialDocumentsSoapOut">
     <wsdl:part name="parameters" element="tns:GetSpecialDocumentsResponse" />
   </wsdl:message>
+  <wsdl:message name="GetSpecialDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetSpecialDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocumentResponse" />
+  </wsdl:message>
   <wsdl:portType name="DocumentsWebServiceSoap">
     <wsdl:operation name="SetDocumentBill">
       <wsdl:input message="tns:SetDocumentBillSoapIn" />
@@ -189,6 +209,10 @@
     <wsdl:operation name="GetSpecialDocuments">
       <wsdl:input message="tns:GetSpecialDocumentsSoapIn" />
       <wsdl:output message="tns:GetSpecialDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocument">
+      <wsdl:input message="tns:GetSpecialDocumentSoapIn" />
+      <wsdl:output message="tns:GetSpecialDocumentSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="DocumentsWebServiceSoap" type="tns:DocumentsWebServiceSoap">
@@ -238,6 +262,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocument">
+      <soap:operation soapAction="http://tempuri.org/GetSpecialDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="DocumentsWebServiceSoap12" type="tns:DocumentsWebServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
@@ -279,6 +312,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetSpecialDocuments">
       <soap12:operation soapAction="http://tempuri.org/GetSpecialDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocument">
+      <soap12:operation soapAction="http://tempuri.org/GetSpecialDocument" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

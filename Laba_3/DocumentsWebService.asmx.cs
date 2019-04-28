@@ -40,7 +40,7 @@ namespace Laba_3
             Bill bill = new Bill(data[0], data[1], data[2], data[3], data[4]);
             bill.SetProductList(productsPacket.ToList());
             bill.CalcGoodsSum();
-            using(document_dbEntities db = new document_dbEntities())
+            using (document_dbEntities db = new document_dbEntities())
             {
                 _ = db.Database.Connection;
                 Bills bill_To_Db = new Bills
@@ -51,7 +51,7 @@ namespace Laba_3
                     Client = bill.Client,
                     ClientId = bill.ClientId,
                     GoodsSum = (decimal)bill.GoodsSum,
-                };                
+                };
                 db.Bills.Add(bill_To_Db);
                 db.SaveChanges();
 
@@ -66,7 +66,7 @@ namespace Laba_3
                         Price = (decimal)p.Price,
                         Sum = (decimal)p.Sum,
                         Bills = bill_To_Db
-                    });                  
+                    });
                 }
                 db.Products.AddRange(products_To_Db);
                 db.SaveChanges();
@@ -186,14 +186,15 @@ namespace Laba_3
                     Client = bill.Client,
                     ClientId = bill.ClientId,
                     GoodsSum = (double)bill.GoodsSum,
-                    Products = bill.Products.Select(p => new  Product
+                    Products = bill.Products.Select(p => new Product
                     {
                         Name = p.Name,
                         MeasureUnit = p.MeasureUnit,
                         Count = p.Count,
                         Price = (double)p.Price,
                         Sum = (double)p.Sum
-                    }).ToList()}).ToList();
+                    }).ToList()
+                }).ToList();
                 var invoices = db.Invoices.Select(invoice => new Invoice
                 {
                     DocId = invoice.DocId,
@@ -241,6 +242,9 @@ namespace Laba_3
         public List<Document> GetSpecialDocuments(string type)
         {
             List<Document> list_To_Client = new List<Document>();
+            if (string.IsNullOrWhiteSpace(type))
+                return null;
+
             if (type == "Bill")
             {
                 using (document_dbEntities db = new document_dbEntities())
@@ -314,8 +318,112 @@ namespace Laba_3
                     list_To_Client.AddRange(reciepts);
                 }
             }
-
+            else
+            {
+                using (document_dbEntities db = new document_dbEntities())
+                {
+                    var reciepts = db.Reciepts.Select(reciept => new Reciept
+                    {
+                        DocId = reciept.DocId,
+                        DocDate = reciept.DocDate,
+                        Provider = reciept.Provider,
+                        Client = reciept.Client,
+                        PaymentName = reciept.PaymentName,
+                        GoodsSum = (double)reciept.GoodSum,
+                        Products = reciept.Products.Select(p => new Product
+                        {
+                            Name = p.Name,
+                            MeasureUnit = p.MeasureUnit,
+                            Count = p.Count,
+                            Price = (double)p.Price,
+                            Sum = (double)p.Sum
+                        }).ToList()
+                    }).ToList();
+                    list_To_Client.AddRange(reciepts);
+                }
+            }
             return list_To_Client;
+        }
+        [WebMethod]
+        public List<Document> GetSpecialDocument(string docId)
+        {
+            List<Document> list_To_Client = new List<Document>();
+            if (string.IsNullOrWhiteSpace(docId))
+                return null;
+
+            using (document_dbEntities db = new document_dbEntities())
+            {
+                var bills = db.Bills.Where(doc => doc.DocId == docId).Select(bill => new Bill
+                {
+                    DocId = bill.DocId,
+                    DocDate = bill.DocDate,
+                    Provider = bill.Provider,
+                    Client = bill.Client,
+                    ClientId = bill.ClientId,
+                    GoodsSum = (double)bill.GoodsSum,
+                    Products = bill.Products.Select(p => new Product
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (double)p.Price,
+                        Sum = (double)p.Sum
+                    }).ToList()
+                }).ToList();
+                if(bills.Count != 0)
+                {
+                    list_To_Client.AddRange(bills);
+                    return list_To_Client;
+                }
+
+                var invoices = db.Invoices.Where(doc => doc.DocId == docId).Select(invoice => new Invoice
+                {
+                    DocId = invoice.DocId,
+                    DocDate = invoice.DocDate,
+                    Provider = invoice.Provider,
+                    Client = invoice.Client,
+                    ProviderId = invoice.ProviderId,
+                    ClientId = invoice.ClientId,
+                    GoodsSum = (double)invoice.GoodsSum,
+                    Products = invoice.Products.Select(p => new Product
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (double)p.Price,
+                        Sum = (double)p.Sum
+                    }).ToList()
+                }).ToList();
+                if (invoices.Count != 0)
+                {
+                    list_To_Client.AddRange(invoices);
+                    return list_To_Client;
+                }
+
+                var reciepts = db.Reciepts.Where(doc => doc.DocId == docId).Select(reciept => new Reciept
+                {
+                    DocId = reciept.DocId,
+                    DocDate = reciept.DocDate,
+                    Provider = reciept.Provider,
+                    Client = reciept.Client,
+                    PaymentName = reciept.PaymentName,
+                    GoodsSum = (double)reciept.GoodSum,
+                    Products = reciept.Products.Select(p => new Product
+                    {
+                        Name = p.Name,
+                        MeasureUnit = p.MeasureUnit,
+                        Count = p.Count,
+                        Price = (double)p.Price,
+                        Sum = (double)p.Sum
+                    }).ToList()
+                }).ToList();
+                if (reciepts.Count != 0)
+                {
+                    list_To_Client.AddRange(reciepts);
+                    return list_To_Client;
+                }
+            }
+            return null;
         }
     }
 }

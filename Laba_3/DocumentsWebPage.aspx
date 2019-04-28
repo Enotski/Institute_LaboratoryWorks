@@ -50,7 +50,7 @@
         <form id="form1" runat="server">
             <div class="row justify-content-between">
                 <table id="mainTable" class="col-4 table table-striped shadow rounded table-hover ">
-                    <thead class="thead-dark ">
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Документ</th>
@@ -62,7 +62,6 @@
                 <div id="resultedDocument" class="resultContainer col-7 shadow rounded border border-secondary"></div>
             </div>
         </form>
-    </div>
-    
+    </div>   
 </body>
 </html>

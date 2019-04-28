@@ -39,6 +39,8 @@ namespace Laba_2.MyAsmxService {
         
         private System.Threading.SendOrPostCallback GetSpecialDocumentsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetSpecialDocumentOperationCompleted;
+        
         private bool useDefaultCredentialsSetExplicitly;
         
         /// <remarks/>
@@ -91,6 +93,9 @@ namespace Laba_2.MyAsmxService {
         
         /// <remarks/>
         public event GetSpecialDocumentsCompletedEventHandler GetSpecialDocumentsCompleted;
+        
+        /// <remarks/>
+        public event GetSpecialDocumentCompletedEventHandler GetSpecialDocumentCompleted;
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/SetDocumentBill", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -238,6 +243,35 @@ namespace Laba_2.MyAsmxService {
             if ((this.GetSpecialDocumentsCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetSpecialDocumentsCompleted(this, new GetSpecialDocumentsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/GetSpecialDocument", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public Document[] GetSpecialDocument(string docId) {
+            object[] results = this.Invoke("GetSpecialDocument", new object[] {
+                        docId});
+            return ((Document[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetSpecialDocumentAsync(string docId) {
+            this.GetSpecialDocumentAsync(docId, null);
+        }
+        
+        /// <remarks/>
+        public void GetSpecialDocumentAsync(string docId, object userState) {
+            if ((this.GetSpecialDocumentOperationCompleted == null)) {
+                this.GetSpecialDocumentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetSpecialDocumentOperationCompleted);
+            }
+            this.InvokeAsync("GetSpecialDocument", new object[] {
+                        docId}, this.GetSpecialDocumentOperationCompleted, userState);
+        }
+        
+        private void OnGetSpecialDocumentOperationCompleted(object arg) {
+            if ((this.GetSpecialDocumentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetSpecialDocumentCompleted(this, new GetSpecialDocumentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -653,6 +687,32 @@ namespace Laba_2.MyAsmxService {
         private object[] results;
         
         internal GetSpecialDocumentsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public Document[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((Document[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    public delegate void GetSpecialDocumentCompletedEventHandler(object sender, GetSpecialDocumentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.7.3190.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetSpecialDocumentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetSpecialDocumentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

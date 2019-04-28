@@ -14,11 +14,13 @@ namespace Laba_2
     public partial class MainWindow : Form
     {
         SideWorker.ServicesSwitcher serviceToUse = SideWorker.ServicesSwitcher.client;
-        SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.all;
+        SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.special;
         public static MyAsmxService.DocumentsWebService asmxService;
         BindingList<Document> bList = new BindingList<Document>();
         string filePath = @"..\..\DataStore\LocalDocumentsStore.xml";
+        string docToGet;
         public static FileInfo info;
+        MyAsmxService.Document[] docData = null;
 
         public MainWindow()
         {
@@ -26,9 +28,34 @@ namespace Laba_2
             DataGridViewDocumentsTable.DataSource = bList;
             info = new FileInfo(filePath);
             asmxService = new MyAsmxService.DocumentsWebService();
-        }      
+            asmxService.GetAllDocumentsCompleted += AsmxService_GetAllDocumentsCompleted;
+            asmxService.GetSpecialDocumentsCompleted += AsmxService_GetSpecialDocumentsCompleted;
+            asmxService.GetSpecialDocumentCompleted += AsmxService_GetSpecialDocumentCompleted;
+        }
 
-        
+        private void AsmxService_GetSpecialDocumentCompleted(object sender, MyAsmxService.GetSpecialDocumentCompletedEventArgs e)
+        {
+            docData = e.Result;
+            var newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+            foreach (var d in newList)
+                bList.Add(d);
+            SearchData(docToGet);
+        }
+        private void AsmxService_GetSpecialDocumentsCompleted(object sender, MyAsmxService.GetSpecialDocumentsCompletedEventArgs e)
+        {
+            docData = e.Result;
+            var newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+            foreach (var d in newList)
+                bList.Add(d);
+        }
+        private void AsmxService_GetAllDocumentsCompleted(object sender, MyAsmxService.GetAllDocumentsCompletedEventArgs e)
+        {
+            docData = e.Result;
+            var newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+            foreach (var d in newList)
+                bList.Add(d);
+        }
+
         private async void button_RefreshFile_Click(object sender, EventArgs e)
         {
             // только для клиента
@@ -40,37 +67,38 @@ namespace Laba_2
 
             if (serviceToUse == SideWorker.ServicesSwitcher.asmx)
             {
-                MyAsmxService.Document[] docData = null;
-
                 if (getDocsType == SideWorker.GetDocsSwitcher.all)
                 {
-                    docData = asmxService.GetAllDocuments();
+                    asmxService.GetAllDocumentsAsync();
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.invoices)
                 {
-                    docData = asmxService.GetSpecialDocuments("Invoice");
+                    asmxService.GetSpecialDocumentsAsync("Invoice");
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.reciepts)
                 {
-                    docData = asmxService.GetSpecialDocuments("Reciept");
+                    asmxService.GetSpecialDocumentsAsync("Reciept");
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.bills)
                 {
-                    docData = asmxService.GetSpecialDocuments("Bill");
+                    asmxService.GetSpecialDocumentsAsync("Bill");
                 }
-
-                newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+                else if (getDocsType == SideWorker.GetDocsSwitcher.special)
+                {
+                    asmxService.GetSpecialDocumentAsync(docToGet);
+                }            
             }
             else if (serviceToUse == SideWorker.ServicesSwitcher.client)
             {
-                newList = await SideWorker.DeserializeXml(filePath);          
-            }
-            foreach (var d in newList)
-                bList.Add(d);
+                newList = await SideWorker.DeserializeXml(filePath);
+                foreach (var d in newList)
+                    bList.Add(d);
+            }           
         }
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
-        {
+       {
             SearchData(textBoxSearch.Text);
+            docToGet = textBoxSearch.Text;
         }
         // добавление
         private void button_Add_Click(object sender, EventArgs e)
@@ -155,10 +183,7 @@ namespace Laba_2
                 DataGridViewDocumentsTable.DataSource = tmpSource;
             }
         }
-
-
-
-        // события радио-кнопок (переключение между сервисами и тд.)
+        #region события радио-кнопок (переключение между сервисами и тд.)
         private void RadioButtonWcfService_CheckedChanged(object sender, EventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.wcf;
@@ -200,5 +225,10 @@ namespace Laba_2
         {
             asmxService.Url = ((TextBox)sender).Text;
         }
-    }   
+        private void RadioButtonGetSpecialDoc_CheckedChanged(object sender, EventArgs e)
+        {
+            getDocsType = SideWorker.GetDocsSwitcher.special;
+        }
+        #endregion
+    }
 }

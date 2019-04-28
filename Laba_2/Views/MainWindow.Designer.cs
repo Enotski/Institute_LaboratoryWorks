@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DataGridViewDocumentsTable = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.DocSelectComboBox = new System.Windows.Forms.ComboBox();
@@ -47,6 +47,7 @@
             this.radioButtonGetAllDocs = new System.Windows.Forms.RadioButton();
             this.panelLoadDocumentsRbts = new System.Windows.Forms.Panel();
             this.textBoxServiceUrl = new System.Windows.Forms.TextBox();
+            this.radioButtonGetSpecialDoc = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridViewDocumentsTable)).BeginInit();
             this.panelLoadDocumentsRbts.SuspendLayout();
             this.SuspendLayout();
@@ -58,23 +59,23 @@
             this.DataGridViewDocumentsTable.AllowUserToResizeRows = false;
             this.DataGridViewDocumentsTable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DataGridViewDocumentsTable.BackgroundColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridViewDocumentsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridViewDocumentsTable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridViewDocumentsTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridViewDocumentsTable.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridViewDocumentsTable.DefaultCellStyle = dataGridViewCellStyle6;
             this.DataGridViewDocumentsTable.GridColor = System.Drawing.SystemColors.GrayText;
             this.DataGridViewDocumentsTable.Location = new System.Drawing.Point(15, 69);
             this.DataGridViewDocumentsTable.Name = "DataGridViewDocumentsTable";
@@ -251,19 +252,18 @@
             // radioButtonGetAllDocs
             // 
             this.radioButtonGetAllDocs.AutoSize = true;
-            this.radioButtonGetAllDocs.Checked = true;
             this.radioButtonGetAllDocs.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.radioButtonGetAllDocs.Location = new System.Drawing.Point(8, 85);
             this.radioButtonGetAllDocs.Name = "radioButtonGetAllDocs";
             this.radioButtonGetAllDocs.Size = new System.Drawing.Size(194, 21);
             this.radioButtonGetAllDocs.TabIndex = 25;
-            this.radioButtonGetAllDocs.TabStop = true;
             this.radioButtonGetAllDocs.Text = "Загрузить все документы";
             this.radioButtonGetAllDocs.UseVisualStyleBackColor = true;
             this.radioButtonGetAllDocs.CheckedChanged += new System.EventHandler(this.RadioButtonGetAllDocs_CheckedChanged);
             // 
             // panelLoadDocumentsRbts
             // 
+            this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetSpecialDoc);
             this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetBills);
             this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetAllDocs);
             this.panelLoadDocumentsRbts.Controls.Add(this.radioButtonGetInvoices);
@@ -271,7 +271,7 @@
             this.panelLoadDocumentsRbts.Enabled = false;
             this.panelLoadDocumentsRbts.Location = new System.Drawing.Point(12, 479);
             this.panelLoadDocumentsRbts.Name = "panelLoadDocumentsRbts";
-            this.panelLoadDocumentsRbts.Size = new System.Drawing.Size(208, 113);
+            this.panelLoadDocumentsRbts.Size = new System.Drawing.Size(272, 138);
             this.panelLoadDocumentsRbts.TabIndex = 26;
             this.panelLoadDocumentsRbts.Visible = false;
             // 
@@ -286,11 +286,24 @@
             this.textBoxServiceUrl.Visible = false;
             this.textBoxServiceUrl.TextChanged += new System.EventHandler(this.TextBoxServiceUrl_TextChanged);
             // 
+            // radioButtonGetSpecialDoc
+            // 
+            this.radioButtonGetSpecialDoc.AutoSize = true;
+            this.radioButtonGetSpecialDoc.Checked = true;
+            this.radioButtonGetSpecialDoc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.radioButtonGetSpecialDoc.Location = new System.Drawing.Point(8, 112);
+            this.radioButtonGetSpecialDoc.Name = "radioButtonGetSpecialDoc";
+            this.radioButtonGetSpecialDoc.Size = new System.Drawing.Size(260, 21);
+            this.radioButtonGetSpecialDoc.TabIndex = 26;
+            this.radioButtonGetSpecialDoc.Text = "Загрузить определенный документ";
+            this.radioButtonGetSpecialDoc.UseVisualStyleBackColor = true;
+            this.radioButtonGetSpecialDoc.CheckedChanged += new System.EventHandler(this.RadioButtonGetSpecialDoc_CheckedChanged);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(843, 593);
+            this.ClientSize = new System.Drawing.Size(843, 620);
             this.Controls.Add(this.textBoxServiceUrl);
             this.Controls.Add(this.panelLoadDocumentsRbts);
             this.Controls.Add(this.radioButtonWcfService);
@@ -333,6 +346,7 @@
         private System.Windows.Forms.RadioButton radioButtonGetAllDocs;
         private System.Windows.Forms.Panel panelLoadDocumentsRbts;
         private System.Windows.Forms.TextBox textBoxServiceUrl;
+        private System.Windows.Forms.RadioButton radioButtonGetSpecialDoc;
     }
 }
 

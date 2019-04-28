@@ -67,8 +67,6 @@ namespace Laba_2.Controls
             return true;
         }
 
-
-
         /// <summary>
         /// Перечисление сервисов
         /// </summary>
@@ -86,7 +84,8 @@ namespace Laba_2.Controls
             all,
             invoices,
             bills,
-            reciepts
+            reciepts,
+            special
         }
         /// <summary>
         /// Метод конструирования типов документа сервиса в типы документа клиента

@@ -88,8 +88,7 @@ namespace OP_ClassLib
             GoodsSum = _productEditor.CalcGoodsSum(Products);
         }
         public override string Print()
-        {
-            
+        {            
             string products =_productEditor.PrintProducts(Products);
             CalcGoodsSum();
             string result = "| -Счет- |\n"
@@ -102,7 +101,6 @@ namespace OP_ClassLib
         }
         public override string HtmlPrint()
         {
-
             string products = _productEditor.HtmlPrintProducts(Products);
             CalcGoodsSum();
             string result = "<h4 class='docHeader badge badge-success'>Счет</h4>"
@@ -111,7 +109,7 @@ namespace OP_ClassLib
                 + $"<li>Заказчик - {Client}</li><li>ИНН - {ClientId}</li></div>"
                 + $"<h4>Продукт/услуга</h4>" 
                 + $"<table class='docProducts table table-bordered'>"
-                + $"<thead><tr><th scope=\"col\">#</th><th scope=\"col\">Наименование</th><th scope=\"col\">Ед.</th><th scope=\"col\">Колличество</th><th scope=\"col\">Стоимость ед.</th><th scope=\"col\">Сумма</th></tr></thead>"
+                + $"<thead><tr><th scope=\"col\">#</th><th scope=\"col\">Наименование</th><th scope=\"col\">Ед.</th><th scope=\"col\">Количество</th><th scope=\"col\">Стоимость ед.</th><th scope=\"col\">Сумма</th></tr></thead>"
                 + $"{products}</table>";
             result += $"<div class='docGoodsSum'><span id=\'goodsSumSpan\' class='badge badge-success'>Общая сумма {GoodsSum}$</span></div>";
             return result;
