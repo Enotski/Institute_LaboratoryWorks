@@ -109,7 +109,7 @@ namespace OP_ClassLib
         {
             string products = _productEditor.HtmlPrintProducts(Products);
             CalcGoodsSum();
-            string result = $"<h4 class='docHeader badge badge-danger'>Квитанция</h4><span> за {PaymentName}</span>"
+            string result = $"<h4 class='docHeader badge badge-info'>Квитанция</h4><span> за {PaymentName}</span>"
                 + $"<div class='docContent'><li>Документ от - {DocDate.ToString("d")}</li><li>№ - {DocId}</li>"
                 + $"<li>Исполнитель - {Provider}</li>"
                 + $"<li>Заказчик - {Client}</li></div>"

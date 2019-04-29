@@ -31,9 +31,19 @@
     padding:10px;
 }
 .docHeader{
-    margin-top: 16px;
     font-size: 17px;
 }
 .resultContainer span {
     font-size: 16px;
 }
+.badgePurple {
+    color: #ffffff;
+    background-color: #563d7c;
+}
+.borderPurple {
+    border: 1px solid #563d7c !important;
+}
+.main{
+    margin-bottom: 40px !important;
+}
+
