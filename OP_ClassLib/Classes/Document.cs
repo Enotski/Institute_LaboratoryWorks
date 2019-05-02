@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace OP_ClassLib
@@ -6,22 +7,25 @@ namespace OP_ClassLib
     /// <summary>
     /// класс Документ - базовый
     /// </summary>
+    [DataContract]
     [Serializable]
+    [KnownType(typeof(Invoice))]
+    [KnownType(typeof(Bill))]
+    [KnownType(typeof(Reciept))]
     [XmlInclude(typeof(Invoice))]
     [XmlInclude(typeof(Bill))]
     [XmlInclude(typeof(Reciept))]
-    public abstract class Document : IDocumentSetup
+    public class Document : IDocumentSetup
     {
         //св-ва
+        [DataMember]
         public string DocId { get; set; }
+        [DataMember]
         public DateTime DocDate { get; set; }
+        [DataMember]
         public string Provider { get; set; }
+        [DataMember]
         public string Client { get; set; }
-        public string Type { get
-            {
-                return this.GetType().Name;
-            }
-        }
 
         //конструкторы
         public Document(string docId, string date, string provider, string client)
@@ -63,8 +67,8 @@ namespace OP_ClassLib
 
             return true;
         }
-        public abstract string Print();
-        public abstract string HtmlPrint();
+        public virtual string Print() { return ""; }
+        public virtual string HtmlPrint() { return ""; }
 
         public void SetDocumentConsole()
         {

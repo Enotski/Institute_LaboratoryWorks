@@ -2,22 +2,25 @@
 using System.Linq;
 using System;
 using System.Xml.Serialization;
-
+using System.Runtime.Serialization;
 
 namespace OP_ClassLib
 {
     /// <summary>
     /// Класс Квитанция
     /// </summary>
+    [DataContract]
     [Serializable]
     public class Reciept : Document
     {
         // объект и список, инициализируются в конструкторе данного класса 
         private Product _product;
         private ProductEditor _productEditor;
-
+        [DataMember]
         public List<Product> Products { get; set; }
+        [DataMember]
         public double GoodsSum { get; set; }
+        [DataMember]
         public string PaymentName { get; set; }
 
         
@@ -94,7 +97,7 @@ namespace OP_ClassLib
         }
         public override string Print()
         {
-            string products = _productEditor.PrintProducts(Products);
+            string products = _productEditor.ConsolePrintProducts(Products);
             CalcGoodsSum();
             string result = $"| -Квитанция за {PaymentName}- |\n"
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
@@ -109,7 +112,7 @@ namespace OP_ClassLib
         {
             string products = _productEditor.HtmlPrintProducts(Products);
             CalcGoodsSum();
-            string result = $"<h4 class='docHeader badge badge-info'>Квитанция</h4><span> за {PaymentName}</span>"
+            string result = $"<h4 class='docHeader badge badge-info'>Квитанция</h4><span> за \"{PaymentName}\"</span>"
                 + $"<div class='docContent'><li>Документ от - {DocDate.ToString("d")}</li><li>№ - {DocId}</li>"
                 + $"<li>Исполнитель - {Provider}</li>"
                 + $"<li>Заказчик - {Client}</li></div>"

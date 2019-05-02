@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +59,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -147,9 +150,13 @@
       <DependentUpon>DocumentsWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DocumentsWebServiceWcf.svc.cs">
+      <DependentUpon>DocumentsWebServiceWcf.svc</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IDocumentsWebServiceWcf.cs" />
     <Compile Include="Models\Bills.cs">
       <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
@@ -188,6 +195,7 @@
     <Content Include="Content\myCssStyle.css" />
     <Content Include="DocumentsWebPage.aspx" />
     <Content Include="DocumentsWebService.asmx" />
+    <Content Include="DocumentsWebServiceWcf.svc" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -211,6 +219,7 @@
     <Content Include="Models\DocumentModel.edmx.diagram">
       <DependentUpon>DocumentModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Properties\DataSources\OP_ClassLib.Document.datasource" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -247,7 +256,6 @@
     <Content Include="Views\ControlleRDocs\Edit.cshtml" />
     <Content Include="Views\ControlleRDocs\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -266,9 +274,6 @@
       <Project>{65076f89-2b5d-4d4b-90e1-5ef84e57f7e5}</Project>
       <Name>OP_ClassLib</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System;
+using System.Runtime.Serialization;
 
 namespace OP_ClassLib
 {
+    [DataContract]
     public class ProductEditor: IProductSetup
     {
         public void SetProduct(List<Product> products, Product p)
@@ -59,7 +61,7 @@ namespace OP_ClassLib
             return sum;
         }
 
-        public string PrintProducts(List<Product> products)
+        public string ConsolePrintProducts(List<Product> products)
         {
             string result = null;
             foreach(var p in products)

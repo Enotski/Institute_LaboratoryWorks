@@ -16,6 +16,7 @@ namespace Laba_2
         BindingList<Product> pList;
         public SideWorker.ServicesSwitcher serviceToUse;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
+        MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
 
         public RecieptConstructorWindow()
         {
@@ -44,7 +45,19 @@ namespace Laba_2
                     };
                     asmxService.SetDocumentRecieptAsync(docData.ToArray(), reciept.Products.Select(SideWorker.CastToAsmxProducts).ToArray());
                 }
-                if (!toEdit)
+                else if (serviceToUse == SideWorker.ServicesSwitcher.wcf) // веб-служба
+                {
+                    string[] docData = new string[]
+                    {
+                        textBoxDocId.Text,
+                        textBoxDocDate.Text,
+                        textBoxProviderName.Text,
+                        textBoxClientName.Text,
+                        textBoxPaymentName.Text
+                    };
+                    wcfService.SetDocumentRecieptAsync(docData.ToArray(), reciept.Products.Select(SideWorker.CastToWcfProducts).ToArray());
+                }
+                else if (!toEdit)
                     docList.Add(reciept);
                 this.Close();
             }

@@ -87,6 +87,7 @@ namespace Laba_2.Controls
             reciepts,
             special
         }
+
         /// <summary>
         /// Метод конструирования типов документа сервиса в типы документа клиента
         /// </summary>
@@ -98,7 +99,7 @@ namespace Laba_2.Controls
             if (dataToCast is MyAsmxService.Bill)
             {
                 Bill convertedBill = new Bill(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Bill)dataToCast).ClientId);
-                convertedBill.GoodsSum = ((MyAsmxService.Bill)dataToCast).GoodsSum;
+                
 
                 foreach (var p in ((MyAsmxService.Bill)dataToCast).Products)
                 {
@@ -106,37 +107,89 @@ namespace Laba_2.Controls
                     product.Sum = p.Sum;
                     convertedBill.Products.Add(product);
                 }
+                convertedBill.GoodsSum = ((MyAsmxService.Bill)dataToCast).GoodsSum;
                 return convertedBill;
             }
             // конструируем квитанцию
             else if (dataToCast is MyAsmxService.Reciept)
             {
                 Reciept convertedBill = new Reciept(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Reciept)dataToCast).PaymentName);
-                convertedBill.GoodsSum = ((MyAsmxService.Reciept)dataToCast).GoodsSum;
+                
                 foreach (var p in ((MyAsmxService.Reciept)dataToCast).Products)
                 {
                     var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
                     product.Sum = p.Sum;
                     convertedBill.Products.Add(product);
                 }
+                convertedBill.GoodsSum = ((MyAsmxService.Reciept)dataToCast).GoodsSum;
                 return convertedBill;
             }
             // конструируем накладную
             else if (dataToCast is MyAsmxService.Invoice)
             {
                 Invoice convertedBill = new Invoice(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyAsmxService.Invoice)dataToCast).ProviderId, ((MyAsmxService.Invoice)dataToCast).ClientId);
-                convertedBill.GoodsSum = ((MyAsmxService.Invoice)dataToCast).GoodsSum;
+                
                 foreach (var p in ((MyAsmxService.Invoice)dataToCast).Products)
                 {
                     var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
                     product.Sum = p.Sum;
                     convertedBill.Products.Add(product);
                 }
+                convertedBill.GoodsSum = ((MyAsmxService.Invoice)dataToCast).GoodsSum;
                 return convertedBill;
             }
             else
                 return default;
         }
+        public static Document CastToClientDocuments(MyWcfService.Document dataToCast)
+        {
+            // конструируем счет
+            if (dataToCast is MyWcfService.Bill)
+            {
+                Bill convertedBill = new Bill(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyWcfService.Bill)dataToCast).ClientId);
+                
+
+                foreach (var p in ((MyWcfService.Bill)dataToCast).Products)
+                {
+                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
+                    product.Sum = p.Sum;
+                    convertedBill.Products.Add(product);
+                }
+                convertedBill.GoodsSum = ((MyWcfService.Bill)dataToCast).GoodsSum;
+                return convertedBill;
+            }
+            // конструируем квитанцию
+            else if (dataToCast is MyWcfService.Reciept)
+            {
+                Reciept convertedBill = new Reciept(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyWcfService.Reciept)dataToCast).PaymentName);
+                
+                foreach (var p in ((MyWcfService.Reciept)dataToCast).Products)
+                {
+                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
+                    product.Sum = p.Sum;
+                    convertedBill.Products.Add(product);
+                }
+                convertedBill.GoodsSum = ((MyWcfService.Reciept)dataToCast).GoodsSum;
+                return convertedBill;
+            }
+            // конструируем накладную
+            else if (dataToCast is MyWcfService.Invoice)
+            {
+                Invoice convertedBill = new Invoice(dataToCast.DocId, dataToCast.DocDate.ToString(), dataToCast.Provider, dataToCast.Client, ((MyWcfService.Invoice)dataToCast).ProviderId, ((MyWcfService.Invoice)dataToCast).ClientId);
+                
+                foreach (var p in ((MyWcfService.Invoice)dataToCast).Products)
+                {
+                    var product = new Product(p.Name, p.MeasureUnit, p.Count, p.Price);
+                    product.Sum = p.Sum;
+                    convertedBill.Products.Add(product);
+                }
+                convertedBill.GoodsSum = ((MyWcfService.Invoice)dataToCast).GoodsSum;
+                return convertedBill;
+            }
+            else
+                return default;
+        }
+
         /// <summary>
         /// Метод конструирования типа продукта клиента в тип продукта сервиса
         /// </summary>
@@ -145,6 +198,16 @@ namespace Laba_2.Controls
         public static MyAsmxService.Product CastToAsmxProducts(Product dataToCast)
         {
             MyAsmxService.Product productToSend = new MyAsmxService.Product();
+            productToSend.Name = dataToCast.Name;
+            productToSend.MeasureUnit = dataToCast.MeasureUnit;
+            productToSend.Count = dataToCast.Count;
+            productToSend.Price = dataToCast.Price;
+            productToSend.Sum = dataToCast.Sum;
+            return productToSend;
+        }
+        public static MyWcfService.Product CastToWcfProducts(Product dataToCast)
+        {
+            MyWcfService.Product productToSend = new MyWcfService.Product();
             productToSend.Name = dataToCast.Name;
             productToSend.MeasureUnit = dataToCast.MeasureUnit;
             productToSend.Count = dataToCast.Count;

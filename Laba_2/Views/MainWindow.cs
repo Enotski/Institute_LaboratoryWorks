@@ -8,6 +8,7 @@ using OP_ClassLib;
 using Laba_2.Controls;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Laba_2
 {
@@ -16,11 +17,11 @@ namespace Laba_2
         SideWorker.ServicesSwitcher serviceToUse = SideWorker.ServicesSwitcher.client;
         SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.special;
         public static MyAsmxService.DocumentsWebService asmxService;
+        public static MyWcfService.DocumentsWebServiceWcf wcfService;
         BindingList<Document> bList = new BindingList<Document>();
         string filePath = @"..\..\DataStore\LocalDocumentsStore.xml";
         string docToGet;
         public static FileInfo info;
-        MyAsmxService.Document[] docData = null;
 
         public MainWindow()
         {
@@ -28,30 +29,51 @@ namespace Laba_2
             DataGridViewDocumentsTable.DataSource = bList;
             info = new FileInfo(filePath);
             asmxService = new MyAsmxService.DocumentsWebService();
+            wcfService = new MyWcfService.DocumentsWebServiceWcf();
             asmxService.GetAllDocumentsCompleted += AsmxService_GetAllDocumentsCompleted;
             asmxService.GetSpecialDocumentsCompleted += AsmxService_GetSpecialDocumentsCompleted;
             asmxService.GetSpecialDocumentCompleted += AsmxService_GetSpecialDocumentCompleted;
+            wcfService.GetAllDocumentsCompleted += WcfService_GetAllDocumentsCompleted;
+            wcfService.GetSpecialDocumentsCompleted += WcfService_GetSpecialDocumentsCompleted;
+            wcfService.GetSpecialDocumentCompleted += WcfService_GetSpecialDocumentCompleted;
         }
 
         private void AsmxService_GetSpecialDocumentCompleted(object sender, MyAsmxService.GetSpecialDocumentCompletedEventArgs e)
         {
-            docData = e.Result;
-            var newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
                 bList.Add(d);
             SearchData(docToGet);
         }
         private void AsmxService_GetSpecialDocumentsCompleted(object sender, MyAsmxService.GetSpecialDocumentsCompletedEventArgs e)
         {
-            docData = e.Result;
-            var newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
                 bList.Add(d);
         }
         private void AsmxService_GetAllDocumentsCompleted(object sender, MyAsmxService.GetAllDocumentsCompletedEventArgs e)
         {
-            docData = e.Result;
-            var newList = docData.Select(SideWorker.CastToClientDocuments).ToList();
+            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
+            foreach (var d in newList)
+                bList.Add(d);
+        }
+        //===========================================================================//
+        private void WcfService_GetSpecialDocumentCompleted(object sender, MyWcfService.GetSpecialDocumentCompletedEventArgs e)
+        {
+            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
+            foreach (var d in newList)
+                bList.Add(d);
+            SearchData(docToGet);
+        }
+        private void WcfService_GetSpecialDocumentsCompleted(object sender, MyWcfService.GetSpecialDocumentsCompletedEventArgs e)
+        {
+            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
+            foreach (var d in newList)
+                bList.Add(d);
+        }
+        private void WcfService_GetAllDocumentsCompleted(object sender, MyWcfService.GetAllDocumentsCompletedEventArgs e)
+        {
+            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
                 bList.Add(d);
         }
@@ -64,7 +86,6 @@ namespace Laba_2
         private async void button_LoadFromFile_Click(object sender, EventArgs e)
         {
             List<Document> newList = new List<Document>();
-
             if (serviceToUse == SideWorker.ServicesSwitcher.asmx)
             {
                 if (getDocsType == SideWorker.GetDocsSwitcher.all)
@@ -88,12 +109,35 @@ namespace Laba_2
                     asmxService.GetSpecialDocumentAsync(docToGet);
                 }            
             }
+            else if (serviceToUse == SideWorker.ServicesSwitcher.wcf)
+            {
+                if (getDocsType == SideWorker.GetDocsSwitcher.all)
+                {
+                    wcfService.GetAllDocumentsAsync();
+                }
+                else if (getDocsType == SideWorker.GetDocsSwitcher.invoices)
+                {
+                    wcfService.GetSpecialDocumentsAsync("Invoice");
+                }
+                else if (getDocsType == SideWorker.GetDocsSwitcher.reciepts)
+                {
+                    wcfService.GetSpecialDocumentsAsync("Reciept");
+                }
+                else if (getDocsType == SideWorker.GetDocsSwitcher.bills)
+                {
+                    wcfService.GetSpecialDocumentsAsync("Bill");
+                }
+                else if (getDocsType == SideWorker.GetDocsSwitcher.special)
+                {
+                    wcfService.GetSpecialDocumentAsync(docToGet);
+                }
+            }
             else if (serviceToUse == SideWorker.ServicesSwitcher.client)
             {
                 newList = await SideWorker.DeserializeXml(filePath);
                 foreach (var d in newList)
                     bList.Add(d);
-            }           
+            }
         }
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
        {
@@ -183,6 +227,7 @@ namespace Laba_2
                 DataGridViewDocumentsTable.DataSource = tmpSource;
             }
         }
+
         #region события радио-кнопок (переключение между сервисами и тд.)
         private void RadioButtonWcfService_CheckedChanged(object sender, EventArgs e)
         {
@@ -224,6 +269,7 @@ namespace Laba_2
         private void TextBoxServiceUrl_TextChanged(object sender, EventArgs e)
         {
             asmxService.Url = ((TextBox)sender).Text;
+            wcfService.Url = ((TextBox)sender).Text;           
         }
         private void RadioButtonGetSpecialDoc_CheckedChanged(object sender, EventArgs e)
         {

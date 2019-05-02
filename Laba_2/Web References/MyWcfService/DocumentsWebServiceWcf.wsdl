@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="DocumentsWebServiceWcf" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:63693/DocumentsWebServiceWcf.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IDocumentsWebServiceWcf_SetDocumentBill_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetDocumentBill" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_SetDocumentBill_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetDocumentBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_SetDocumentInvoice_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetDocumentInvoice" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_SetDocumentInvoice_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetDocumentInvoiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_SetDocumentReciept_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetDocumentReciept" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_SetDocumentReciept_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetDocumentRecieptResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_GetAllDocuments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDocuments" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_GetAllDocuments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_GetSpecialDocuments_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocuments" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_GetSpecialDocuments_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_GetSpecialDocument_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocument" />
+  </wsdl:message>
+  <wsdl:message name="IDocumentsWebServiceWcf_GetSpecialDocument_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSpecialDocumentResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IDocumentsWebServiceWcf">
+    <wsdl:operation name="SetDocumentBill">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentBill" message="tns:IDocumentsWebServiceWcf_SetDocumentBill_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentBillResponse" message="tns:IDocumentsWebServiceWcf_SetDocumentBill_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentInvoice">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentInvoice" message="tns:IDocumentsWebServiceWcf_SetDocumentInvoice_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentInvoiceResponse" message="tns:IDocumentsWebServiceWcf_SetDocumentInvoice_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentReciept">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentReciept" message="tns:IDocumentsWebServiceWcf_SetDocumentReciept_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentRecieptResponse" message="tns:IDocumentsWebServiceWcf_SetDocumentReciept_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocuments">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/GetAllDocuments" message="tns:IDocumentsWebServiceWcf_GetAllDocuments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/GetAllDocumentsResponse" message="tns:IDocumentsWebServiceWcf_GetAllDocuments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocuments">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/GetSpecialDocuments" message="tns:IDocumentsWebServiceWcf_GetSpecialDocuments_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/GetSpecialDocumentsResponse" message="tns:IDocumentsWebServiceWcf_GetSpecialDocuments_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocument">
+      <wsdl:input wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/GetSpecialDocument" message="tns:IDocumentsWebServiceWcf_GetSpecialDocument_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IDocumentsWebServiceWcf/GetSpecialDocumentResponse" message="tns:IDocumentsWebServiceWcf_GetSpecialDocument_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IDocumentsWebServiceWcf" type="tns:IDocumentsWebServiceWcf">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SetDocumentBill">
+      <soap:operation soapAction="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentInvoice">
+      <soap:operation soapAction="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentInvoice" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetDocumentReciept">
+      <soap:operation soapAction="http://tempuri.org/IDocumentsWebServiceWcf/SetDocumentReciept" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDocuments">
+      <soap:operation soapAction="http://tempuri.org/IDocumentsWebServiceWcf/GetAllDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocuments">
+      <soap:operation soapAction="http://tempuri.org/IDocumentsWebServiceWcf/GetSpecialDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSpecialDocument">
+      <soap:operation soapAction="http://tempuri.org/IDocumentsWebServiceWcf/GetSpecialDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DocumentsWebServiceWcf">
+    <wsdl:port name="BasicHttpBinding_IDocumentsWebServiceWcf" binding="tns:BasicHttpBinding_IDocumentsWebServiceWcf">
+      <soap:address location="http://localhost:63693/DocumentsWebServiceWcf.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

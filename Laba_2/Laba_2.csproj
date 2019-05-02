@@ -83,6 +83,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\MyWcfService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Views\BillConstructorWindow.resx">
       <DependentUpon>BillConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,6 +109,7 @@
     <EmbeddedResource Include="Views\RecieptConstructorWindow.resx">
       <DependentUpon>RecieptConstructorWindow.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\OP_ClassLib.Document.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,11 +127,26 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Web References\MyWcfService\Document.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\MyWcfService\DocumentsWebServiceWcf.wsdl" />
+    <None Include="Web References\MyWcfService\DocumentsWebServiceWcf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\MyWcfService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Laba_3\Laba_3.csproj">
+      <Project>{9a32fa92-bf52-4bfa-bc40-a5059b11c25d}</Project>
+      <Name>Laba_3</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OP_ClassLib\OP_ClassLib.csproj">
       <Project>{65076f89-2b5d-4d4b-90e1-5ef84e57f7e5}</Project>
       <Name>OP_ClassLib</Name>
@@ -135,10 +156,8 @@
     <Content Include="DataStore\LocalDocumentsStore.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Web References\MyWcfService\DocumentsWebServiceWcf.disco" />
     <None Include="Web References\MyAsmxService\DocumentsWebService.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -155,6 +174,20 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Laba_2_MyAsmxService_DocumentsWebService</CachedSettingsPropName>
     </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:63693/DocumentsWebServiceWcf.svc">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\MyWcfService\</RelPath>
+      <UpdateFromURL>http://localhost:63693/DocumentsWebServiceWcf.svc</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Laba_2_MyWcfService_DocumentsWebServiceWcf</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

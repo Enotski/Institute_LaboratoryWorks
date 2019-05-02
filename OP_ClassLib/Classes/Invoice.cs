@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace OP_ClassLib
@@ -7,6 +8,7 @@ namespace OP_ClassLib
     /// <summary>
     /// Класс Накладная
     /// </summary>
+    [DataContract]
     [Serializable]
     public class Invoice : Document
     {
@@ -14,9 +16,13 @@ namespace OP_ClassLib
         private Product _product;
         private ProductEditor _productEditor;
 
+        [DataMember]
         public List<Product> Products { get; set; }
+        [DataMember]
         public string ClientId { get; set; }
+        [DataMember]
         public string ProviderId { get; set; }
+        [DataMember]
         public double GoodsSum { get; set; }
 
         public Invoice(string docId, string date, string provider, string client, string providerId, string clientId) : base(docId, date, provider, client)
@@ -97,7 +103,7 @@ namespace OP_ClassLib
         }
         public override string Print()
         {
-            string products = _productEditor.PrintProducts(Products);
+            string products = _productEditor.ConsolePrintProducts(Products);
             CalcGoodsSum();
             string result = "| -Накладная- |\n"
                 + $"| Документ от - {DocDate.ToString("d")}|\n| № - {DocId} |\n"
