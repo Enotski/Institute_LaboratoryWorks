@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Laba_7.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Laba_7_MyAsmxService_DocumentsWebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:63693/DocumentsWebService.asmx</Value>
+    </Setting>
+    <Setting Name="Laba_7_MyWcfService_DocumentsWebServiceWcf" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:63693/DocumentsWebServiceWcf.svc</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,18 +1,28 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Data;
-using System.Linq;
-using System.IO;
-using System.Windows.Forms;
-using OP_ClassLib;
-using Laba_2.Controls;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Laba_7.Controls;
+using OP_ClassLib;
 
-namespace Laba_2
+namespace Laba_7.Views
 {
-    public partial class MainWindow : Form
+    /// <summary>
+    /// Логика взаимодействия для MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
     {
         SideWorker.ServicesSwitcher serviceToUse = SideWorker.ServicesSwitcher.client;
         SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.special;
@@ -26,8 +36,7 @@ namespace Laba_2
         public MainWindow()
         {
             InitializeComponent();
-
-            DataGridViewDocumentsTable.DataSource = bList;
+            dataGridDocumentsList.DataContext = bList;
             info = new FileInfo(filePath);
 
             asmxService = new MyAsmxService.DocumentsWebService();
@@ -40,12 +49,13 @@ namespace Laba_2
             wcfService.GetSpecialDocumentsCompleted += WcfService_GetSpecialDocumentsCompleted;
             wcfService.GetSpecialDocumentCompleted += WcfService_GetSpecialDocumentCompleted;
         }
-        private async void button_RefreshFile_Click(object sender, EventArgs e)
+
+        private void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
         {
-            // только для клиента
-            await SideWorker.SerializeXml(info.FullName, bList);
+
         }
-        private async void button_LoadFromFile_Click(object sender, EventArgs e)
+
+        private async void ButtonRefreshDataGrid_Click(object sender, RoutedEventArgs e)
         {
             if (serviceToUse == SideWorker.ServicesSwitcher.asmx)
             {
@@ -68,7 +78,7 @@ namespace Laba_2
                 else if (getDocsType == SideWorker.GetDocsSwitcher.special)
                 {
                     asmxService.GetSpecialDocumentAsync(docToGet);
-                }            
+                }
             }
             else if (serviceToUse == SideWorker.ServicesSwitcher.wcf)
             {
@@ -100,97 +110,38 @@ namespace Laba_2
                     bList.Add(d);
             }
         }
-        private void textBoxSearch_TextChanged(object sender, EventArgs e)
-       {
-            SearchData(textBoxSearch.Text);
-            docToGet = textBoxSearch.Text;
+
+        private async void ButtonRefreshFile_Click(object sender, RoutedEventArgs e)
+        {
+            // только для клиента
+            await SideWorker.SerializeXml(info.FullName, bList);
         }
-        private void TextBoxServiceUrl_TextChanged(object sender, EventArgs e)
+
+        private void TextServiceUri_TextChanged(object sender, TextChangedEventArgs e)
         {
             asmxService.Url = ((TextBox)sender).Text;
             wcfService.Url = ((TextBox)sender).Text;
         }
-        // добавление
-        private void button_Add_Click(object sender, EventArgs e)
-        {
-            object selectedDoc = DocSelectComboBox.SelectedItem;
-            if (selectedDoc.ToString() is "Квитанция")
-            {
-                RecieptConstructorWindow RecConst = new RecieptConstructorWindow();
-                RecConst.docList = bList;
-                RecConst.serviceToUse = serviceToUse;
-                RecConst.Show();
-            }
-            else if (selectedDoc.ToString() is "Счет")
-            {
-                BillConstructorWindow BillConst = new BillConstructorWindow();
-                BillConst.docList = bList;
-                BillConst.serviceToUse = serviceToUse;
-                BillConst.Show();
-            }
-            else if (selectedDoc.ToString() is "Накладная")
-            {
-                InvoiceConstructorWindow InvConst = new InvoiceConstructorWindow();
-                InvConst.docList = bList;
-                InvConst.serviceToUse = serviceToUse;
-                InvConst.Show();
-            }
-        }
-        // вывод
-        private void DataGirdViewDocumentsTable_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            string currentDocId = DataGridViewDocumentsTable.CurrentRow.Cells[0].Value.ToString();
-            Document currentDoc = bList.First(doc => doc.DocId == currentDocId);
 
-            if (currentDoc != null)
-                DocumentPrintLabel.Text = currentDoc.Print();
-        }
-        // редактирование
-        private void DataGirdViewDocumentsTable_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void TextBoxDocSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string currentDocId = DataGridViewDocumentsTable.CurrentRow.Cells[0].Value.ToString();
-            Document currentDoc = bList.First(doc => doc.DocId == currentDocId);
+            SearchData(((TextBox)sender).Text);
+            docToGet = ((TextBox)sender).Text;
+        }
 
-            if (currentDoc != null)
-            {
-                if (currentDoc is Reciept)
-                {
-                    RecieptConstructorWindow RecConst = new RecieptConstructorWindow();
-                    RecConst.reciept = (Reciept)currentDoc;
-                    RecConst.docList = bList;
-                    RecConst.toEdit = true;
-                    RecConst.serviceToUse = serviceToUse;
-                    RecConst.Show();
-                }
-                else if (currentDoc is Bill)
-                {
-                    BillConstructorWindow BillConst = new BillConstructorWindow();
-                    BillConst.bill = (Bill)currentDoc;
-                    BillConst.docList = bList;
-                    BillConst.toEdit = true;
-                    BillConst.serviceToUse = serviceToUse;
-                    BillConst.Show();
-                }
-                else if (currentDoc is Invoice)
-                {
-                    InvoiceConstructorWindow InvConst = new InvoiceConstructorWindow();
-                    InvConst.invoice = (Invoice)currentDoc;
-                    InvConst.docList = bList;
-                    InvConst.toEdit = true;
-                    InvConst.serviceToUse = serviceToUse;
-                    InvConst.Show();
-                }
-            }
+        private void DataGridDocumentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
         // поиск(фильтрация таблицы)
         private void SearchData(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                DataGridViewDocumentsTable.DataSource = bList;
+                dataGridDocumentsList.DataContext = bList;
             else
             {
                 var tmpSource = new BindingList<Document>(new BindingList<Document>(bList.Where(m => m.DocId.ToLower().Contains(value.ToLower())).ToList()));
-                DataGridViewDocumentsTable.DataSource = tmpSource;
+                dataGridDocumentsList.DataContext = tmpSource;
             }
         }
 
@@ -237,44 +188,52 @@ namespace Laba_2
         #endregion
 
         #region события радио-кнопок (переключение между сервисами и тд.)
-        private void RadioButtonWcfService_CheckedChanged(object sender, EventArgs e)
-        {
-            serviceToUse = SideWorker.ServicesSwitcher.wcf;
-        }
-        private void radioButtonAsmxService_CheckedChanged(object sender, EventArgs e)
+        private void RbAsmx_Checked(object sender, RoutedEventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.asmx;
+
+            panelDocsToLoad.Visibility = Visibility.Visible;
+            textBoxServiceUrl.Visibility = Visibility.Visible;
+            buttonRefreshFile.Visibility = Visibility.Visible;
         }
-        private void RadioButtonClientService_CheckedChanged(object sender, EventArgs e)
+        private void RbWcf_Checked(object sender, RoutedEventArgs e)
+        {
+            serviceToUse = SideWorker.ServicesSwitcher.wcf;
+
+            panelDocsToLoad.Visibility = Visibility.Visible;
+            textBoxServiceUrl.Visibility = Visibility.Visible;
+            buttonRefreshFile.Visibility = Visibility.Visible;
+        }
+        private void RbClient_Checked(object sender, RoutedEventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.client;
 
-            panelLoadDocumentsRbts.Enabled = !panelLoadDocumentsRbts.Enabled;
-            panelLoadDocumentsRbts.Visible = !panelLoadDocumentsRbts.Visible;
+            panelDocsToLoad.IsEnabled = !panelDocsToLoad.IsEnabled;
+            panelDocsToLoad.Visibility = Visibility.Hidden;
 
-            textBoxServiceUrl.Enabled = !textBoxServiceUrl.Enabled;
-            textBoxServiceUrl.Visible = !textBoxServiceUrl.Visible;
+            textBoxServiceUrl.IsEnabled = !textBoxServiceUrl.IsEnabled;
+            textBoxServiceUrl.Visibility = Visibility.Hidden;
 
-            button_RefreshFile.Enabled = !button_RefreshFile.Enabled;
-            button_RefreshFile.Visible = !button_RefreshFile.Visible;
+            buttonRefreshFile.IsEnabled = !buttonRefreshFile.IsEnabled;
+            buttonRefreshFile.Visibility = Visibility.Hidden;
         }
-        private void RadioButtonGetBills_CheckedChanged(object sender, EventArgs e)
+        private void RbAllDocs_Checked(object sender, RoutedEventArgs e)
         {
-            getDocsType = SideWorker.GetDocsSwitcher.bills;
+            getDocsType = SideWorker.GetDocsSwitcher.all;
         }
-        private void RadioButtonGetReciepts_CheckedChanged(object sender, EventArgs e)
-        {
-            getDocsType = SideWorker.GetDocsSwitcher.reciepts;
-        }
-        private void RadioButtonGetInvoices_CheckedChanged(object sender, EventArgs e)
+        private void RbInvoices_Checked(object sender, RoutedEventArgs e)
         {
             getDocsType = SideWorker.GetDocsSwitcher.invoices;
         }
-        private void RadioButtonGetAllDocs_CheckedChanged(object sender, EventArgs e)
+        private void RbReciebts_Checked(object sender, RoutedEventArgs e)
         {
-            getDocsType = SideWorker.GetDocsSwitcher.all;
-        }    
-        private void RadioButtonGetSpecialDoc_CheckedChanged(object sender, EventArgs e)
+            getDocsType = SideWorker.GetDocsSwitcher.reciepts;
+        }
+        private void RbBills_Checked(object sender, RoutedEventArgs e)
+        {
+            getDocsType = SideWorker.GetDocsSwitcher.bills;
+        }
+        private void RbById_Checked(object sender, RoutedEventArgs e)
         {
             getDocsType = SideWorker.GetDocsSwitcher.special;
         }

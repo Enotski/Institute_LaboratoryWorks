@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="SetDocumentBill">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="productsPacket" type="tns:ArrayOfProduct" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfString">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ArrayOfProduct">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Product" nillable="true" type="tns:Product" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Product">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Name" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="MeasureUnit" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Count" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Price" type="xs:double" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Sum" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SetDocumentBillResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="SetDocumentBillResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDocumentInvoice">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="productsPacket" type="tns:ArrayOfProduct" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDocumentInvoiceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="SetDocumentInvoiceResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDocumentReciept">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="data" type="tns:ArrayOfString" />
+        <xs:element minOccurs="0" maxOccurs="1" name="productsPacket" type="tns:ArrayOfProduct" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetDocumentRecieptResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="1" maxOccurs="1" name="SetDocumentRecieptResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDocuments">
+    <xs:complexType />
+  </xs:element>
+  <xs:element name="GetAllDocumentsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetAllDocumentsResult" type="tns:ArrayOfDocument" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="ArrayOfDocument">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Document" nillable="true" type="tns:Document" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Document">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="DocId" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DocDate" type="xs:dateTime" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Provider" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="Client" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Reciept">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Document">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+          <xs:element minOccurs="1" maxOccurs="1" name="GoodsSum" type="xs:double" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PaymentName" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Bill">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Document">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ClientId" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="GoodsSum" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Invoice">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Document">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Products" type="tns:ArrayOfProduct" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ClientId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderId" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="GoodsSum" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GetSpecialDocuments">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="type" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSpecialDocumentsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetSpecialDocumentsResult" type="tns:ArrayOfDocument" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSpecialDocument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="docId" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetSpecialDocumentResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="1" name="GetSpecialDocumentResult" type="tns:ArrayOfDocument" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

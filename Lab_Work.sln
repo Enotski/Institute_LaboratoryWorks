@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.329
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba_1", "Laba_1\Laba_1.csproj", "{224483FD-6067-4211-A681-EFD3332BB08C}"
 EndProject
@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba_2", "Laba_2\Laba_2.csp
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba_3", "Laba_3\Laba_3.csproj", "{9A32FA92-BF52-4BFA-BC40-A5059B11C25D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Laba_7", "Laba_7\Laba_7.csproj", "{F6E27E04-B02B-4BC1-BD51-348FDC20EA69}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{9A32FA92-BF52-4BFA-BC40-A5059B11C25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A32FA92-BF52-4BFA-BC40-A5059B11C25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A32FA92-BF52-4BFA-BC40-A5059B11C25D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E27E04-B02B-4BC1-BD51-348FDC20EA69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E27E04-B02B-4BC1-BD51-348FDC20EA69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E27E04-B02B-4BC1-BD51-348FDC20EA69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E27E04-B02B-4BC1-BD51-348FDC20EA69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
