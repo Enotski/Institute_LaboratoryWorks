@@ -64,8 +64,8 @@
     <Compile Include="Views\InvoiceWindow.xaml.cs">
       <DependentUpon>InvoiceWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Reciept.xaml.cs">
-      <DependentUpon>Reciept.xaml</DependentUpon>
+    <Compile Include="Views\RecieptWindow.xaml.cs">
+      <DependentUpon>RecieptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Web References\MyAsmxService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -101,7 +101,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Reciept.xaml">
+    <Page Include="Views\RecieptWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

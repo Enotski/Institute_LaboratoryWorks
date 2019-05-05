@@ -36,7 +36,7 @@ namespace Laba_7.Views
         public MainWindow()
         {
             InitializeComponent();
-            dataGridDocumentsList.DataContext = bList;
+            dataGridDocumentsList.ItemsSource = bList;
             info = new FileInfo(filePath);
 
             asmxService = new MyAsmxService.DocumentsWebService();
@@ -131,17 +131,17 @@ namespace Laba_7.Views
 
         private void DataGridDocumentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            textBlockDocPrint.Text = (((DataGrid)sender).SelectedItem as Document)?.Print();
         }
         // поиск(фильтрация таблицы)
         private void SearchData(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                dataGridDocumentsList.DataContext = bList;
+                dataGridDocumentsList.ItemsSource = bList;
             else
             {
                 var tmpSource = new BindingList<Document>(new BindingList<Document>(bList.Where(m => m.DocId.ToLower().Contains(value.ToLower())).ToList()));
-                dataGridDocumentsList.DataContext = tmpSource;
+                dataGridDocumentsList.ItemsSource = tmpSource;
             }
         }
 
@@ -194,7 +194,7 @@ namespace Laba_7.Views
 
             panelDocsToLoad.Visibility = Visibility.Visible;
             textBoxServiceUrl.Visibility = Visibility.Visible;
-            buttonRefreshFile.Visibility = Visibility.Visible;
+            buttonRefreshFile.Visibility = Visibility.Hidden;
         }
         private void RbWcf_Checked(object sender, RoutedEventArgs e)
         {
@@ -202,20 +202,19 @@ namespace Laba_7.Views
 
             panelDocsToLoad.Visibility = Visibility.Visible;
             textBoxServiceUrl.Visibility = Visibility.Visible;
-            buttonRefreshFile.Visibility = Visibility.Visible;
+            buttonRefreshFile.Visibility = Visibility.Hidden;
         }
         private void RbClient_Checked(object sender, RoutedEventArgs e)
         {
             serviceToUse = SideWorker.ServicesSwitcher.client;
+            if(panelDocsToLoad != null)
+            {
+                panelDocsToLoad.Visibility = Visibility.Hidden;
 
-            panelDocsToLoad.IsEnabled = !panelDocsToLoad.IsEnabled;
-            panelDocsToLoad.Visibility = Visibility.Hidden;
+                textBoxServiceUrl.Visibility = Visibility.Hidden;
 
-            textBoxServiceUrl.IsEnabled = !textBoxServiceUrl.IsEnabled;
-            textBoxServiceUrl.Visibility = Visibility.Hidden;
-
-            buttonRefreshFile.IsEnabled = !buttonRefreshFile.IsEnabled;
-            buttonRefreshFile.Visibility = Visibility.Hidden;
+                buttonRefreshFile.Visibility = Visibility.Visible;
+            }            
         }
         private void RbAllDocs_Checked(object sender, RoutedEventArgs e)
         {
@@ -238,5 +237,41 @@ namespace Laba_7.Views
             getDocsType = SideWorker.GetDocsSwitcher.special;
         }
         #endregion
+
+        private void DataGridRow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Document currentDoc = ((DataGridRow)sender).DataContext as Document;
+
+            if (currentDoc != null)
+            {
+                if (currentDoc is Reciept)
+                {
+                    RecieptWindow RecConst = new RecieptWindow();
+                    //RecConst.reciept = (Reciept)currentDoc;
+                    //RecConst.docList = bList;
+                    //RecConst.toEdit = true;
+                    //RecConst.serviceToUse = serviceToUse;
+                    RecConst.Show();
+                }
+                else if (currentDoc is Bill)
+                {
+                    BillWindow BillConst = new BillWindow();
+                    BillConst.bill = (Bill)currentDoc;
+                    BillConst.docList = bList;
+                    BillConst.toEdit = true;
+                    BillConst.serviceToUse = serviceToUse;
+                    BillConst.Show();
+                }
+                else if (currentDoc is Invoice)
+                {
+                    InvoiceWindow InvConst = new InvoiceWindow();
+                    //InvConst.invoice = (Invoice)currentDoc;
+                    //InvConst.docList = bList;
+                    //InvConst.toEdit = true;
+                    //InvConst.serviceToUse = serviceToUse;
+                    InvConst.Show();
+                }
+            }
+        }
     }
 }

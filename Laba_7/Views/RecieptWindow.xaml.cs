@@ -17,9 +17,9 @@ namespace Laba_7.Views
     /// <summary>
     /// Interaction logic for Reciept.xaml
     /// </summary>
-    public partial class Reciept : Window
+    public partial class RecieptWindow : Window
     {
-        public Reciept()
+        public RecieptWindow()
         {
             InitializeComponent();
         }

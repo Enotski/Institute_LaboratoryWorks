@@ -12,48 +12,61 @@
     <Grid>
         <TextBlock Name="textBlockDocPrint"
             Height="320" 
-            Margin="429,42,10,207"/>
+            Margin="456,42,10,207" FontSize="15"/>
         <DataGrid Name="dataGridDocumentsList" 
-            HorizontalAlignment="Left" Height="320" Margin="10,42,0,0" VerticalAlignment="Top" Width="414" SelectionChanged="DataGridDocumentsList_SelectionChanged"/>
+            HorizontalAlignment="Left" Height="320" Margin="10,42,0,0" VerticalAlignment="Top" Width="441" SelectionChanged="DataGridDocumentsList_SelectionChanged" 
+              AutoGenerateColumns="False" FontSize="14" HorizontalScrollBarVisibility="Hidden">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Binding="{Binding Path=DocId}" Width="110" IsReadOnly="true"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Path=DocDate}" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn Header="Исполнитель" Binding="{Binding Path=Provider}" Width="110" IsReadOnly="True" />
+                <DataGridTextColumn Header="Заказчик" Binding="{Binding Path=Client}" Width="110" IsReadOnly="True" />
+            </DataGrid.Columns>
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="DataGridRow_MouseDoubleClick"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
         <Label HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Content="Найти:"/>
         <TextBox Name="textBoxDocSearch" TextChanged="TextBoxDocSearch_TextChanged" 
                  Style="{DynamicResource TxtBoxTemplate}"
-            HorizontalAlignment="Left" Height="23" Margin="61,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="363"/>
+            HorizontalAlignment="Left" Height="23" Margin="61,14,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="390"/>
         <Button Name="buttonDocAdd" 
                 Style="{DynamicResource customButtonTemplate}"
                 Background="LightGreen" Click="ButtonDocAdd_Click"
-            HorizontalAlignment="Left" Margin="286,369,0,0" VerticalAlignment="Top" Width="138" Height="53">
-            <TextBlock Style="{DynamicResource btnTextTemplate}" Height="24" FontSize="15" TextAlignment="Center" TextWrapping="Wrap" Width="125">Добавить документ</TextBlock>
+            HorizontalAlignment="Left" Margin="316,369,0,0" VerticalAlignment="Top" Width="138" Height="53">
+            <TextBlock Style="{DynamicResource btnTextTemplate}" Height="43" Width="125">Добавить документ</TextBlock>
         </Button>
         <Button Name="buttonRefreshFile"
                 Style="{DynamicResource customButtonTemplate}"
                 Background="LightSkyBlue" Click="ButtonRefreshFile_Click"
             HorizontalAlignment="Left" Margin="10,369,0,0" VerticalAlignment="Top" Width="121" Height="53">
-            <TextBlock Style="{DynamicResource btnTextTemplate}" Height="23" FontSize="15" TextAlignment="Center" TextWrapping="Wrap" Width="111">Обновить файл</TextBlock>
+            <TextBlock Style="{DynamicResource btnTextTemplate}" Height="23" Width="111">Обновить файл</TextBlock>
         </Button>
         <Button Name="buttonRefreshDataGrid"
                 Style="{DynamicResource customButtonTemplate}"
                 Background="LightSteelBlue" Click="ButtonRefreshDataGrid_Click"
             HorizontalAlignment="Left" Margin="149,369,0,0" VerticalAlignment="Top" Width="121" Height="53">
-            <TextBlock Style="{DynamicResource btnTextTemplate}" Height="23" FontSize="15" TextAlignment="Center" TextWrapping="Wrap" Width="111">Загрузить</TextBlock>
+            <TextBlock Style="{DynamicResource btnTextTemplate}" Height="23"  Width="111">Загрузить</TextBlock>
         </Button>
         <ComboBox Name="comboBoxDocTypeToAdd"
-            HorizontalAlignment="Left" Margin="289,427,0,0" VerticalAlignment="Top" Width="135">
+            HorizontalAlignment="Left" Margin="316,427,0,0" VerticalAlignment="Top" Width="138">
             <TextBlock Selector.IsSelected="True">Счет</TextBlock>
             <TextBlock>Накладная</TextBlock>
             <TextBlock>Квитанция</TextBlock>
         </ComboBox>
         <StackPanel Name="panelServiceSwitcher"
-            HorizontalAlignment="Left" Height="62" Margin="429,397,0,0" VerticalAlignment="Top" Width="134">
+            HorizontalAlignment="Left" Height="62" Margin="456,397,0,0" VerticalAlignment="Top" Width="134">
             <RadioButton Style="{DynamicResource rbTemplate}" Name="rbAsmx" Checked="RbAsmx_Checked" Content="ASMX сервис"/>
             <RadioButton Style="{DynamicResource rbTemplate}" Name="rbWcf" Checked="RbWcf_Checked" Content="WCF сервис"/>
             <RadioButton Style="{DynamicResource rbTemplate}" Name="rbClient" Checked="RbClient_Checked" Content="Клиент" IsChecked="True"/>
         </StackPanel>
         <TextBox Name="textBoxServiceUrl" TextChanged="TextServiceUri_TextChanged"
                  Style="{DynamicResource TxtBoxTemplate}"
-            HorizontalAlignment="Left" Height="23" Margin="429,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="354" Visibility="Hidden"/>
-        <StackPanel Name="panelDocsToLoad" 
-            HorizontalAlignment="Left"  Height="100" Margin="10,437,0,0" VerticalAlignment="Top" Width="121" Visibility="Hidden">
+            HorizontalAlignment="Left" Height="23" Margin="459,369,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="324" Visibility="Hidden" />
+        <StackPanel x:Name="panelDocsToLoad" 
+            HorizontalAlignment="Left"  Height="100" Margin="149,435,0,0" VerticalAlignment="Top" Width="121" Visibility="Hidden" >
             <RadioButton Style="{DynamicResource rbTemplate}" Content="Все документы" IsChecked="True" Checked="RbAllDocs_Checked" Name="rbAllDocs"/>
             <RadioButton Style="{DynamicResource rbTemplate}" Name="rbInvoices" Content="Накладные" Checked="RbInvoices_Checked"/>
             <RadioButton Style="{DynamicResource rbTemplate}" Name="rbReciebts" Content="Квитанции" Checked="RbReciebts_Checked"/>

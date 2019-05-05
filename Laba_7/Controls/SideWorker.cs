@@ -8,6 +8,7 @@ using System.Xml;
 using OP_ClassLib;
 using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Laba_7.Controls
 {
@@ -51,21 +52,22 @@ namespace Laba_7.Controls
         /// </summary>
         /// <param name="controls"></param>
         /// <returns></returns>
-        //public static bool ValidationForm(Control.ControlCollection controls)
-        //{
-        //    foreach (var control in controls)
-        //    {
-        //        if (control is TextBox)
-        //        {
-        //            if (string.IsNullOrWhiteSpace(((TextBox)control).Text))
-        //            {
-        //                MessageBox.Show("Заполните все поля");
-        //                return false;
-        //            }
-        //        }
-        //    }
-        //    return true;
-        //}
+        public static bool ValidationForm(UIElementCollection controls)
+        {
+            foreach (var control in controls)
+            {
+                if (control is TextBox)
+                {
+                    if (string.IsNullOrWhiteSpace(((TextBox)control).Text))
+                    {
+                        ((TextBox)control).BorderBrush = Brushes.OrangeRed;
+                        return false;
+                    }
+                    ((TextBox)control).BorderBrush = Brushes.LightGray;
+                }
+            }
+            return true;
+        }
 
         /// <summary>
         /// Перечисление сервисов
