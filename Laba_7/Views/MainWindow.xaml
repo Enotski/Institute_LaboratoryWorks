@@ -52,9 +52,9 @@
         </Button>
         <ComboBox Name="comboBoxDocTypeToAdd"
             HorizontalAlignment="Left" Margin="316,427,0,0" VerticalAlignment="Top" Width="138">
-            <TextBlock Selector.IsSelected="True">Счет</TextBlock>
-            <TextBlock>Накладная</TextBlock>
-            <TextBlock>Квитанция</TextBlock>
+            <ComboBoxItem Selector.IsSelected="True">Счет</ComboBoxItem>
+            <ComboBoxItem>Накладная</ComboBoxItem>
+            <ComboBoxItem>Квитанция</ComboBoxItem>
         </ComboBox>
         <StackPanel Name="panelServiceSwitcher"
             HorizontalAlignment="Left" Height="62" Margin="456,397,0,0" VerticalAlignment="Top" Width="134">

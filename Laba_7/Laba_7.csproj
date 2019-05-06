@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controls\SideWorker.cs" />
+    <Compile Include="Models\ModelProduct.cs" />
     <Compile Include="Views\BillWindow.xaml.cs">
       <DependentUpon>BillWindow.xaml</DependentUpon>
     </Compile>

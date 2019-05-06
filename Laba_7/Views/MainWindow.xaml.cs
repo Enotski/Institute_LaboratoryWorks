@@ -52,7 +52,28 @@ namespace Laba_7.Views
 
         private void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
         {
-
+            ComboBoxItem selectedDoc = comboBoxDocTypeToAdd.SelectedItem as ComboBoxItem;
+            if (selectedDoc.Content is "Квитанция")
+            {
+                RecieptWindow RecConst = new RecieptWindow();
+                RecConst.docList = bList;
+                RecConst.serviceToUse = serviceToUse;
+                RecConst.Show();
+            }
+            else if (selectedDoc.Content is "Счет")
+            {
+                BillWindow BillConst = new BillWindow();
+                BillConst.docList = bList;
+                BillConst.serviceToUse = serviceToUse;
+                BillConst.Show();
+            }
+            else if (selectedDoc.Content is "Накладная")
+            {
+                InvoiceWindow InvConst = new InvoiceWindow();
+                InvConst.docList = bList;
+                InvConst.serviceToUse = serviceToUse;
+                InvConst.Show();
+            }
         }
 
         private async void ButtonRefreshDataGrid_Click(object sender, RoutedEventArgs e)
@@ -247,10 +268,10 @@ namespace Laba_7.Views
                 if (currentDoc is Reciept)
                 {
                     RecieptWindow RecConst = new RecieptWindow();
-                    //RecConst.reciept = (Reciept)currentDoc;
-                    //RecConst.docList = bList;
-                    //RecConst.toEdit = true;
-                    //RecConst.serviceToUse = serviceToUse;
+                    RecConst.reciept = (Reciept)currentDoc;
+                    RecConst.docList = bList;
+                    RecConst.toEdit = true;
+                    RecConst.serviceToUse = serviceToUse;
                     RecConst.Show();
                 }
                 else if (currentDoc is Bill)
@@ -265,10 +286,10 @@ namespace Laba_7.Views
                 else if (currentDoc is Invoice)
                 {
                     InvoiceWindow InvConst = new InvoiceWindow();
-                    //InvConst.invoice = (Invoice)currentDoc;
-                    //InvConst.docList = bList;
-                    //InvConst.toEdit = true;
-                    //InvConst.serviceToUse = serviceToUse;
+                    InvConst.invoice = (Invoice)currentDoc;
+                    InvConst.docList = bList;
+                    InvConst.toEdit = true;
+                    InvConst.serviceToUse = serviceToUse;
                     InvConst.Show();
                 }
             }

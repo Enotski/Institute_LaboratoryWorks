@@ -1,7 +1,9 @@
 ﻿using Laba_7.Controls;
+using Laba_7.Models;
 using OP_ClassLib;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -26,22 +28,34 @@ namespace Laba_7.Views
         public SideWorker.ServicesSwitcher serviceToUse;
         public BindingList<Document> docList;
         public Bill bill = new Bill();
-        BindingList<Product> pList;
+        ObservableCollection<ModelProduct> pList;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
         MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
         public BillWindow()
         {
             InitializeComponent();
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void TextBoxBinding()
         {
-            this.Close();           
+            txtBoxDocId.Text = bill.DocId;
+            txtBoxDocDate.Text = bill.DocDate.ToString();
+            txtBoxDocProvider.Text = bill.Provider;
+            txtBoxDocClient.Text = bill.Client;
         }
-        private void buttonSave_Click(object sender, EventArgs e)
+
+        private void Window_ContentRendered(object sender, EventArgs e)
+        {
+            pList = new ObservableCollection<ModelProduct>(bill.Products.Select(SideWorker.CastToModelProducts));
+            dataGridProducts.ItemsSource = pList;
+            TextBoxBinding();
+            txtBoxDocClientId.Text = bill.ClientId;
+        }
+
+        private void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
         {
             if (SideWorker.ValidationForm(docConstructor.Children))
             {
+                bill.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
                 if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
                 {
                     // заносим все из формы в массив для отправки
@@ -72,34 +86,35 @@ namespace Laba_7.Views
                     wcfService.SetDocumentBillAsync(docData, bill.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
                 else if (!toEdit)
+                {
+                    bill = new Bill(
+                        txtBoxDocId.Text,
+                        txtBoxDocDate.Text,
+                        txtBoxDocProvider.Text,
+                        txtBoxDocClient.Text,
+                        txtBoxDocClientId.Text
+                        );
                     docList.Add(bill);
+                    bill.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
+                }
+                    
                 this.Close();
             }
         }
-        private void TextBoxBinding()
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
         {
-            txtBoxDocId.Text = bill.DocId;
-            txtBoxDocDate.Text = bill.DocDate.ToString();
-            txtBoxDocProvider.Text = bill.Provider;
-            txtBoxDocClient.Text = bill.Client;
+            this.Close();
         }
 
-        private void Window_ContentRendered(object sender, EventArgs e)
+        private void DataGridProducts_LostFocus(object sender, RoutedEventArgs e)
         {
-            pList = new BindingList<Product>(bill.Products);
-            dataGridProducts.ItemsSource = pList;
-            bill.SetProductList(pList.ToList());
-            TextBoxBinding();
-            txtBoxDocClientId.Text = bill.ClientId;
-        }
-
-        private void DataGridProducts_CurrentCellChanged(object sender, EventArgs e)
-        {
-            var product = ((DataGrid)sender).CurrentItem as Product;
-
-            bill.CalcProductSum(bill.Products.FindIndex(p => p.Equals(product)));
-            bill.CalcGoodsSum();
-            txtBoxDocGoodsSum.Text = bill.GoodsSum.ToString();
+            double sum = 0;
+            foreach(var p in pList)
+            {
+                sum += p.Sum;
+            }
+            txtBoxDocGoodsSum.Text = sum.ToString();
         }
     }
 }

@@ -68,7 +68,6 @@ namespace Laba_7.Controls
             }
             return true;
         }
-
         /// <summary>
         /// Перечисление сервисов
         /// </summary>
@@ -210,6 +209,26 @@ namespace Laba_7.Controls
         public static MyWcfService.Product CastToWcfProducts(Product dataToCast)
         {
             MyWcfService.Product productToSend = new MyWcfService.Product();
+            productToSend.Name = dataToCast.Name;
+            productToSend.MeasureUnit = dataToCast.MeasureUnit;
+            productToSend.Count = dataToCast.Count;
+            productToSend.Price = dataToCast.Price;
+            productToSend.Sum = dataToCast.Sum;
+            return productToSend;
+        }
+        public static Laba_7.Models.ModelProduct CastToModelProducts(Product dataToCast)
+        {
+            Laba_7.Models.ModelProduct productToSend = new Laba_7.Models.ModelProduct();
+            productToSend.Name = dataToCast.Name;
+            productToSend.MeasureUnit = dataToCast.MeasureUnit;
+            productToSend.Count = dataToCast.Count;
+            productToSend.Price = dataToCast.Price;
+            productToSend.Sum = dataToCast.Sum;
+            return productToSend;
+        }
+        public static Product CastToLibraryProducts(Laba_7.Models.ModelProduct dataToCast)
+        {
+            Product productToSend = new Product();
             productToSend.Name = dataToCast.Name;
             productToSend.MeasureUnit = dataToCast.MeasureUnit;
             productToSend.Count = dataToCast.Count;
