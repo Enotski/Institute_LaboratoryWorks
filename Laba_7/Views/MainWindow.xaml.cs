@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Laba_7.Views
         SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.special;
         public static MyAsmxService.DocumentsWebService asmxService;
         public static MyWcfService.DocumentsWebServiceWcf wcfService;
-        BindingList<Document> bList = new BindingList<Document>();
+        ObservableCollection<Document> docCollection = new ObservableCollection<Document>();
         string filePath = @"..\..\DataStore\LocalDocumentsStore.xml";
         string docToGet;
         public static FileInfo info;
@@ -36,7 +37,7 @@ namespace Laba_7.Views
         public MainWindow()
         {
             InitializeComponent();
-            dataGridDocumentsList.ItemsSource = bList;
+            dataGridDocumentsList.ItemsSource = docCollection;
             info = new FileInfo(filePath);
 
             asmxService = new MyAsmxService.DocumentsWebService();
@@ -56,21 +57,21 @@ namespace Laba_7.Views
             if (selectedDoc.Content is "Квитанция")
             {
                 RecieptWindow RecConst = new RecieptWindow();
-                RecConst.docList = bList;
+                RecConst.docList = docCollection;
                 RecConst.serviceToUse = serviceToUse;
                 RecConst.Show();
             }
             else if (selectedDoc.Content is "Счет")
             {
                 BillWindow BillConst = new BillWindow();
-                BillConst.docList = bList;
+                BillConst.docList = docCollection;
                 BillConst.serviceToUse = serviceToUse;
                 BillConst.Show();
             }
             else if (selectedDoc.Content is "Накладная")
             {
                 InvoiceWindow InvConst = new InvoiceWindow();
-                InvConst.docList = bList;
+                InvConst.docList = docCollection;
                 InvConst.serviceToUse = serviceToUse;
                 InvConst.Show();
             }
@@ -128,14 +129,14 @@ namespace Laba_7.Views
             {
                 var newList = await SideWorker.DeserializeXml(filePath);
                 foreach (var d in newList)
-                    bList.Add(d);
+                    docCollection.Add(d);
             }
         }
 
         private async void ButtonRefreshFile_Click(object sender, RoutedEventArgs e)
         {
             // только для клиента
-            await SideWorker.SerializeXml(info.FullName, bList);
+            await SideWorker.SerializeXml(info.FullName, docCollection.ToList());
         }
 
         private void TextServiceUri_TextChanged(object sender, TextChangedEventArgs e)
@@ -158,10 +159,10 @@ namespace Laba_7.Views
         private void SearchData(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
-                dataGridDocumentsList.ItemsSource = bList;
+                dataGridDocumentsList.ItemsSource = docCollection;
             else
             {
-                var tmpSource = new BindingList<Document>(new BindingList<Document>(bList.Where(m => m.DocId.ToLower().Contains(value.ToLower())).ToList()));
+                var tmpSource = new BindingList<Document>(new BindingList<Document>(docCollection.Where(m => m.DocId.ToLower().Contains(value.ToLower())).ToList()));
                 dataGridDocumentsList.ItemsSource = tmpSource;
             }
         }
@@ -169,42 +170,54 @@ namespace Laba_7.Views
         #region Обработка асинхронного получения данных из базы через сервисы
         private void AsmxService_GetSpecialDocumentCompleted(object sender, MyAsmxService.GetSpecialDocumentCompletedEventArgs e)
         {
+            if (e.Result is null)
+                return;
             var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
-                bList.Add(d);
+                docCollection.Add(d);
             SearchData(docToGet);
         }
         private void AsmxService_GetSpecialDocumentsCompleted(object sender, MyAsmxService.GetSpecialDocumentsCompletedEventArgs e)
         {
+            if (e.Result is null)
+                return;
             var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
-                bList.Add(d);
+                docCollection.Add(d);
         }
         private void AsmxService_GetAllDocumentsCompleted(object sender, MyAsmxService.GetAllDocumentsCompletedEventArgs e)
         {
+            if (e.Result is null)
+                return;
             var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
-                bList.Add(d);
+                docCollection.Add(d);
         }
         //=====================================================================================================================//
         private void WcfService_GetSpecialDocumentCompleted(object sender, MyWcfService.GetSpecialDocumentCompletedEventArgs e)
         {
+            if (e.Result is null)
+                return;
             var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
-                bList.Add(d);
+                docCollection.Add(d);
             SearchData(docToGet);
         }
         private void WcfService_GetSpecialDocumentsCompleted(object sender, MyWcfService.GetSpecialDocumentsCompletedEventArgs e)
         {
+            if (e.Result is null)
+                return;
             var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
-                bList.Add(d);
+                docCollection.Add(d);
         }
         private void WcfService_GetAllDocumentsCompleted(object sender, MyWcfService.GetAllDocumentsCompletedEventArgs e)
         {
+            if (e.Result is null)
+                return;
             var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
             foreach (var d in newList)
-                bList.Add(d);
+                docCollection.Add(d);
         }
         #endregion
 
@@ -269,7 +282,7 @@ namespace Laba_7.Views
                 {
                     RecieptWindow RecConst = new RecieptWindow();
                     RecConst.reciept = (Reciept)currentDoc;
-                    RecConst.docList = bList;
+                    RecConst.docList = docCollection;
                     RecConst.toEdit = true;
                     RecConst.serviceToUse = serviceToUse;
                     RecConst.Show();
@@ -278,7 +291,7 @@ namespace Laba_7.Views
                 {
                     BillWindow BillConst = new BillWindow();
                     BillConst.bill = (Bill)currentDoc;
-                    BillConst.docList = bList;
+                    BillConst.docList = docCollection;
                     BillConst.toEdit = true;
                     BillConst.serviceToUse = serviceToUse;
                     BillConst.Show();
@@ -287,7 +300,7 @@ namespace Laba_7.Views
                 {
                     InvoiceWindow InvConst = new InvoiceWindow();
                     InvConst.invoice = (Invoice)currentDoc;
-                    InvConst.docList = bList;
+                    InvConst.docList = docCollection;
                     InvConst.toEdit = true;
                     InvConst.serviceToUse = serviceToUse;
                     InvConst.Show();

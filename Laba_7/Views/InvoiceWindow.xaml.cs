@@ -27,7 +27,7 @@ namespace Laba_7.Views
         public bool toEdit;
         public SideWorker.ServicesSwitcher serviceToUse;
         public Invoice invoice = new Invoice();
-        public BindingList<Document> docList;
+        public ObservableCollection<Document> docList;
         ObservableCollection<ModelProduct> pList;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
         MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
@@ -88,18 +88,17 @@ namespace Laba_7.Views
 
                     wcfService.SetDocumentInvoiceAsync(docData, invoice.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
-                else if (!toEdit)
+                invoice.SetDocId(txtBoxDocId.Text);
+                invoice.SetDocDate(txtBoxDocDate.Text);
+                invoice.SetParticipants(txtBoxDocProvider.Text, txtBoxDocClient.Text);
+                invoice.SetProviderId(txtBoxDocProviderId.Text);
+                invoice.SetClientId(txtBoxDocClientId.Text);
+                invoice.SetProductList(pList.Select(SideWorker.CastToLibraryProducts).ToList());
+
+                if (!toEdit)
                 {
-                    invoice = new Invoice(txtBoxDocId.Text,
-                        txtBoxDocDate.Text,
-                        txtBoxDocProvider.Text,
-                        txtBoxDocClient.Text,
-                        txtBoxDocProviderId.Text,
-                        txtBoxDocClientId.Text);
                     docList.Add(invoice);
-                    invoice.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
                 }
-                    
                 this.Close();
             }
         }

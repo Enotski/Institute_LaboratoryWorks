@@ -26,7 +26,7 @@ namespace Laba_7.Views
     {
         public bool toEdit;
         public SideWorker.ServicesSwitcher serviceToUse;
-        public BindingList<Document> docList;
+        public ObservableCollection<Document> docList;
         public Bill bill = new Bill();
         ObservableCollection<ModelProduct> pList;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
@@ -85,19 +85,17 @@ namespace Laba_7.Views
 
                     wcfService.SetDocumentBillAsync(docData, bill.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
-                else if (!toEdit)
+
+                bill.SetDocId(txtBoxDocId.Text);
+                bill.SetDocDate(txtBoxDocDate.Text);
+                bill.SetParticipants(txtBoxDocProvider.Text, txtBoxDocClient.Text);
+                bill.SetClientId(txtBoxDocClientId.Text);
+                bill.SetProductList(pList.Select(SideWorker.CastToLibraryProducts).ToList());
+
+                if (!toEdit)
                 {
-                    bill = new Bill(
-                        txtBoxDocId.Text,
-                        txtBoxDocDate.Text,
-                        txtBoxDocProvider.Text,
-                        txtBoxDocClient.Text,
-                        txtBoxDocClientId.Text
-                        );
                     docList.Add(bill);
-                    bill.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
-                }
-                    
+                }               
                 this.Close();
             }
         }

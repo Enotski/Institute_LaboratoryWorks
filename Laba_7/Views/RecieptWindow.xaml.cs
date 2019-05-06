@@ -26,7 +26,7 @@ namespace Laba_7.Views
     {
         public bool toEdit;
         public SideWorker.ServicesSwitcher serviceToUse;
-        public BindingList<Document> docList;
+        public ObservableCollection<Document> docList;
         public Reciept reciept = new Reciept();
         ObservableCollection<ModelProduct> pList;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
@@ -56,6 +56,7 @@ namespace Laba_7.Views
             if (SideWorker.ValidationForm(docConstructor.Children))
             {
                 reciept.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
+
                 if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
                 {
                     // заносим все из формы в массив для отправки
@@ -85,17 +86,15 @@ namespace Laba_7.Views
 
                     wcfService.SetDocumentRecieptAsync(docData, reciept.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
-                else if (!toEdit)
+                reciept.SetDocId(txtBoxDocId.Text);
+                reciept.SetDocDate(txtBoxDocDate.Text);
+                reciept.SetParticipants(txtBoxDocProvider.Text, txtBoxDocClient.Text);
+                reciept.SetPaymentName(txtBoxDocPayment.Text);
+                reciept.SetProductList(pList.Select(SideWorker.CastToLibraryProducts).ToList());
+                if (!toEdit)
                 {
-                    reciept = new Reciept(txtBoxDocId.Text,
-                        txtBoxDocDate.Text,
-                        txtBoxDocProvider.Text,
-                        txtBoxDocClient.Text,
-                        txtBoxDocPayment.Text);
-                    reciept.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
                     docList.Add(reciept);
                 }
-                    
                 this.Close();
             }
         }

@@ -37,13 +37,13 @@ namespace Laba_7.Controls
         /// <param name="filePath"></param>
         /// <param name="bList"></param>
         /// <returns></returns>
-        public static async Task SerializeXml(string filePath, BindingList<Document> bList)
+        public static async Task SerializeXml(string filePath, List<Document> bList)
         {
             await Task.Run(() =>
             {
                 XmlWriter writer = new XmlTextWriter(filePath, Encoding.UTF8);
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Document>));
-                serializer.Serialize(writer, bList.ToList());
+                serializer.Serialize(writer, bList);
                 writer.Close();
             });
         }
