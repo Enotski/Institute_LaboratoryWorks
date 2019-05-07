@@ -29,6 +29,7 @@ namespace Laba_7.Views
         public ObservableCollection<Document> docList;
         public Bill bill = new Bill();
         ObservableCollection<ModelProduct> pList;
+        public DataGrid mainWinGrid;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
         MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
         public BillWindow()
@@ -95,7 +96,8 @@ namespace Laba_7.Views
                 if (!toEdit)
                 {
                     docList.Add(bill);
-                }               
+                }
+                mainWinGrid.Items.Refresh();
                 this.Close();
             }
         }

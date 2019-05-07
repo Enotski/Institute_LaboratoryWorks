@@ -29,6 +29,7 @@ namespace Laba_7.Views
         public Invoice invoice = new Invoice();
         public ObservableCollection<Document> docList;
         ObservableCollection<ModelProduct> pList;
+        public DataGrid mainWinGrid;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
         MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
         public InvoiceWindow()
@@ -99,6 +100,7 @@ namespace Laba_7.Views
                 {
                     docList.Add(invoice);
                 }
+                mainWinGrid.Items.Refresh();
                 this.Close();
             }
         }

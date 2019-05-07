@@ -29,6 +29,7 @@ namespace Laba_7.Views
         public ObservableCollection<Document> docList;
         public Reciept reciept = new Reciept();
         ObservableCollection<ModelProduct> pList;
+        public DataGrid mainWinGrid;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
         MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
         public RecieptWindow()
@@ -95,6 +96,7 @@ namespace Laba_7.Views
                 {
                     docList.Add(reciept);
                 }
+                mainWinGrid.Items.Refresh();
                 this.Close();
             }
         }

@@ -59,6 +59,7 @@ namespace Laba_7.Views
                 RecieptWindow RecConst = new RecieptWindow();
                 RecConst.docList = docCollection;
                 RecConst.serviceToUse = serviceToUse;
+                RecConst.mainWinGrid = dataGridDocumentsList;
                 RecConst.Show();
             }
             else if (selectedDoc.Content is "Счет")
@@ -66,6 +67,7 @@ namespace Laba_7.Views
                 BillWindow BillConst = new BillWindow();
                 BillConst.docList = docCollection;
                 BillConst.serviceToUse = serviceToUse;
+                BillConst.mainWinGrid = dataGridDocumentsList;
                 BillConst.Show();
             }
             else if (selectedDoc.Content is "Накладная")
@@ -73,6 +75,7 @@ namespace Laba_7.Views
                 InvoiceWindow InvConst = new InvoiceWindow();
                 InvConst.docList = docCollection;
                 InvConst.serviceToUse = serviceToUse;
+                InvConst.mainWinGrid = dataGridDocumentsList;
                 InvConst.Show();
             }
         }
@@ -285,6 +288,7 @@ namespace Laba_7.Views
                     RecConst.docList = docCollection;
                     RecConst.toEdit = true;
                     RecConst.serviceToUse = serviceToUse;
+                    RecConst.mainWinGrid = dataGridDocumentsList;
                     RecConst.Show();
                 }
                 else if (currentDoc is Bill)
@@ -294,6 +298,7 @@ namespace Laba_7.Views
                     BillConst.docList = docCollection;
                     BillConst.toEdit = true;
                     BillConst.serviceToUse = serviceToUse;
+                    BillConst.mainWinGrid = dataGridDocumentsList;
                     BillConst.Show();
                 }
                 else if (currentDoc is Invoice)
@@ -303,6 +308,7 @@ namespace Laba_7.Views
                     InvConst.docList = docCollection;
                     InvConst.toEdit = true;
                     InvConst.serviceToUse = serviceToUse;
+                    InvConst.mainWinGrid = dataGridDocumentsList;
                     InvConst.Show();
                 }
             }
