@@ -1,1 +1,0 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Laba_3.DocumentsWebServiceWcf" CodeBehind="DocumentsWebServiceWcf.svc.cs" %>

@@ -36,8 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.Data" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Activities" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,7 +61,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Connected Services\MyWcfService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DocumentsDeserializeActivity.cs" />
+    <Compile Include="Controls\DocumentsSerializeActivity.cs" />
     <Compile Include="Controls\SideWorker.cs" />
+    <Compile Include="Controls\DocumentsBuildActivity.cs" />
     <Compile Include="Models\ModelProduct.cs" />
     <Compile Include="Views\BillWindow.xaml.cs">
       <DependentUpon>BillWindow.xaml</DependentUpon>
@@ -69,11 +81,6 @@
       <DependentUpon>RecieptWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Web References\MyAsmxService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.map</DependentUpon>
-    </Compile>
-    <Compile Include="Web References\MyWcfService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
@@ -125,6 +132,31 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\MyWcfService\DocumentsWebServiceWcf.wsdl" />
+    <None Include="Connected Services\MyWcfService\DocumentsWebServiceWcf.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.Document.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.GetAllDocumentsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.GetSpecialDocumentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.GetSpecialDocumentsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.SetDocumentBillResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.SetDocumentInvoiceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\MyWcfService\Laba_7.MyWcfService.SetDocumentRecieptResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -134,17 +166,6 @@
     </None>
     <None Include="Web References\MyAsmxService\DocumentsWebService.wsdl" />
     <None Include="Web References\MyAsmxService\Reference.map">
-      <Generator>MSDiscoCodeGenerator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Web References\MyWcfService\Document.datasource">
-      <DependentUpon>Reference.map</DependentUpon>
-    </None>
-    <None Include="Web References\MyWcfService\DocumentsWebServiceWcf.wsdl" />
-    <None Include="Web References\MyWcfService\DocumentsWebServiceWcf.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Web References\MyWcfService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -183,23 +204,27 @@
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>Laba_7_MyAsmxService_DocumentsWebService</CachedSettingsPropName>
     </WebReferenceUrl>
-    <WebReferenceUrl Include="http://localhost:63693/DocumentsWebServiceWcf.svc">
-      <UrlBehavior>Dynamic</UrlBehavior>
-      <RelPath>Web References\MyWcfService\</RelPath>
-      <UpdateFromURL>http://localhost:63693/DocumentsWebServiceWcf.svc</UpdateFromURL>
-      <ServiceLocationURL>
-      </ServiceLocationURL>
-      <CachedDynamicPropName>
-      </CachedDynamicPropName>
-      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
-      <CachedSettingsPropName>Laba_7_MyWcfService_DocumentsWebServiceWcf</CachedSettingsPropName>
-    </WebReferenceUrl>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web References\MyAsmxService\DocumentsWebService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Web References\MyWcfService\DocumentsWebServiceWcf.disco" />
+    <WCFMetadataStorage Include="Connected Services\MyWcfService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyWcfService\DocumentsWebServiceWcf.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyWcfService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyWcfService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyWcfService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

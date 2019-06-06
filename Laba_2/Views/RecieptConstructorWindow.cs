@@ -16,7 +16,7 @@ namespace Laba_2
         BindingList<Product> pList;
         public SideWorker.ServicesSwitcher serviceToUse;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
-        MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
+        MyWcfService.DocumentsWebServiceWcfClient wcfService = MainWindow.wcfClient;
 
         public RecieptConstructorWindow()
         {
@@ -29,7 +29,7 @@ namespace Laba_2
             textBoxProviderName.DataBindings.Add("Text", reciept, "Provider");
             textBoxClientName.DataBindings.Add("Text", reciept, "Client");
         }
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (SideWorker.ValidationForm(RecieptPanel.Controls))
             {
@@ -47,7 +47,7 @@ namespace Laba_2
                 }
                 else if (serviceToUse == SideWorker.ServicesSwitcher.wcf) // веб-служба
                 {
-                    string[] docData = new string[]
+                    MyWcfService.ArrayOfString toWcf = new MyWcfService.ArrayOfString
                     {
                         textBoxDocId.Text,
                         textBoxDocDate.Text,
@@ -55,7 +55,7 @@ namespace Laba_2
                         textBoxClientName.Text,
                         textBoxPaymentName.Text
                     };
-                    wcfService.SetDocumentRecieptAsync(docData.ToArray(), reciept.Products.Select(SideWorker.CastToWcfProducts).ToArray());
+                    await wcfService.SetDocumentRecieptAsync(toWcf, reciept.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
                 else if (!toEdit)
                     docList.Add(reciept);

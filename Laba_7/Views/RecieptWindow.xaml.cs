@@ -31,7 +31,7 @@ namespace Laba_7.Views
         ObservableCollection<ModelProduct> pList;
         public DataGrid mainWinGrid;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
-        MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
+        MyWcfService.DocumentsWebServiceWcfClient wcfService = MainWindow.wcfClient;
         public RecieptWindow()
         {
             InitializeComponent();
@@ -52,16 +52,11 @@ namespace Laba_7.Views
             txtBoxDocPayment.Text = reciept.PaymentName;
         }
 
-        private void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
+        private async void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
         {
             if (SideWorker.ValidationForm(docConstructor.Children))
             {
-                reciept.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
-
-                if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
-                {
-                    // заносим все из формы в массив для отправки
-                    string[] docData = new string[]
+                string[] docData = new string[]
                     {
                         txtBoxDocId.Text,
                         txtBoxDocDate.Text,
@@ -69,13 +64,21 @@ namespace Laba_7.Views
                         txtBoxDocClient.Text,
                         txtBoxDocPayment.Text
                     };
-                    // конвертируем список продуктов в подходящий тип
+                SideWorker.DocInotialize(docData, reciept, pList.Select(SideWorker.CastToLibraryProducts).ToList());
+                if (!toEdit)
+                {
+                    await SideWorker.CreateDocumentSequence("Reciept", docData, reciept.Products, docList.ToList(), MainWindow.info.FullName);
+                    docList.Add(reciept);
+                }
+                mainWinGrid.Items.Refresh();
+
+                if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
+                {
                     asmxService.SetDocumentRecieptAsync(docData, reciept.Products.Select(SideWorker.CastToAsmxProducts).ToArray());
                 }
                 else if (serviceToUse == SideWorker.ServicesSwitcher.wcf) // веб-служба
                 {
-                    // заносим все из формы в массив для отправки
-                    string[] docData = new string[]
+                    MyWcfService.ArrayOfString toWcf = new MyWcfService.ArrayOfString
                     {
                         txtBoxDocId.Text,
                         txtBoxDocDate.Text,
@@ -83,20 +86,9 @@ namespace Laba_7.Views
                         txtBoxDocClient.Text,
                         txtBoxDocPayment.Text
                     };
-                    // конвертируем список продуктов в подходящий тип
+                    await wcfService.SetDocumentRecieptAsync(toWcf, reciept.Products.Select(SideWorker.CastToWcfProducts).ToArray());
+                }
 
-                    wcfService.SetDocumentRecieptAsync(docData, reciept.Products.Select(SideWorker.CastToWcfProducts).ToArray());
-                }
-                reciept.SetDocId(txtBoxDocId.Text);
-                reciept.SetDocDate(txtBoxDocDate.Text);
-                reciept.SetParticipants(txtBoxDocProvider.Text, txtBoxDocClient.Text);
-                reciept.SetPaymentName(txtBoxDocPayment.Text);
-                reciept.SetProductList(pList.Select(SideWorker.CastToLibraryProducts).ToList());
-                if (!toEdit)
-                {
-                    docList.Add(reciept);
-                }
-                mainWinGrid.Items.Refresh();
                 this.Close();
             }
         }

@@ -32,15 +32,5 @@ namespace Laba_7.Properties {
                 return ((string)(this["Laba_7_MyAsmxService_DocumentsWebService"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
-        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:63693/DocumentsWebServiceWcf.svc")]
-        public string Laba_7_MyWcfService_DocumentsWebServiceWcf {
-            get {
-                return ((string)(this["Laba_7_MyWcfService_DocumentsWebServiceWcf"]));
-            }
-        }
     }
 }

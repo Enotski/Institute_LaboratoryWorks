@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="5c7a089f-2f44-4dd8-905e-3d6805d01df9" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:59572/DocumentsWebServiceWcf.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DocumentsWebServiceWcf.xsd" MetadataType="Schema" ID="3169f703-b5db-49f9-a4f8-1835da109d54" SourceId="1" SourceUrl="http://localhost:59572/DocumentsWebServiceWcf.svc?xsd=xsd0" />
+    <MetadataFile FileName="DocumentsWebServiceWcf.disco" MetadataType="Disco" ID="9779111e-7f63-46f4-bca0-1a27f9110e69" SourceId="1" SourceUrl="http://localhost:59572/DocumentsWebServiceWcf.svc?disco" />
+    <MetadataFile FileName="DocumentsWebServiceWcf.wsdl" MetadataType="Wsdl" ID="da4ea4e4-c2fd-4904-979e-0b83b55214f1" SourceId="1" SourceUrl="http://localhost:59572/DocumentsWebServiceWcf.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

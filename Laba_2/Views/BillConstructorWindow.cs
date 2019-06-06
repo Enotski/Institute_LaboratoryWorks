@@ -16,7 +16,7 @@ namespace Laba_2
         public Bill bill = new Bill();
         BindingList<Product> pList;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
-        MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
+        MyWcfService.DocumentsWebServiceWcfClient wcfService = MainWindow.wcfClient;
         public BillConstructorWindow()
         {
             InitializeComponent();
@@ -26,7 +26,7 @@ namespace Laba_2
         {
             this.Close();
         }
-        private void buttonSave_Click(object sender, EventArgs e)
+        private async void buttonSave_Click(object sender, EventArgs e)
         {
             if (SideWorker.ValidationForm(BillPanel.Controls))
             {
@@ -47,7 +47,7 @@ namespace Laba_2
                 else if (serviceToUse == SideWorker.ServicesSwitcher.wcf) // веб-служба
                 {
                     // заносим все из формы в массив для отправки
-                    string[] docData = new string[]
+                    MyWcfService.ArrayOfString toWcf = new MyWcfService.ArrayOfString
                     {
                         textBoxDocId.Text,
                         textBoxDocDate.Text,
@@ -56,10 +56,9 @@ namespace Laba_2
                         textBoxClientId.Text
                     };
                     // конвертируем список продуктов в подходящий тип
-                    
-                    wcfService.SetDocumentBillAsync(docData, bill.Products.Select(SideWorker.CastToWcfProducts).ToArray());
+                    await wcfService.SetDocumentBillAsync(toWcf, bill.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
-                else if (!toEdit)
+                if (!toEdit)
                     docList.Add(bill);
                 this.Close();
             }

@@ -1,13 +1,13 @@
-﻿using OP_ClassLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using OP_ClassLib;
 
-namespace Laba_3
+namespace Laba_5
 {
     // ПРИМЕЧАНИЕ. Команду "Переименовать" в меню "Рефакторинг" можно использовать для одновременного изменения имени интерфейса "IDocumentsWebServiceWcf" в коде и файле конфигурации.
     [ServiceContract]

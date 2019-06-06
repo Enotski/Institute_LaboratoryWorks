@@ -17,7 +17,7 @@ namespace Laba_2
         SideWorker.ServicesSwitcher serviceToUse = SideWorker.ServicesSwitcher.client;
         SideWorker.GetDocsSwitcher getDocsType = SideWorker.GetDocsSwitcher.special;
         public static MyAsmxService.DocumentsWebService asmxService;
-        public static MyWcfService.DocumentsWebServiceWcf wcfService;
+        public static MyWcfService.DocumentsWebServiceWcfClient wcfClient;
         BindingList<Document> bList = new BindingList<Document>();
         string filePath = @"..\..\DataStore\LocalDocumentsStore.xml";
         string docToGet;
@@ -31,14 +31,12 @@ namespace Laba_2
             info = new FileInfo(filePath);
 
             asmxService = new MyAsmxService.DocumentsWebService();
-            wcfService = new MyWcfService.DocumentsWebServiceWcf();
+            wcfClient = new MyWcfService.DocumentsWebServiceWcfClient();
+            wcfClient.Open();
 
             asmxService.GetAllDocumentsCompleted += AsmxService_GetAllDocumentsCompleted;
             asmxService.GetSpecialDocumentsCompleted += AsmxService_GetSpecialDocumentsCompleted;
             asmxService.GetSpecialDocumentCompleted += AsmxService_GetSpecialDocumentCompleted;
-            wcfService.GetAllDocumentsCompleted += WcfService_GetAllDocumentsCompleted;
-            wcfService.GetSpecialDocumentsCompleted += WcfService_GetSpecialDocumentsCompleted;
-            wcfService.GetSpecialDocumentCompleted += WcfService_GetSpecialDocumentCompleted;
         }
         private async void button_RefreshFile_Click(object sender, EventArgs e)
         {
@@ -74,23 +72,28 @@ namespace Laba_2
             {
                 if (getDocsType == SideWorker.GetDocsSwitcher.all)
                 {
-                    wcfService.GetAllDocumentsAsync();
+                    var res = await wcfClient.GetAllDocumentsAsync();
+                    await WcfService_GetAllDocumentsCompleted(res.Body);
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.invoices)
                 {
-                    wcfService.GetSpecialDocumentsAsync("Invoice");
+                    var res = await wcfClient.GetSpecialDocumentsAsync("Invoice");
+                    await WcfService_GetSpecialDocumentsCompleted(res.Body);
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.reciepts)
                 {
-                    wcfService.GetSpecialDocumentsAsync("Reciept");
+                    var res = await wcfClient.GetSpecialDocumentsAsync("Reciept");
+                    await WcfService_GetSpecialDocumentsCompleted(res.Body);
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.bills)
                 {
-                    wcfService.GetSpecialDocumentsAsync("Bill");
+                    var res = await wcfClient.GetSpecialDocumentsAsync("Bill");
+                    await WcfService_GetSpecialDocumentsCompleted(res.Body);
                 }
                 else if (getDocsType == SideWorker.GetDocsSwitcher.special)
                 {
-                    wcfService.GetSpecialDocumentAsync(docToGet);
+                    var res = await wcfClient.GetSpecialDocumentAsync(docToGet);
+                    await WcfService_GetSpecialDocumentCompleted(res.Body);
                 }
             }
             else if (serviceToUse == SideWorker.ServicesSwitcher.client)
@@ -108,7 +111,6 @@ namespace Laba_2
         private void TextBoxServiceUrl_TextChanged(object sender, EventArgs e)
         {
             asmxService.Url = ((TextBox)sender).Text;
-            wcfService.Url = ((TextBox)sender).Text;
         }
         // добавление
         private void button_Add_Click(object sender, EventArgs e)
@@ -215,24 +217,38 @@ namespace Laba_2
                 bList.Add(d);
         }
         //=====================================================================================================================//
-        private void WcfService_GetSpecialDocumentCompleted(object sender, MyWcfService.GetSpecialDocumentCompletedEventArgs e)
+        private  async Task WcfService_GetSpecialDocumentsCompleted(MyWcfService.GetSpecialDocumentsResponseBody responce)
         {
-            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
+            List<Document> newList = await Task.Run(() =>
+            {
+                var res = responce.GetSpecialDocumentsResult.Select(SideWorker.CastToClientDocuments).ToList();
+                return res;
+            });
             foreach (var d in newList)
                 bList.Add(d);
             SearchData(docToGet);
         }
-        private void WcfService_GetSpecialDocumentsCompleted(object sender, MyWcfService.GetSpecialDocumentsCompletedEventArgs e)
+        private async Task WcfService_GetSpecialDocumentCompleted(MyWcfService.GetSpecialDocumentResponseBody responce)
         {
-            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
+            List<Document> newList = await Task.Run(() =>
+            {
+                var res = responce.GetSpecialDocumentResult.Select(SideWorker.CastToClientDocuments).ToList();
+                return res;
+            });
             foreach (var d in newList)
                 bList.Add(d);
+            SearchData(docToGet);
         }
-        private void WcfService_GetAllDocumentsCompleted(object sender, MyWcfService.GetAllDocumentsCompletedEventArgs e)
+        private async Task WcfService_GetAllDocumentsCompleted(MyWcfService.GetAllDocumentsResponseBody responce)
         {
-            var newList = e.Result.Select(SideWorker.CastToClientDocuments).ToList();
+            List<Document> newList = await Task.Run(() =>
+            {
+                var res = responce.GetAllDocumentsResult.Select(SideWorker.CastToClientDocuments).ToList();
+                return res;
+            });
             foreach (var d in newList)
                 bList.Add(d);
+            SearchData(docToGet);
         }
         #endregion
 

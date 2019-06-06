@@ -157,13 +157,9 @@
       <DependentUpon>DocumentsWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DocumentsWebServiceWcf.svc.cs">
-      <DependentUpon>DocumentsWebServiceWcf.svc</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IDocumentsWebServiceWcf.cs" />
     <Compile Include="Models\Bills.cs">
       <DependentUpon>DocumentModel.tt</DependentUpon>
     </Compile>
@@ -202,7 +198,6 @@
     <Content Include="Content\myCssStyle.css" />
     <Content Include="DocumentsWebPage.aspx" />
     <Content Include="DocumentsWebService.asmx" />
-    <Content Include="DocumentsWebServiceWcf.svc" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

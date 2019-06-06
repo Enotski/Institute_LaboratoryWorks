@@ -31,7 +31,7 @@ namespace Laba_7.Views
         ObservableCollection<ModelProduct> pList;
         public DataGrid mainWinGrid;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
-        MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
+        MyWcfService.DocumentsWebServiceWcfClient wcfService = MainWindow.wcfClient;
         public BillWindow()
         {
             InitializeComponent();
@@ -52,29 +52,32 @@ namespace Laba_7.Views
             txtBoxDocClientId.Text = bill.ClientId;
         }
 
-        private void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
+        private async void ButtonDocAdd_Click(object sender, RoutedEventArgs e)
         {
             if (SideWorker.ValidationForm(docConstructor.Children))
             {
-                bill.Products = pList.Select(SideWorker.CastToLibraryProducts).ToList();
+                string[] docData = new string[]
+                {
+                    txtBoxDocId.Text,
+                    txtBoxDocDate.Text,
+                    txtBoxDocProvider.Text,
+                    txtBoxDocClient.Text,
+                    txtBoxDocClientId.Text
+                };
+                SideWorker.DocInotialize(docData, bill, pList.Select(SideWorker.CastToLibraryProducts).ToList());
+                if (!toEdit)
+                {
+                    await SideWorker.CreateDocumentSequence("Bill", docData, bill.Products, docList.ToList(), MainWindow.info.FullName);
+                    docList.Add(bill);
+                }
+
                 if (serviceToUse == SideWorker.ServicesSwitcher.asmx) // веб-служба
                 {
-                    // заносим все из формы в массив для отправки
-                    string[] docData = new string[]
-                    {
-                        txtBoxDocId.Text,
-                        txtBoxDocDate.Text,
-                        txtBoxDocProvider.Text,
-                        txtBoxDocClient.Text,
-                        txtBoxDocClientId.Text
-                    };
-                    // конвертируем список продуктов в подходящий тип
                     asmxService.SetDocumentBillAsync(docData, bill.Products.Select(SideWorker.CastToAsmxProducts).ToArray());
                 }
                 else if (serviceToUse == SideWorker.ServicesSwitcher.wcf) // веб-служба
                 {
-                    // заносим все из формы в массив для отправки
-                    string[] docData = new string[]
+                    MyWcfService.ArrayOfString toWcf = new MyWcfService.ArrayOfString
                     {
                         txtBoxDocId.Text,
                         txtBoxDocDate.Text,
@@ -82,21 +85,9 @@ namespace Laba_7.Views
                         txtBoxDocClient.Text,
                         txtBoxDocClientId.Text
                     };
-                    // конвертируем список продуктов в подходящий тип
-
-                    wcfService.SetDocumentBillAsync(docData, bill.Products.Select(SideWorker.CastToWcfProducts).ToArray());
-                }
-
-                bill.SetDocId(txtBoxDocId.Text);
-                bill.SetDocDate(txtBoxDocDate.Text);
-                bill.SetParticipants(txtBoxDocProvider.Text, txtBoxDocClient.Text);
-                bill.SetClientId(txtBoxDocClientId.Text);
-                bill.SetProductList(pList.Select(SideWorker.CastToLibraryProducts).ToList());
-
-                if (!toEdit)
-                {
-                    docList.Add(bill);
-                }
+                    await wcfService.SetDocumentBillAsync(toWcf, bill.Products.Select(SideWorker.CastToWcfProducts).ToArray());
+                }   
+                
                 mainWinGrid.Items.Refresh();
                 this.Close();
             }

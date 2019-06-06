@@ -16,7 +16,7 @@ namespace Laba_2
         BindingList<Product> pList;
         public SideWorker.ServicesSwitcher serviceToUse;
         MyAsmxService.DocumentsWebService asmxService = MainWindow.asmxService;
-        MyWcfService.DocumentsWebServiceWcf wcfService = MainWindow.wcfService;
+        MyWcfService.DocumentsWebServiceWcfClient wcfService = MainWindow.wcfClient;
         public InvoiceConstructorWindow()
         {
             InitializeComponent();
@@ -28,7 +28,7 @@ namespace Laba_2
             textBoxProviderName.DataBindings.Add("Text", invoice, "Provider");
             textBoxClientName.DataBindings.Add("Text", invoice, "Client");
         }
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (SideWorker.ValidationForm(InvoicePanel.Controls))
             {
@@ -47,7 +47,7 @@ namespace Laba_2
                 }
                 else if (serviceToUse == SideWorker.ServicesSwitcher.wcf) // веб-служба
                 {
-                    string[] docData = new string[]
+                    MyWcfService.ArrayOfString toWcf = new MyWcfService.ArrayOfString
                     {
                         textBoxDocId.Text,
                         textBoxDocDate.Text,
@@ -56,7 +56,7 @@ namespace Laba_2
                         textBoxClientId.Text,
                         textBoxProviderId.Text
                     };
-                    wcfService.SetDocumentInvoiceAsync(docData, invoice.Products.Select(SideWorker.CastToWcfProducts).ToArray());
+                    await wcfService.SetDocumentInvoiceAsync(toWcf, invoice.Products.Select(SideWorker.CastToWcfProducts).ToArray());
                 }
                 else if (!toEdit)
                     docList.Add(invoice);

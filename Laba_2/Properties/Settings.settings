@@ -5,8 +5,5 @@
     <Setting Name="Laba_2_MyAsmxService_DocumentsWebService" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://localhost:63693/DocumentsWebService.asmx</Value>
     </Setting>
-    <Setting Name="Laba_2_MyWcfService_DocumentsWebServiceWcf" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://localhost:63693/DocumentsWebServiceWcf.svc</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

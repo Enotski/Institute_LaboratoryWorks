@@ -9,25 +9,102 @@ using OP_ClassLib;
 using System.ComponentModel;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Activities;
+using System.Activities.Expressions;
+using System.Activities.Statements;
+using Microsoft.CSharp.Activities;
+using System.Threading;
 
 namespace Laba_7.Controls
 {
     public class SideWorker
     {
+        public static async Task CreateDocumentSequence(string type, string[] data, List<Product> products, List<Document> docs, string filePath)
+        {
+            var docT = new Variable<string>();
+            var file = new Variable<string>();
+            var docData = new Variable<IList<string>>();
+            var docProducts = new Variable<IList<Product>>();
+            var docAll = new Variable<IList<Document>>();
+            var docNew = new Variable<Document>("NewDocument");
+
+            Document resultDoc = new Document();
+            
+            Activity buildWorkFlow = new Sequence
+            {  
+                Variables = { docT, file, docData, docProducts, docAll, docNew },
+                Activities =
+                {
+                    new Assign<string>
+                    {
+                        To = docT,
+                        Value = new LambdaValue<string>(t => type)
+                    },
+                    new Assign<string>
+                    {
+                        To = file,
+                        Value = new LambdaValue<string>(f => filePath)
+                    },
+                    new Assign<IList<string>>
+                    {
+                        To = docData,
+                        Value = new LambdaValue<IList<string>>(d => data)
+                    },
+                    new Assign<IList<Product>>
+                    {
+                        To = docProducts,
+                        Value = new LambdaValue<IList<Product>>(p => products)
+                    },
+                    new Assign<IList<Document>>
+                    {
+                        To = docAll,
+                        Value = new LambdaValue<IList<Document>>(p => docs)
+                    },
+                    new Assign<Document>
+                    {
+                        To = docNew,
+                        Value = new LambdaValue<Document>(d => resultDoc),
+                    },
+                    new DocumentsBuildActivity<Document>()
+                    {
+                        DocType = new InArgument<string>(docT),
+                        Data =  new InArgument<IList<string>>(docData),
+                        Products = new InArgument<IList<Product>>(docProducts),
+                        Result = new OutArgument<Document>(docNew)
+                    },
+                    new AddToCollection<Document>()
+                    {
+                        Collection = new InArgument<ICollection<Document>>(docAll),
+                        Item = new InArgument<Document>(docNew),
+                    },
+                    new DocumentsSerializeActivity()
+                    {
+                        FilePath = new InArgument<string>(file),
+                        AllDocuments = new InArgument<IList<Document>>(docAll),
+                    }
+                },
+            };
+
+            await Task.Run(() =>
+            {
+                WorkflowInvoker.Invoke(buildWorkFlow);
+            });
+        }
         /// <summary>
         /// Xml десериализация
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
-        public static async Task<List<Document>> DeserializeXml(string filePath)
+        public async static Task<List<Document>> DeserializeActivity(string filePath)
         {
             List<Document> newList = await Task.Run(() =>
             {
-                XmlReader reader = new XmlTextReader(filePath);
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Document>));
-                var res = (List<Document>)serializer.Deserialize(reader);
-                reader.Close();
-                return res;
+                Activity deserealization = new DocumentsDeserializeActivity<Document>()
+                {
+                    FilePath = new LambdaValue<string>(f => filePath)
+                };
+                var results = WorkflowInvoker.Invoke(deserealization);
+                return results["Result"] as List<Document>;
             });
             return newList;
         }
@@ -35,17 +112,37 @@ namespace Laba_7.Controls
         /// Xml сереализация
         /// </summary>
         /// <param name="filePath"></param>
-        /// <param name="bList"></param>
+        /// <param name="docs"></param>
         /// <returns></returns>
-        public static async Task SerializeXml(string filePath, List<Document> bList)
+        public static async Task SerializeActivity(List<Document> docs, string filePath)
         {
             await Task.Run(() =>
             {
-                XmlWriter writer = new XmlTextWriter(filePath, Encoding.UTF8);
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Document>));
-                serializer.Serialize(writer, bList);
-                writer.Close();
+                Activity serealization = new DocumentsSerializeActivity()
+                {
+                    FilePath = new LambdaValue<string>(f => filePath),
+                    AllDocuments = new LambdaValue<IList<Document>>(l => docs)
+                };
+                WorkflowInvoker.Invoke(serealization);
             });
+        }
+        
+        public static Document DocCreateForActivity(string[] docData, string docType)
+        {
+            Document result = new Document();
+            if(docType == "Reciept")
+            {
+                result = new Reciept(docData[0], docData[1], docData[2], docData[3], docData[4]);
+            }
+            else if (docType == "Invoice")
+            {
+                result = new Invoice(docData[0], docData[1], docData[2], docData[3], docData[4], docData[5]);
+            }
+            else if (docType == "Bill")
+            {
+                result = new Bill(docData[0], docData[1], docData[2], docData[3], docData[4]);
+            }
+            return result;
         }
         /// <summary>
         /// Валидация формы
@@ -67,6 +164,40 @@ namespace Laba_7.Controls
                 }
             }
             return true;
+        }
+        /// <summary>
+        /// Клиентская инициализация документа
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="doc"></param>
+        /// <param name="products"></param>
+        public static void DocInotialize(string[] data, Document doc, List<Product> products)
+        {
+            if (doc.GetType() == typeof(Bill))
+            {
+                ((Bill)doc).SetDocId(data[0]);
+                ((Bill)doc).SetDocDate(data[1]);
+                ((Bill)doc).SetParticipants(data[2], data[3]);
+                ((Bill)doc).SetClientId(data[4]);
+                ((Bill)doc).SetProductList(products);
+            }
+            if (doc.GetType() == typeof(Reciept))
+            {
+                ((Reciept)doc).SetDocId(data[0]);
+                ((Reciept)doc).SetDocDate(data[1]);
+                ((Reciept)doc).SetParticipants(data[2], data[3]);
+                ((Reciept)doc).SetPaymentName(data[4]);
+                ((Reciept)doc).SetProductList(products);
+            }
+            if (doc.GetType() == typeof(Invoice))
+            {
+                ((Invoice)doc).SetDocId(data[0]);
+                ((Invoice)doc).SetDocDate(data[1]);
+                ((Invoice)doc).SetParticipants(data[2], data[3]);
+                ((Invoice)doc).SetProviderId(data[4]);
+                ((Invoice)doc).SetClientId(data[5]);
+                ((Invoice)doc).SetProductList(products);
+            }
         }
         /// <summary>
         /// Перечисление сервисов
